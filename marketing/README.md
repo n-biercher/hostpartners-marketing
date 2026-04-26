@@ -29,4 +29,4 @@ Die Marketing-Seiten sind jetzt gebündelt unter `src/marketing/`, damit du sie 
 ## Routing-Hinweis
 
 Die Seiten selbst sind marketing-portabel, aber CTA-Links zeigen aktuell standardmäßig auf `/login` und `/dashboard`.
-Wenn die Produkt-App auf einer separaten Subdomain wie `app.hostpartners.de` läuft, setze diese Links im neuen Projekt gezielt auf diese Ziel-URL um.
+Wenn die Produkt-App auf einer separaten Subdomain wie `dashboard.hostpartners.de` läuft, setze diese Links im neuen Projekt gezielt auf diese Ziel-URL um.

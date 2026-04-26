@@ -452,7 +452,7 @@ function PersonaHero({
                     <div className="size-[11px] rounded-full bg-[#28c840]" />
                     <div className="mx-3 flex-1 h-[22px] max-w-[240px] rounded-md bg-white border border-gray-200/60 flex items-center px-2.5 gap-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
                       <div className="size-[7px] rounded-full opacity-60" style={{ background: product.colorHex }} />
-                      <span className="text-[9px] text-gray-400 font-mono truncate">app.hostpartners.de/berghotel/team</span>
+                      <span className="text-[9px] text-gray-400 font-mono truncate">dashboard.hostpartners.de/berghotel/team</span>
                     </div>
                     <div className="ml-auto flex items-center gap-1.5">
                       <div className="h-[22px] px-2.5 rounded-md border border-gray-200 bg-white text-[8.5px] text-gray-500 flex items-center gap-1 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
@@ -1269,7 +1269,7 @@ function AtlasPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProp
                     <div className="size-[11px] rounded-full bg-[#28c840]" />
                     <div className="mx-3 flex-1 h-[22px] max-w-[220px] rounded-md bg-white border border-gray-200/60 flex items-center px-2.5 gap-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
                       <div className="size-[7px] rounded-full opacity-60" style={{ background: product.colorHex }} />
-                      <span className="text-[9px] text-gray-400 font-mono truncate">app.hostpartners.de/berghotel/knowledge</span>
+                      <span className="text-[9px] text-gray-400 font-mono truncate">dashboard.hostpartners.de/berghotel/knowledge</span>
                     </div>
                   </div>
 
@@ -2816,7 +2816,7 @@ function TempoPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProp
                     <div className="size-[11px] rounded-full bg-[#28c840]" />
                     <div className="mx-3 flex-1 h-[22px] max-w-[240px] rounded-md bg-white border border-gray-200/60 flex items-center px-2.5 gap-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
                       <div className="size-[7px] rounded-full opacity-60" style={{ background: product.colorHex }} />
-                      <span className="text-[9px] text-gray-400 font-mono truncate">app.hostpartners.de/berghotel/time</span>
+                      <span className="text-[9px] text-gray-400 font-mono truncate">dashboard.hostpartners.de/berghotel/time</span>
                     </div>
                   </div>
 
@@ -3524,7 +3524,7 @@ function RosterPage({ product, accountCtaHref, accountCtaLabel }: ProductPagePro
                       <div className="size-[11px] rounded-full bg-[#28c840]" />
                       <div className="mx-3 flex-1 h-[22px] max-w-[240px] rounded-md bg-white border border-gray-200/60 flex items-center px-2.5 gap-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.04)]">
                         <div className="size-[7px] rounded-full opacity-60" style={{ background: product.colorHex }} />
-                        <span className="text-[9px] text-gray-400 font-mono truncate">app.hostpartners.de/berghotel/shifts</span>
+                        <span className="text-[9px] text-gray-400 font-mono truncate">dashboard.hostpartners.de/berghotel/shifts</span>
                       </div>
                       <div className="ml-auto">
                         <div className="h-[22px] px-2.5 rounded-md text-[8.5px] font-semibold text-white flex items-center"

@@ -1,5 +1,5 @@
 const FALLBACK_SITE_URL = "https://hostpartners.de"
-const FALLBACK_APP_URL = "https://app.hostpartners.de"
+const FALLBACK_APP_URL = "https://dashboard.hostpartners.de"
 
 export function getSiteUrl(): string {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim()
