@@ -106,7 +106,7 @@ function PageCTA({
           </FadeUp>
 
           <FadeUp delay={0.1}>
-            <div className="rounded-[30px] border border-border bg-white p-6 shadow-[0_20px_60px_rgba(15,23,42,0.05)] sm:p-7">
+            <div className="rounded-[30px] border border-border bg-card p-6 shadow-[0_20px_60px_rgba(15,23,42,0.05)] sm:p-7">
               <div className="mb-8 flex items-center gap-3">
                 <div className={cn("flex size-11 items-center justify-center rounded-2xl", product.color)}>
                   <Icon className="size-5 text-white" />
@@ -156,7 +156,7 @@ function PageCTA({
                   <motion.div
                     whileHover={{ y: -4, boxShadow: `0 22px 54px ${product.colorHex}10` }}
                     transition={{ duration: 0.2 }}
-                    className="h-full rounded-[28px] border border-border bg-white p-7"
+                    className="h-full rounded-[28px] border border-border bg-card p-7"
                   >
                     <div className="mb-6 flex size-11 items-center justify-center rounded-2xl"
                       style={{ backgroundColor: `${product.colorHex}12` }}>
@@ -182,7 +182,7 @@ function PageCTA({
             </h3>
             <div className="space-y-4">
               {product.steps.map((step, i) => (
-                <div key={step.number} className="flex gap-4 rounded-[24px] border border-border bg-white px-4 py-5 sm:px-5">
+                <div key={step.number} className="flex gap-4 rounded-[24px] border border-border bg-card px-4 py-5 sm:px-5">
                   <div className="pt-1">
                     <div className="flex size-9 items-center justify-center rounded-full text-[11px] font-mono"
                       style={{ color: product.colorHex, backgroundColor: `${product.colorHex}10` }}>
@@ -208,7 +208,7 @@ function PageCTA({
             </h3>
             <div className="space-y-3">
               {faq.map((item, i) => (
-                <div key={item.q} className="rounded-[24px] border border-border bg-white px-4 py-5 sm:px-5">
+                <div key={item.q} className="rounded-[24px] border border-border bg-card px-4 py-5 sm:px-5">
                   <p className="mb-2 text-[15px] font-semibold text-foreground">{item.q}</p>
                   <p className="text-[14px] leading-relaxed text-muted-foreground">{item.a}</p>
                 </div>
@@ -217,7 +217,7 @@ function PageCTA({
           </FadeUp>
         </div>
 
-        <div className="rounded-[36px] border border-border bg-white px-6 py-14 text-center shadow-[0_24px_80px_rgba(15,23,42,0.06)] sm:px-10 sm:py-16">
+        <div className="rounded-[36px] border border-border bg-card px-6 py-14 text-center shadow-[0_24px_80px_rgba(15,23,42,0.06)] sm:px-10 sm:py-16">
           <motion.div initial={{ opacity: 0, scale: 0.75 }} animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mb-10 flex items-center justify-center"
@@ -397,7 +397,7 @@ function PersonaHero({
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -top-5 -left-6 z-20 bg-white rounded-xl border border-gray-200 px-3.5 py-2.5 flex items-center gap-2.5"
+                className="absolute -top-5 -left-6 z-20 bg-card rounded-xl border border-border px-3.5 py-2.5 flex items-center gap-2.5"
                 style={{ x: badgeX, y: badgeY, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
               >
                 <div className="size-7 rounded-lg flex items-center justify-center shrink-0"
@@ -405,8 +405,8 @@ function PersonaHero({
                   <Users className="size-3.5" style={{ color: product.colorHex }} />
                 </div>
                 <div>
-                  <p className="text-[9.5px] font-bold text-gray-800 leading-tight">47 Mitarbeitende</p>
-                  <p className="text-[8px] text-gray-400 leading-tight">3 neu diese Woche</p>
+                  <p className="text-[9.5px] font-bold text-foreground leading-tight">47 Mitarbeitende</p>
+                  <p className="text-[8px] text-muted-foreground leading-tight">3 neu diese Woche</p>
                 </div>
               </motion.div>
 
@@ -415,15 +415,15 @@ function PersonaHero({
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-4 -right-4 z-20 bg-white rounded-xl border border-gray-200 px-3.5 py-2.5 flex items-center gap-2.5"
+                className="absolute -bottom-4 -right-4 z-20 bg-card rounded-xl border border-border px-3.5 py-2.5 flex items-center gap-2.5"
                 style={{ x: badge2X, y: badge2Y, boxShadow: "0 8px 32px rgba(0,0,0,0.10)" }}
               >
-                <div className="size-7 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                <div className="size-7 rounded-lg bg-emerald-500/10 flex items-center justify-center shrink-0">
                   <Shield className="size-3.5 text-emerald-600" />
                 </div>
                 <div>
-                  <p className="text-[9.5px] font-bold text-gray-800 leading-tight">DSGVO-konform</p>
-                  <p className="text-[8px] text-gray-400 leading-tight">Audit-Trail aktiv</p>
+                  <p className="text-[9.5px] font-bold text-foreground leading-tight">DSGVO-konform</p>
+                  <p className="text-[8px] text-muted-foreground leading-tight">Audit-Trail aktiv</p>
                 </div>
               </motion.div>
 

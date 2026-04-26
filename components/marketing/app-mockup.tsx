@@ -287,6 +287,93 @@ function AtlasMockup() {
   )
 }
 
+function HireMockup() {
+  const stages = [
+    { label: "Eingang",    count: 8,  color: "bg-sky-500" },
+    { label: "Screening",  count: 5,  color: "bg-violet-500" },
+    { label: "Interview",  count: 3,  color: "bg-amber-500" },
+    { label: "Angebot",    count: 1,  color: "bg-emerald-500" },
+  ]
+  const candidates = [
+    { init: "AW", color: "bg-sky-500",    stage: 0 },
+    { init: "MH", color: "bg-rose-500",   stage: 1 },
+    { init: "KB", color: "bg-violet-500", stage: 1 },
+    { init: "LB", color: "bg-amber-500",  stage: 2 },
+  ]
+  return (
+    <div className="space-y-3">
+      <div className="grid grid-cols-4 gap-1">
+        {stages.map(s => (
+          <div key={s.label} className="rounded-lg border border-border p-2 text-center">
+            <div className={cn("h-1 w-full rounded-full mb-2", s.color)} />
+            <div className="text-[11px] font-semibold text-foreground">{s.count}</div>
+            <div className="text-[8px] text-muted-foreground/60 leading-tight">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      <div className="space-y-1.5">
+        {candidates.map((c, i) => (
+          <Card key={i} className="flex items-center gap-2.5">
+            <div className={cn("size-7 rounded-full flex items-center justify-center text-[8px] font-bold text-white shrink-0", c.color)}>
+              {c.init}
+            </div>
+            <div className="flex-1">
+              <div className="h-1.5 rounded-full bg-border mb-1" />
+              <div className="h-1 w-3/4 rounded-full bg-border/60" />
+            </div>
+            <div className={cn("h-4 px-1.5 rounded text-[7px] font-medium text-white", stages[c.stage].color)}>
+              {stages[c.stage].label}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function PayrollMockup() {
+  const rows = [
+    { name: "A. Weber",  net: "2.840", gross: "3.900", color: "bg-sky-500" },
+    { name: "M. Huber",  net: "2.210", gross: "3.100", color: "bg-violet-500" },
+    { name: "K. Braun",  net: "1.980", gross: "2.750", color: "bg-rose-500" },
+  ]
+  return (
+    <div className="space-y-2">
+      <div className="grid grid-cols-3 gap-2 mb-1">
+        {[
+          { label: "Gesamt", value: "18.420 €", color: "text-teal-600 dark:text-teal-400" },
+          { label: "MA",     value: "7",        color: "text-foreground" },
+          { label: "Status", value: "Offen",    color: "text-amber-500" },
+        ].map(s => (
+          <div key={s.label} className="rounded border border-border p-2 text-center">
+            <div className={cn("text-[11px] font-semibold", s.color)}>{s.value}</div>
+            <div className="text-[8px] text-muted-foreground/60">{s.label}</div>
+          </div>
+        ))}
+      </div>
+      {rows.map((r, i) => (
+        <Card key={i} className="flex items-center gap-2.5">
+          <div className={cn("size-6 rounded-full flex items-center justify-center text-[7px] font-bold text-white shrink-0", r.color)}>
+            {r.name[0]}
+          </div>
+          <div className="flex-1 min-w-0">
+            <Bar w="w-28" h="h-1.5" />
+          </div>
+          <div className="text-right shrink-0">
+            <div className="text-[10px] font-semibold text-foreground">{r.net} €</div>
+            <div className="text-[7px] text-muted-foreground/50">brutto {r.gross}</div>
+          </div>
+        </Card>
+      ))}
+      <div className="flex items-center justify-end gap-1.5 pt-1">
+        <div className="h-5 px-2.5 rounded bg-teal-500/20 border border-teal-500/30 text-[8px] font-medium text-teal-600 dark:text-teal-400 flex items-center">
+          DATEV exportieren
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main export ───────────────────────────────────────────────────────────────
 
 const MOCKUP_MAP: Record<string, React.ComponentType> = {
@@ -298,6 +385,8 @@ const MOCKUP_MAP: Record<string, React.ComponentType> = {
   pulse:       PulseMockup,
   lumen:       LumenMockup,
   atlas:       AtlasMockup,
+  hire:        HireMockup,
+  payroll:     PayrollMockup,
 }
 
 interface AppMockupProps {

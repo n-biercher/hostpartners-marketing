@@ -8,6 +8,8 @@ import {
   RefreshCw, Map, MessageSquare, Brain,
   UserCheck, FolderOpen, Lock, Eye,
   Layers, Bell, Target, Activity,
+  UserPlus, Wallet, Download, Receipt,
+  Calculator, PieChart, Banknote, ClipboardList,
 } from "lucide-react"
 
 export interface ProductFeature {
@@ -330,6 +332,78 @@ export const PRODUCTS: Record<string, ProductData> = {
       { number: "03", title: "Antwort erhalten",  body: "Lumen antwortet mit Quellenangabe — transparent, nachvollziehbar und immer aus deinen eigenen Daten." },
     ],
     compatibleWith: ["Atlas", "Academy", "Persona"],
+  },
+
+  hire: {
+    slug:        "hire",
+    name:        "Hire",
+    tagline:     "Recruiting, das Talente nicht verliert",
+    description: "Von der Stellenausschreibung bis zum ersten Arbeitstag — Bewerbermanagement, Interview-Koordination und nahtlose Übergabe an Flow.",
+    seoTitle:    "Hire — Recruiting & Bewerbermanagement Software",
+    seoDesc:     "Hostpartners Hire: Digitales Recruiting mit Karriereseite, Bewerbertrichter, Interview-Koordination und automatischer Onboarding-Übergabe. Für Hotellerie, Gastronomie und Industrie.",
+    keywords:    ["Recruiting Software", "Bewerbermanagement", "Talent Acquisition", "Stellenausschreibung Software", "ATS Hotel"],
+    color:       "bg-sky-600",
+    colorHex:    "#0284c7",
+    icon:        UserPlus,
+    license:     "Hire-Lizenz",
+    stats: [
+      { value: "–50%", label: "Time-to-Hire" },
+      { value: "100%", label: "DSGVO-konform" },
+      { value: "∞",    label: "Stellen gleichzeitig" },
+    ],
+    features: [
+      { icon: Building2,    title: "Karriereseite",           body: "Eigene, gebrandete Karriereseite mit allen offenen Stellen — ohne Entwickler, ohne Drittanbieter." },
+      { icon: Layers,       title: "Bewerbertrichter",        body: "Pipeline-Ansicht im Kanban-Stil — von der Eingangsmappe bis zum unterzeichneten Angebot." },
+      { icon: CalendarDays, title: "Interview-Koordination", body: "Terminvorschläge, Bestätigungen und Absagen direkt im Tool. Keine E-Mail-Eskalation mehr." },
+      { icon: FileText,     title: "Digitales Angebot",      body: "Angebot erstellen, versenden, gegenzeichnen — alles ohne PDF-Ping-Pong." },
+      { icon: UserCheck,    title: "Talent-Pool",            body: "Vielversprechende Absagen speichern und für künftige Stellen reaktivieren." },
+      { icon: GitBranch,    title: "Onboarding-Übergabe",   body: "Einstellung bestätigt → Flow startet automatisch den Onboarding-Prozess. Kein Informationsverlust zwischen Recruiting und HR." },
+    ],
+    steps: [
+      { number: "01", title: "Stelle ausschreiben",    body: "Stelle anlegen, auf der Karriereseite veröffentlichen und optional auf externen Jobboards teilen." },
+      { number: "02", title: "Bewerbungen verwalten",  body: "Alle Eingänge in einer Pipeline — priorisieren, kommentieren, Interviews koordinieren." },
+      { number: "03", title: "Einstellung bestätigen", body: "Angebot digital versenden, Unterschrift einholen — und Onboarding in Flow startet automatisch." },
+    ],
+    compatibleWith: ["Flow", "Persona", "Academy"],
+    quote: {
+      text:    "Wir haben unsere Time-to-Hire von 6 Wochen auf 12 Tage gesenkt. Hire hält alles zusammen — vom ersten Kontakt bis zum ersten Arbeitstag.",
+      author:  "Nina S.",
+      role:    "People & Culture Lead",
+      company: "Brauereigruppe Nord, 340 MA",
+    },
+  },
+
+  payroll: {
+    slug:        "payroll",
+    name:        "Payroll",
+    tagline:     "Lohnabrechnung ohne Überraschungen",
+    description: "Gehaltsabrechnungen, Steuer- und Sozialversicherungsexporte und DATEV-Integration — Monat für Monat fehlerfrei und fristgerecht.",
+    seoTitle:    "Payroll — Digitale Lohn- und Gehaltsabrechnung",
+    seoDesc:     "Hostpartners Payroll: Automatische Lohnabrechnung mit DATEV-Export, Überstundenberechnung aus Tempo und digitalen Gehaltsetteln. Für Hotellerie, Gastronomie und Industrie.",
+    keywords:    ["Lohnabrechnung Software", "Gehaltsabrechnung digital", "DATEV Export HR", "Payroll Software Hotel", "Lohnbuchhaltung"],
+    color:       "bg-teal-600",
+    colorHex:    "#0d9488",
+    icon:        Wallet,
+    license:     "Payroll-Lizenz",
+    stats: [
+      { value: "0",    label: "Fehlabrechnungen" },
+      { value: "DATEV", label: "Export-bereit" },
+      { value: "∞",    label: "Mitarbeitende" },
+    ],
+    features: [
+      { icon: Calculator,  title: "Gehaltsabrechnung",        body: "Vollständige Lohn- und Gehaltsabrechnung mit automatischer Steuer- und Sozialversicherungsberechnung nach aktuellem Recht." },
+      { icon: Download,    title: "DATEV-Export",             body: "Direktexport im DATEV-Format für den Steuerberater — auf Knopfdruck, ohne manuelle Nacharbeit." },
+      { icon: Activity,    title: "Überstunden & Zulagen",    body: "Automatische Berechnung aus Tempo-Daten: Mehrarbeit, Nacht-, Feiertags- und Sonntagszuschläge." },
+      { icon: Receipt,     title: "Digitale Gehaltszettel",   body: "Gehaltszettel werden automatisch erstellt und direkt in der Personalakte archiviert." },
+      { icon: FileText,    title: "Lohnsteuerbescheinigung",  body: "Jährliche Lohnsteuerbescheinigungen auf Knopfdruck — für jeden Mitarbeitenden einzeln oder als Sammelexport." },
+      { icon: PieChart,    title: "Personalkosten-Report",    body: "Übersicht der Lohnkosten nach Abteilung, Kostenstelle und Zeitraum — als Grundlage für Budgetplanung." },
+    ],
+    steps: [
+      { number: "01", title: "Daten prüfen",         body: "Stunden, Zulagen und Abwesenheiten aus Tempo werden automatisch übernommen — manuell ergänzen was fehlt." },
+      { number: "02", title: "Abrechnung freigeben", body: "Vorschau prüfen, Freigabe erteilen — Payroll berechnet Steuer, SV und Netto automatisch." },
+      { number: "03", title: "Exportieren & senden", body: "DATEV-Export für den Steuerberater, Gehaltszettel digital an Mitarbeitende, Archiv in der Personalakte." },
+    ],
+    compatibleWith: ["Persona", "Tempo", "Flow"],
   },
 }
 

@@ -10,13 +10,13 @@ import {
   ArrowRight, Users, BookOpen, GraduationCap, GitBranch,
   Clock, CalendarDays, TrendingUp, Sparkles,
   Check, Building2, ChefHat, Factory, ChevronRight,
-  Shield, Globe, Zap,
+  Shield, Globe, Zap, UserPlus, Wallet,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type AppKey = "persona" | "atlas" | "academy" | "flow" | "tempo" | "roster" | "pulse" | "lumen"
+type AppKey = "persona" | "atlas" | "academy" | "flow" | "tempo" | "roster" | "pulse" | "lumen" | "hire" | "payroll"
 type SnippetKey = "academy" | "roster" | "flow"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -30,6 +30,8 @@ const APPS: { name: string; desc: string; icon: React.ComponentType<{ className?
   { name: "Roster",   desc: "Schichtplanung",             icon: CalendarDays,  color: "bg-rose-600",    key: "roster" },
   { name: "Pulse",    desc: "Performance & OKRs",         icon: TrendingUp,    color: "bg-amber-500",   key: "pulse" },
   { name: "Lumen",    desc: "KI-Assistent",               icon: Sparkles,      color: "bg-indigo-600",  key: "lumen" },
+  { name: "Hire",     desc: "Recruiting & Bewerbungen",   icon: UserPlus,      color: "bg-sky-600",     key: "hire" },
+  { name: "Payroll",  desc: "Lohn & Abrechnung",          icon: Wallet,        color: "bg-teal-600",    key: "payroll" },
 ]
 
 const INDUSTRIES = [
@@ -394,29 +396,34 @@ function HeroDashboardPreview() {
         </div>
 
         {/* App layout */}
-        <div className="flex h-[280px] sm:h-[340px]">
+        <div className="flex h-[320px] sm:h-[380px]">
           {/* Sidebar */}
-          <div className="w-14 sm:w-48 border-r border-white/[0.06] p-3 shrink-0 space-y-1">
+          <div className="w-14 sm:w-48 border-r border-white/[0.06] p-2 sm:p-3 shrink-0 space-y-0.5">
             {[
               { icon: Users,         label: "Persona",  color: "bg-slate-600",   active: true  },
-              { icon: CalendarDays,  label: "Roster",   color: "bg-rose-600",    active: false },
+              { icon: BookOpen,      label: "Atlas",    color: "bg-emerald-600", active: false },
               { icon: GraduationCap, label: "Academy",  color: "bg-blue-600",    active: false },
               { icon: GitBranch,     label: "Flow",     color: "bg-violet-600",  active: false },
               { icon: Clock,         label: "Tempo",    color: "bg-orange-500",  active: false },
+              { icon: CalendarDays,  label: "Roster",   color: "bg-rose-600",    active: false },
+              { icon: TrendingUp,    label: "Pulse",    color: "bg-amber-500",   active: false },
+              { icon: Sparkles,      label: "Lumen",    color: "bg-indigo-600",  active: false },
+              { icon: UserPlus,      label: "Hire",     color: "bg-sky-600",     active: false },
+              { icon: Wallet,        label: "Payroll",  color: "bg-teal-600",    active: false },
             ].map(item => {
               const Icon = item.icon
               return (
                 <div
                   key={item.label}
                   className={cn(
-                    "flex items-center gap-2.5 px-2 py-2 rounded-lg",
-                    item.active ? "bg-white/[0.06]" : "opacity-40"
+                    "flex items-center gap-2 px-2 py-1 rounded-lg",
+                    item.active ? "bg-white/[0.06]" : "opacity-35"
                   )}
                 >
-                  <div className={cn("size-6 rounded-md flex items-center justify-center shrink-0", item.color)}>
-                    <Icon className="size-3.5 text-white" />
+                  <div className={cn("size-5 rounded-md flex items-center justify-center shrink-0", item.color)}>
+                    <Icon className="size-3 text-white" />
                   </div>
-                  <span className="hidden sm:block text-[11px] text-zinc-400 font-medium truncate">
+                  <span className="hidden sm:block text-[10px] text-zinc-400 font-medium truncate">
                     {item.label}
                   </span>
                 </div>
@@ -599,7 +606,7 @@ function HeroSection({
         className="border-t border-border shrink-0"
       >
         <div className="mx-auto max-w-screen-xl">
-          <div className="grid grid-cols-4 sm:grid-cols-8">
+          <div className="grid grid-cols-5 sm:grid-cols-10">
             {APPS.map((app, i) => {
               const Icon = app.icon
               return (
@@ -607,9 +614,9 @@ function HeroSection({
                   key={app.key}
                   href={`/produkte/${app.key}`}
                   className={cn(
-                    "flex flex-col items-center gap-2.5 py-6 hover:bg-muted/40 transition-colors group",
-                    i < 7 && "border-r border-border",
-                    i < 4 && "border-b border-border sm:border-b-0"
+                    "flex flex-col items-center gap-2 py-5 hover:bg-muted/40 transition-colors group",
+                    i < 9 && "border-r border-border",
+                    i < 5 && "border-b border-border sm:border-b-0"
                   )}
                 >
                   <div className={cn(
@@ -897,7 +904,7 @@ function TrustSection() {
       <Grain opacity={0.025} />
       <div className="mx-auto max-w-screen-xl px-5 sm:px-8">
         <FadeUp>
-          <div className="rounded-2xl border border-border bg-muted/20 p-8 sm:p-12 relative overflow-hidden">
+          <div className="rounded-2xl border border-border bg-card p-8 sm:p-12 relative overflow-hidden">
             <div
               aria-hidden
               className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px"
@@ -911,7 +918,7 @@ function TrustSection() {
                 const TIcon = tp.icon
                 return (
                   <div key={tp.title}>
-                    <div className="size-10 rounded-xl bg-muted/50 border border-border flex items-center justify-center mb-5">
+                    <div className="size-10 rounded-xl bg-muted border border-border flex items-center justify-center mb-5">
                       <TIcon className="size-5 text-muted-foreground" />
                     </div>
                     <h3 className="text-[15px] font-semibold text-foreground mb-2">{tp.title}</h3>
@@ -939,7 +946,7 @@ function AppSuiteSection() {
             <div>
               <p className="text-[11px] font-mono text-muted-foreground/40 uppercase tracking-[0.24em] mb-4">App-Suite</p>
               <h2 className="text-[36px] sm:text-[52px] lg:text-[64px] leading-[0.95] tracking-tight text-foreground">
-                <span className="font-semibold">Acht Apps.</span><br />
+                <span className="font-semibold">Zehn Apps.</span><br />
                 <span className="font-heading font-normal italic text-muted-foreground/60">Eine Plattform.</span>
               </h2>
             </div>
@@ -952,14 +959,14 @@ function AppSuiteSection() {
           </div>
         </FadeUp>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           {APPS.map((app, i) => {
             const Icon = app.icon
             return (
               <FadeUp key={app.key} delay={i * 0.04}>
                 <Link
                   href={`/produkte/${app.key}`}
-                  className="group flex flex-col gap-4 p-6 rounded-2xl border border-border hover:border-foreground/20 hover:bg-background hover:shadow-sm transition-all duration-300"
+                  className="group flex flex-col gap-4 p-6 rounded-2xl border border-border bg-card hover:border-foreground/20 hover:shadow-sm transition-all duration-300"
                 >
                   <div className={cn(
                     "size-12 rounded-2xl flex items-center justify-center",
@@ -1007,7 +1014,7 @@ function IndustriesSection() {
               <FadeUp key={ind.href} delay={i * 0.1}>
                 <Link
                   href={ind.href}
-                  className="group flex flex-col gap-8 p-8 sm:p-10 rounded-2xl border border-border hover:border-foreground/20 hover:bg-background hover:shadow-sm transition-all duration-300"
+                  className="group flex flex-col gap-8 p-8 sm:p-10 rounded-2xl border border-border bg-card hover:border-foreground/20 hover:shadow-sm transition-all duration-300"
                 >
                   <div className={cn("size-11 rounded-2xl flex items-center justify-center", ind.color)}>
                     <Icon className="size-5 text-white" />
