@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import Link from "next/link"
 import {
   motion, useInView, useScroll, useTransform,
@@ -14,6 +14,9 @@ import {
   CheckCircle2, Award, Brain, MessageSquare,
   BarChart3, Target, Lock, Eye, Layers,
   ChevronRight, Star, FolderOpen, RefreshCw,
+  UserPlus, Wallet, Download, Send, Filter,
+  Building2, Mail, Phone, MapPin, Receipt,
+  Calculator, PieChart, Banknote, ClipboardList,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PRODUCTS, type ProductData } from "@/lib/marketing/products"
@@ -4758,6 +4761,943 @@ function LumenPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProp
 // Page router
 // ══════════════════════════════════════════════════════════════════════════════
 
+// ══════════════════════════════════════════════════════════════════════════════
+// Hire — Recruiting & Bewerbermanagement
+// ══════════════════════════════════════════════════════════════════════════════
+
+function HirePage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
+  const mockupY = useTransform(scrollYProgress, [0, 1], [0, 48])
+  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+
+  const [activeCard, setActiveCard] = useState<number | null>(null)
+  const [dragStage, setDragStage] = useState(0)
+
+  useEffect(() => {
+    const stages = [0, 1, 2, 3]
+    let idx = 0
+    const interval = setInterval(() => {
+      idx = (idx + 1) % stages.length
+      setDragStage(stages[idx])
+    }, 1800)
+    return () => clearInterval(interval)
+  }, [])
+
+  const pipeline = [
+    { label: "Eingang",   color: "#64748b", count: 12, key: 0 },
+    { label: "Screening", color: "#0284c7", count: 7,  key: 1 },
+    { label: "Interview", color: "#7c3aed", count: 3,  key: 2 },
+    { label: "Angebot",   color: "#16a34a", count: 1,  key: 3 },
+  ]
+
+  const candidates = [
+    { name: "Julia Maier",    role: "F&B Manager",       stage: 1, avatar: "JM", score: 91 },
+    { name: "Thomas Brandt",  role: "Sous Chef",         stage: 2, avatar: "TB", score: 87 },
+    { name: "Lisa Schulz",    role: "Rezeption",         stage: 0, avatar: "LS", score: 78 },
+    { name: "Kai Hoffmann",   role: "Event Coordinator", stage: 3, avatar: "KH", score: 95 },
+  ]
+
+  const jobListings = [
+    { title: "Senior Koch (m/w/d)", dept: "Küche", count: 3, status: "Aktiv" },
+    { title: "Rezeptionistin",      dept: "Front Office", count: 8, status: "Aktiv" },
+    { title: "F&B Manager",         dept: "Food & Beverage", count: 2, status: "Aktiv" },
+  ]
+
+  const interviewSlots = [
+    { time: "09:00", name: "Julia Maier",   type: "Video-Interview", confirmed: true },
+    { time: "11:30", name: "Thomas Brandt", type: "Vor Ort",         confirmed: true },
+    { time: "14:00", name: "Lea Vogel",     type: "Video-Interview", confirmed: false },
+    { time: "16:00", name: "Max Werner",    type: "Telefonat",       confirmed: true },
+  ]
+
+  const handoffSteps = [
+    { icon: UserPlus, label: "Hire", desc: "Angebot angenommen",    color: "#0284c7" },
+    { icon: CheckCircle2, label: "Vertrag",  desc: "Digital signiert",    color: "#7c3aed" },
+    { icon: GitBranch, label: "Flow",    desc: "Onboarding startet", color: "#8b5cf6" },
+    { icon: Users,    label: "Persona",  desc: "Profil erstellt",    color: "#475569" },
+  ]
+
+  const features = product.features
+
+  return (
+    <>
+      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
+      <section
+        ref={heroRef}
+        className="relative min-h-screen overflow-hidden"
+        style={{ background: "#f8faff" }}
+      >
+        <Grain opacity={0.020} />
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          {/* Dot grid */}
+          <div className="absolute inset-0"
+            style={{
+              backgroundImage: "radial-gradient(circle, #0284c720 1px, transparent 1px)",
+              backgroundSize: "40px 40px",
+              opacity: 0.55,
+            }}
+          />
+          {/* Soft sky glow */}
+          <div className="absolute right-[5%] top-[10%] h-[42rem] w-[42rem] rounded-full blur-[120px]"
+            style={{ backgroundColor: "#0284c70a" }} />
+          <div className="absolute left-[10%] bottom-[10%] h-[24rem] w-[24rem] rounded-full blur-[80px]"
+            style={{ backgroundColor: "#7c3aed07" }} />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-screen-xl flex-col px-6 sm:px-8">
+          <div className="flex flex-1 flex-col justify-center pt-28 pb-16 lg:flex-row lg:items-center lg:gap-20 lg:pt-0">
+
+            {/* Left — editorial copy */}
+            <motion.div style={{ opacity: heroTextOpacity }} className="lg:w-[48%]">
+              <FadeUp>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-4 py-1.5">
+                  <UserPlus className="size-3.5 text-sky-600" />
+                  <span className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-sky-700">Hire — Recruiting</span>
+                </div>
+              </FadeUp>
+              <FadeUp delay={0.06}>
+                <h1 className="font-heading text-[52px] sm:text-[68px] lg:text-[78px] font-normal leading-[0.9] tracking-[-0.02em] text-slate-900 text-balance">
+                  Die beste<br />
+                  <span className="italic" style={{ color: product.colorHex }}>Person gewinnen.</span>
+                </h1>
+              </FadeUp>
+              <FadeUp delay={0.12}>
+                <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-500 sm:text-[18px]">
+                  Hire macht aus chaotischen Bewerbungspostfächern einen strukturierten Recruiting-Prozess — mit Kanban-Pipeline, Karriereseite, Interview-Koordination und nahtlosem Übergabe-Flow direkt in das Onboarding.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.18}>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <Link href={accountCtaHref}
+                    className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-7 py-3.5 text-[14px] font-semibold text-white transition-opacity hover:opacity-85">
+                    {accountCtaLabel} <ArrowRight className="size-4" />
+                  </Link>
+                  <Link href="/kontakt"
+                    className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-7 py-3.5 text-[14px] font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50">
+                    Demo ansehen
+                  </Link>
+                </div>
+              </FadeUp>
+
+              {/* Floating badges */}
+              <FadeUp delay={0.28}>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <div className="inline-flex items-center gap-2.5 rounded-2xl border border-sky-100 bg-white px-4 py-2.5 shadow-sm shadow-sky-100/60">
+                    <div className="flex size-7 items-center justify-center rounded-xl bg-sky-600">
+                      <UserPlus className="size-3.5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-semibold text-slate-800 leading-none">Neue Bewerbung</p>
+                      <p className="text-[10px] text-slate-400 leading-none mt-0.5">Julia Maier — F&B Manager</p>
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center gap-2.5 rounded-2xl border border-emerald-100 bg-white px-4 py-2.5 shadow-sm shadow-emerald-100/60">
+                    <div className="relative flex size-7 items-center justify-center rounded-xl bg-emerald-50">
+                      <CheckCircle2 className="size-3.5 text-emerald-600" />
+                      <span className="absolute -right-0.5 -top-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-white" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-semibold text-slate-800 leading-none">Interview bestätigt</p>
+                      <p className="text-[10px] text-slate-400 leading-none mt-0.5">Morgen 11:30 — Thomas Brandt</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeUp>
+            </motion.div>
+
+            {/* Right — animated Kanban pipeline */}
+            <motion.div style={{ y: mockupY }} className="mt-14 lg:mt-0 lg:w-[52%]">
+              <FadeUp delay={0.2}>
+                <div className="rounded-2xl border border-slate-200/80 bg-white shadow-[0_24px_80px_rgba(2,132,199,0.10)] overflow-hidden">
+                  {/* Toolbar */}
+                  <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1.5">
+                        <div className="size-2.5 rounded-full bg-slate-200" />
+                        <div className="size-2.5 rounded-full bg-slate-200" />
+                        <div className="size-2.5 rounded-full bg-slate-200" />
+                      </div>
+                      <span className="text-[11px] font-medium text-slate-400">Recruiting Pipeline</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5 rounded-lg bg-slate-50 px-3 py-1.5">
+                        <Filter className="size-3 text-slate-400" />
+                        <span className="text-[10px] text-slate-400">Filter</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 rounded-lg bg-sky-600 px-3 py-1.5">
+                        <UserPlus className="size-3 text-white" />
+                        <span className="text-[10px] font-medium text-white">Stelle</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Pipeline columns */}
+                  <div className="grid grid-cols-4 gap-0 border-b border-slate-100">
+                    {pipeline.map((stage) => (
+                      <div key={stage.key} className={cn("border-r border-slate-100 px-3 py-3 last:border-r-0")}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-[10px] font-semibold text-slate-500">{stage.label}</span>
+                          <motion.span
+                            animate={{ backgroundColor: dragStage === stage.key ? stage.color : "#f1f5f9" }}
+                            transition={{ duration: 0.3 }}
+                            className="flex size-4 items-center justify-center rounded-full text-[9px] font-bold text-white"
+                            style={{ backgroundColor: dragStage === stage.key ? stage.color : "#f1f5f9", color: dragStage === stage.key ? "white" : "#64748b" }}
+                          >
+                            {stage.count}
+                          </motion.span>
+                        </div>
+                        <div className="space-y-1.5">
+                          {candidates
+                            .filter(c => c.stage === stage.key)
+                            .map(c => (
+                              <motion.div
+                                key={c.name}
+                                animate={{ scale: dragStage === stage.key ? 1.02 : 1, boxShadow: dragStage === stage.key ? `0 4px 16px ${stage.color}18` : "none" }}
+                                transition={{ duration: 0.35 }}
+                                className="rounded-xl border border-slate-100 bg-slate-50 p-2.5 cursor-default"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <div className="flex size-6 items-center justify-center rounded-lg text-[9px] font-bold text-white shrink-0"
+                                    style={{ backgroundColor: stage.color }}>
+                                    {c.avatar}
+                                  </div>
+                                  <div className="min-w-0">
+                                    <p className="text-[10px] font-semibold text-slate-700 truncate leading-none">{c.name}</p>
+                                    <p className="text-[9px] text-slate-400 truncate leading-none mt-0.5">{c.role}</p>
+                                  </div>
+                                </div>
+                                <div className="mt-2 flex items-center justify-between">
+                                  <div className="h-1 w-full max-w-[56px] overflow-hidden rounded-full bg-slate-200">
+                                    <motion.div
+                                      animate={{ width: `${c.score}%` }}
+                                      transition={{ duration: 0.8, delay: 0.2 }}
+                                      className="h-full rounded-full"
+                                      style={{ backgroundColor: stage.color }}
+                                    />
+                                  </div>
+                                  <span className="text-[9px] font-semibold text-slate-500">{c.score}%</span>
+                                </div>
+                              </motion.div>
+                            ))
+                          }
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom stats bar */}
+                  <div className="flex items-center justify-between px-5 py-3">
+                    <div className="flex items-center gap-4">
+                      {pipeline.map(s => (
+                        <div key={s.key} className="flex items-center gap-1.5">
+                          <div className="size-2 rounded-full" style={{ backgroundColor: s.color }} />
+                          <span className="text-[10px] text-slate-500">{s.label} <strong>{s.count}</strong></span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-1.5 rounded-lg border border-slate-100 px-3 py-1.5">
+                      <Download className="size-3 text-slate-400" />
+                      <span className="text-[10px] text-slate-400">Export</span>
+                    </div>
+                  </div>
+                </div>
+              </FadeUp>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Karriereseite ─────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-t border-slate-100 bg-white py-28 sm:py-40">
+        <div aria-hidden className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse at 80% 50%, #0284c708 0%, transparent 60%)" }} />
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center lg:gap-24">
+            {/* Left text */}
+            <FadeUp>
+              <p className="mb-5 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-sky-600">Karriereseite</p>
+              <h2 className="font-heading text-[40px] sm:text-[58px] font-normal leading-[0.93] tracking-tight text-slate-900 text-balance">
+                Deine Jobs.<br />
+                <span className="text-slate-300">Dein Design.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[16px] leading-relaxed text-slate-500">
+                Hire erstellt automatisch eine gebrandete Karriereseite für dein Unternehmen. Neue Stellen erscheinen sofort — kein Webmaster, keine Wartezeiten, keine externen Tools.
+              </p>
+              <div className="mt-8 space-y-3">
+                {[
+                  "Automatisch erzeugte Karriereseite",
+                  "Eingehende Bewerbungen direkt in der Pipeline",
+                  "SEO-optimierte Stellenanzeigen",
+                ].map(item => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="flex size-5 items-center justify-center rounded-full bg-sky-100">
+                      <Check className="size-3 text-sky-600" />
+                    </div>
+                    <span className="text-[14px] text-slate-600">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+
+            {/* Right — job listings mockup */}
+            <FadeUp delay={0.1}>
+              <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-[0_16px_56px_rgba(2,132,199,0.07)]">
+                {/* Browser chrome */}
+                <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
+                  <div className="flex gap-1.5">
+                    <div className="size-2.5 rounded-full bg-slate-300" />
+                    <div className="size-2.5 rounded-full bg-slate-300" />
+                    <div className="size-2.5 rounded-full bg-slate-300" />
+                  </div>
+                  <div className="ml-3 flex h-5 flex-1 items-center rounded-md bg-white px-3 text-[10px] text-slate-400 border border-slate-200">
+                    karriere.hotel-bergblick.de
+                  </div>
+                </div>
+                {/* Karriereseite header */}
+                <div className="bg-sky-600 px-6 py-8 text-white">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-200 mb-1">Hotel Bergblick</p>
+                  <h3 className="text-[22px] font-bold leading-tight">Werde Teil unseres Teams</h3>
+                  <p className="mt-1 text-[12px] text-sky-200">{jobListings.length} offene Stellen · Österreich</p>
+                </div>
+                {/* Job listings */}
+                <div className="divide-y divide-slate-100 bg-white">
+                  {jobListings.map((job, i) => (
+                    <motion.div
+                      key={job.title}
+                      initial={{ opacity: 0, x: -8 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 + i * 0.12 }}
+                      className="flex items-center justify-between px-6 py-4 hover:bg-sky-50/50 transition-colors cursor-pointer group"
+                    >
+                      <div>
+                        <p className="text-[13px] font-semibold text-slate-800 group-hover:text-sky-700 transition-colors">{job.title}</p>
+                        <p className="text-[11px] text-slate-400">{job.dept}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-semibold text-emerald-700">{job.status}</span>
+                        <span className="text-[10px] text-slate-400">{job.count} Bewerber</span>
+                        <ArrowRight className="size-3.5 text-slate-300 group-hover:text-sky-500 transition-colors" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Interview-Koordination ────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-28 sm:py-40" style={{ background: "#0c1523" }}>
+        <Grain opacity={0.035} />
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute left-[20%] top-[15%] h-[28rem] w-[28rem] rounded-full blur-[100px]"
+            style={{ backgroundColor: "#0284c712" }} />
+          <div className="absolute right-[10%] bottom-[10%] h-[20rem] w-[20rem] rounded-full blur-[80px]"
+            style={{ backgroundColor: "#7c3aed0c" }} />
+        </div>
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-24">
+
+            {/* Left — calendar UI */}
+            <FadeUp>
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.4)]"
+                style={{ background: "#111827" }}>
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+                  <div className="flex items-center gap-3">
+                    <CalendarDays className="size-3.5 text-sky-400" />
+                    <span className="text-[12px] font-semibold text-white">Interview-Kalender</span>
+                  </div>
+                  <span className="text-[10px] text-slate-500">Heute · Mittwoch 23. April</span>
+                </div>
+                {/* Slots */}
+                <div className="divide-y divide-white/[0.04] px-5 py-2">
+                  {interviewSlots.map((slot, i) => (
+                    <motion.div
+                      key={slot.time}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                      className="flex items-center gap-4 py-3.5"
+                    >
+                      <span className="w-10 shrink-0 text-[11px] font-semibold text-slate-500">{slot.time}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[12px] font-semibold text-white truncate">{slot.name}</p>
+                        <p className="text-[10.5px] text-slate-500">{slot.type}</p>
+                      </div>
+                      {slot.confirmed ? (
+                        <div className="flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1">
+                          <div className="size-1.5 rounded-full bg-emerald-400" />
+                          <span className="text-[10px] font-semibold text-emerald-400">Bestätigt</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5 rounded-full bg-amber-500/10 px-3 py-1">
+                          <div className="size-1.5 rounded-full bg-amber-400" />
+                          <span className="text-[10px] font-semibold text-amber-400">Ausstehend</span>
+                        </div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {/* Footer */}
+                <div className="flex items-center gap-3 border-t border-white/[0.06] px-5 py-3">
+                  <Mail className="size-3 text-sky-500" />
+                  <span className="text-[10px] text-slate-500">Einladungen automatisch versandt · 4 Interviews heute</span>
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* Right — text */}
+            <FadeUp delay={0.12}>
+              <p className="mb-5 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-sky-500">Interview-Koordination</p>
+              <h2 className="font-heading text-[40px] sm:text-[56px] font-normal leading-[0.93] tracking-tight text-white text-balance">
+                Kein Ping-Pong<br />
+                <span className="text-white/30">mehr per E-Mail.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[16px] leading-relaxed text-slate-400">
+                Hire koordiniert Interview-Termine direkt mit Kandidat:innen, schickt automatische Erinnerungen und hält alle Beteiligten auf dem Laufenden — ohne manuelle Abstimmung.
+              </p>
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {[
+                  { icon: Mail, label: "Automatische Einladungen" },
+                  { icon: CalendarDays, label: "Kalender-Sync" },
+                  { icon: Phone, label: "Video & Vor-Ort" },
+                  { icon: Send, label: "Follow-up-Reminders" },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] px-4 py-3"
+                    style={{ background: "#1a2535" }}>
+                    <Icon className="size-3.5 text-sky-400 shrink-0" />
+                    <span className="text-[12px] font-medium text-slate-300">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Handoff zu Flow ──────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-t border-slate-100 bg-white py-28 sm:py-40">
+        <div aria-hidden className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse at 50% 0%, #0284c706 0%, transparent 55%)" }} />
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <FadeUp className="mb-16 text-center">
+            <p className="mb-4 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-sky-600">Nahtloser Übergang</p>
+            <h2 className="font-heading text-[40px] sm:text-[62px] font-normal leading-[0.93] tracking-tight text-slate-900 text-balance">
+              Angenommen — und sofort<br />
+              <span className="text-slate-300">im System.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-lg text-[17px] leading-relaxed text-slate-500">
+              Sobald ein Kandidat das Angebot annimmt, übergibt Hire automatisch an Flow und Persona. Kein manueller Export, kein Datenverlust.
+            </p>
+          </FadeUp>
+
+          <div className="relative flex flex-col items-center gap-0 sm:flex-row sm:justify-center">
+            {handoffSteps.map((step, i) => {
+              const Icon = step.icon
+              return (
+                <React.Fragment key={step.label}>
+                  <FadeUp delay={i * 0.1}>
+                    <motion.div
+                      whileHover={{ y: -6, boxShadow: `0 20px 48px ${step.color}1a` }}
+                      transition={{ duration: 0.25 }}
+                      className="flex flex-col items-center gap-3 rounded-2xl border border-slate-100 bg-white px-8 py-8 shadow-sm w-40"
+                    >
+                      <div className="flex size-12 items-center justify-center rounded-2xl"
+                        style={{ backgroundColor: `${step.color}14` }}>
+                        <Icon className="size-5" style={{ color: step.color }} />
+                      </div>
+                      <div className="text-center">
+                        <p className="text-[13px] font-bold text-slate-800">{step.label}</p>
+                        <p className="text-[11px] text-slate-400 mt-0.5">{step.desc}</p>
+                      </div>
+                    </motion.div>
+                  </FadeUp>
+                  {i < handoffSteps.length - 1 && (
+                    <FadeUp delay={i * 0.1 + 0.05}>
+                      <div className="flex items-center justify-center w-8 sm:w-12">
+                        <ArrowRight className="size-4 text-slate-300" />
+                      </div>
+                    </FadeUp>
+                  )}
+                </React.Fragment>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features ─────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-t border-slate-100 bg-slate-50/60 py-28 sm:py-40">
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <FadeUp className="mb-14">
+            <p className="mb-4 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-sky-600">Features</p>
+            <h2 className="font-heading text-[38px] sm:text-[58px] font-normal leading-[0.93] tracking-tight text-slate-900 text-balance">
+              Alles für deinen<br />
+              <span className="text-slate-300">Recruiting-Alltag.</span>
+            </h2>
+          </FadeUp>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, i) => {
+              const Icon = feature.icon
+              return (
+                <FadeUp key={feature.title} delay={i * 0.06}>
+                  <motion.div
+                    whileHover={{ y: -5, boxShadow: "0 20px 48px rgba(2,132,199,0.08)" }}
+                    transition={{ duration: 0.22 }}
+                    className="h-full rounded-2xl border border-slate-100 bg-white p-6 shadow-sm"
+                  >
+                    <div className="mb-5 flex size-10 items-center justify-center rounded-xl bg-sky-50">
+                      <Icon className="size-4.5 text-sky-600" />
+                    </div>
+                    <h3 className="mb-2 text-[15px] font-semibold text-slate-800">{feature.title}</h3>
+                    <p className="text-[13.5px] leading-relaxed text-slate-500">{feature.body}</p>
+                  </motion.div>
+                </FadeUp>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Quote ────────────────────────────────────────────────────────────── */}
+      {product.quote && (
+        <section className="relative overflow-hidden border-t border-slate-100 bg-white py-24 sm:py-36">
+          <div className="relative mx-auto max-w-3xl px-6 sm:px-8 text-center">
+            <FadeUp>
+              <div className="mb-8 inline-flex size-12 items-center justify-center rounded-full bg-sky-50">
+                <Star className="size-5 text-sky-500" />
+              </div>
+              <blockquote className="font-heading text-[26px] sm:text-[36px] font-normal leading-[1.15] tracking-tight text-slate-800 text-balance italic">
+                "{product.quote.text}"
+              </blockquote>
+              <p className="mt-8 text-[13px] font-medium text-slate-400">
+                — {product.quote.author}, {product.quote.role}
+              </p>
+            </FadeUp>
+          </div>
+        </section>
+      )}
+
+      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Payroll — Gehaltsabrechnung & DATEV-Export
+// ══════════════════════════════════════════════════════════════════════════════
+
+function PayrollPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const heroRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] })
+  const mockupY = useTransform(scrollYProgress, [0, 1], [0, 44])
+  const heroTextOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+
+  // Animated salary counter
+  const counterRef = useRef<HTMLDivElement>(null)
+  const counterInView = useInView(counterRef, { once: true, margin: "-100px" })
+  const [displayValue, setDisplayValue] = useState(0)
+  const TARGET = 24780
+
+  useEffect(() => {
+    if (!counterInView) return
+    let start: number | null = null
+    const duration = 1800
+    function step(timestamp: number) {
+      if (!start) start = timestamp
+      const elapsed = timestamp - start
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setDisplayValue(Math.round(eased * TARGET))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [counterInView])
+
+  const employees = [
+    { initials: "AW", name: "Anna Weber",    gross: "3.840 €", net: "2.420 €", status: "Freigegeben", color: "#0d9488" },
+    { initials: "MH", name: "Max Huber",     gross: "4.200 €", net: "2.650 €", status: "Freigegeben", color: "#0d9488" },
+    { initials: "KB", name: "Klara Beck",    gross: "3.200 €", net: "2.050 €", status: "Freigegeben", color: "#0d9488" },
+    { initials: "LB", name: "Lukas Brauer",  gross: "5.100 €", net: "3.110 €", status: "In Prüfung",  color: "#f59e0b" },
+    { initials: "SR", name: "Sara Richter",  gross: "4.440 €", net: "2.790 €", status: "Freigegeben", color: "#0d9488" },
+  ]
+
+  const barData = [
+    { day: "Mo", hrs: 8.5, over: 0.5 },
+    { day: "Di", hrs: 9.0, over: 1.0 },
+    { day: "Mi", hrs: 7.5, over: 0 },
+    { day: "Do", hrs: 8.0, over: 0 },
+    { day: "Fr", hrs: 9.5, over: 1.5 },
+    { day: "Sa", hrs: 6.0, over: 0 },
+    { day: "So", hrs: 0,   over: 0 },
+  ]
+  const maxHrs = 10
+
+  const processSteps = [
+    { n: "01", icon: ClipboardList, title: "Stunden prüfen",     body: "Alle Zeiterfassungsdaten aus Tempo werden automatisch importiert und auf Vollständigkeit geprüft." },
+    { n: "02", icon: CheckCircle2,  title: "Abrechnung freigeben", body: "HR und Manager geben die Abrechnung Schritt für Schritt frei — mit Audit-Trail und Vieraugen-Prinzip." },
+    { n: "03", icon: Download,      title: "DATEV exportieren",   body: "Ein Klick erzeugt eine DATEV-kompatible Exportdatei — sofort an den Steuerberater übergabefertig." },
+  ]
+
+  const features = product.features
+
+  return (
+    <>
+      {/* ── Hero (dark) ─────────────────────────────────────────────────────── */}
+      <section
+        ref={heroRef}
+        className="relative min-h-screen overflow-hidden"
+        style={{ background: "#080f1a" }}
+      >
+        <Grain opacity={0.038} />
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          {/* Teal grid lines */}
+          <div className="absolute inset-0"
+            style={{
+              backgroundImage: `linear-gradient(${product.colorHex}18 1px, transparent 1px), linear-gradient(90deg, ${product.colorHex}18 1px, transparent 1px)`,
+              backgroundSize: "80px 80px",
+              opacity: 0.4,
+            }}
+          />
+          <div className="absolute left-[15%] top-[20%] h-[36rem] w-[36rem] rounded-full blur-[110px]"
+            style={{ backgroundColor: "#0d948810" }} />
+          <div className="absolute right-[8%] bottom-[12%] h-[24rem] w-[24rem] rounded-full blur-[90px]"
+            style={{ backgroundColor: "#0d948808" }} />
+        </div>
+
+        <div className="relative z-10 mx-auto flex min-h-screen max-w-screen-xl flex-col px-6 sm:px-8">
+          <div className="flex flex-1 flex-col justify-center pt-28 pb-16 lg:flex-row lg:items-center lg:gap-20 lg:pt-0">
+
+            {/* Left text */}
+            <motion.div style={{ opacity: heroTextOpacity }} className="lg:w-[45%]">
+              <FadeUp>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-teal-800/60 bg-teal-950/50 px-4 py-1.5">
+                  <Wallet className="size-3.5 text-teal-400" />
+                  <span className="text-[11.5px] font-semibold uppercase tracking-[0.14em] text-teal-400">Payroll — Abrechnung</span>
+                </div>
+              </FadeUp>
+              <FadeUp delay={0.06}>
+                <h1 className="font-heading text-[52px] sm:text-[68px] lg:text-[78px] font-normal leading-[0.9] tracking-[-0.02em] text-white text-balance">
+                  Löhne.<br />
+                  <span className="italic" style={{ color: product.colorHex }}>Pünktlich. Richtig.</span>
+                </h1>
+              </FadeUp>
+              <FadeUp delay={0.12}>
+                <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-400 sm:text-[18px]">
+                  Payroll übernimmt Zeitdaten aus Tempo, berechnet Brutto und Netto, koordiniert die Freigabe — und exportiert alles DATEV-kompatibel. Kein Postfach-Chaos, keine Fehler, kein Stress.
+                </p>
+              </FadeUp>
+              <FadeUp delay={0.18}>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <Link href={accountCtaHref}
+                    className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white transition-opacity hover:opacity-85"
+                    style={{ backgroundColor: product.colorHex }}>
+                    {accountCtaLabel} <ArrowRight className="size-4" />
+                  </Link>
+                  <Link href="/kontakt"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-white/[0.05] px-7 py-3.5 text-[14px] font-medium text-slate-300 transition-colors hover:bg-white/[0.08]">
+                    Demo ansehen
+                  </Link>
+                </div>
+              </FadeUp>
+
+              {/* Floating badges */}
+              <FadeUp delay={0.26}>
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <div className="inline-flex items-center gap-2.5 rounded-2xl border border-teal-800/50 bg-teal-950/60 px-4 py-2.5 shadow-lg">
+                    <div className="flex size-7 items-center justify-center rounded-xl" style={{ backgroundColor: product.colorHex }}>
+                      <Download className="size-3.5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-semibold text-white leading-none">DATEV-Export bereit</p>
+                      <p className="text-[10px] text-teal-400/70 leading-none mt-0.5">April 2025 · 24 Mitarbeiter</p>
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center gap-2.5 rounded-2xl border border-white/[0.07] bg-white/[0.04] px-4 py-2.5 shadow-lg">
+                    <div className="relative flex size-7 items-center justify-center rounded-xl bg-emerald-950/80">
+                      <CheckCircle2 className="size-3.5 text-emerald-400" />
+                      <span className="absolute -right-0.5 -top-0.5 size-2 rounded-full bg-emerald-500 ring-2 ring-[#080f1a]" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-semibold text-white leading-none">7/7 Abrechnungen freigegeben</p>
+                      <p className="text-[10px] text-slate-500 leading-none mt-0.5">Alle Departments bestätigt</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeUp>
+            </motion.div>
+
+            {/* Right — payroll dashboard */}
+            <motion.div ref={counterRef} style={{ y: mockupY }} className="mt-14 lg:mt-0 lg:w-[55%]">
+              <FadeUp delay={0.16}>
+                <div className="overflow-hidden rounded-2xl border border-white/[0.08] shadow-[0_32px_100px_rgba(13,148,136,0.15)]"
+                  style={{ background: "#0f1d2b" }}>
+                  {/* Header */}
+                  <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+                    <div className="flex items-center gap-2">
+                      <Wallet className="size-3.5 text-teal-400" />
+                      <span className="text-[12px] font-semibold text-white">Payroll — April 2025</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold text-emerald-400">Abgeschlossen</span>
+                      <button className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[10px] font-medium text-teal-400 border border-teal-800/50 hover:bg-teal-900/30 transition-colors">
+                        <Download className="size-3" />
+                        DATEV
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* KPI row */}
+                  <div className="grid grid-cols-3 divide-x divide-white/[0.05] border-b border-white/[0.06]">
+                    <div className="px-5 py-4">
+                      <p className="text-[10px] text-slate-500 mb-1">Gesamtlohnkosten</p>
+                      <p className="font-heading text-[22px] font-semibold text-white leading-none">
+                        {displayValue.toLocaleString("de-DE")} €
+                      </p>
+                    </div>
+                    <div className="px-5 py-4">
+                      <p className="text-[10px] text-slate-500 mb-1">Mitarbeiter</p>
+                      <p className="font-heading text-[22px] font-semibold text-white leading-none">24</p>
+                    </div>
+                    <div className="px-5 py-4">
+                      <p className="text-[10px] text-slate-500 mb-1">Status</p>
+                      <div className="flex items-center gap-1.5">
+                        <div className="size-2 rounded-full bg-emerald-400" />
+                        <p className="text-[11px] font-semibold text-emerald-400">Freigegeben</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Employee rows */}
+                  <div className="divide-y divide-white/[0.04]">
+                    {employees.map((emp, i) => (
+                      <motion.div
+                        key={emp.name}
+                        initial={{ opacity: 0, x: 12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.45, delay: 0.25 + i * 0.08 }}
+                        className="flex items-center justify-between px-5 py-3"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="flex size-7 items-center justify-center rounded-lg text-[9px] font-bold text-white shrink-0"
+                            style={{ backgroundColor: `${product.colorHex}30`, color: product.colorHex }}>
+                            {emp.initials}
+                          </div>
+                          <div>
+                            <p className="text-[12px] font-semibold text-white leading-none">{emp.name}</p>
+                            <p className="text-[10px] text-slate-500 leading-none mt-0.5">{emp.gross} brutto</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <p className="text-[12px] font-semibold text-teal-300">{emp.net} netto</p>
+                          <div className="rounded-full px-2.5 py-0.5 text-[9.5px] font-semibold"
+                            style={{
+                              backgroundColor: emp.status === "Freigegeben" ? "#064e3b" : "#451a03",
+                              color: emp.status === "Freigegeben" ? "#34d399" : "#fbbf24",
+                            }}>
+                            {emp.status}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </FadeUp>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3-Step Process (light) ───────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-t border-slate-100 bg-white py-28 sm:py-40">
+        <div aria-hidden className="pointer-events-none absolute inset-0"
+          style={{ background: "radial-gradient(ellipse at 50% 100%, #0d948807 0%, transparent 65%)" }} />
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <FadeUp className="mb-16 text-center">
+            <p className="mb-4 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-teal-600">Prozess</p>
+            <h2 className="font-heading text-[40px] sm:text-[62px] font-normal leading-[0.93] tracking-tight text-slate-900 text-balance">
+              Drei Schritte.<br />
+              <span className="text-slate-300">Abrechnung fertig.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-lg text-[17px] leading-relaxed text-slate-500">
+              Payroll strukturiert den gesamten Prozess von der Stundenkontrolle bis zum DATEV-Export — transparent, nachvollziehbar und rechtssicher.
+            </p>
+          </FadeUp>
+
+          <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {/* Connector line */}
+            <div aria-hidden className="pointer-events-none absolute left-[16.66%] right-[16.66%] top-[52px] hidden h-px bg-gradient-to-r from-teal-100 via-teal-200 to-teal-100 sm:block" />
+
+            {processSteps.map((step, i) => {
+              const Icon = step.icon
+              return (
+                <FadeUp key={step.n} delay={i * 0.1}>
+                  <motion.div
+                    whileHover={{ y: -6, boxShadow: "0 20px 48px rgba(13,148,136,0.10)" }}
+                    transition={{ duration: 0.25 }}
+                    className="relative rounded-2xl border border-slate-100 bg-white p-8 shadow-sm text-center"
+                  >
+                    <div className="mx-auto mb-6 flex size-14 items-center justify-center rounded-2xl bg-teal-50 border border-teal-100 relative z-10">
+                      <Icon className="size-6 text-teal-600" />
+                    </div>
+                    <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.2em] text-teal-500">{step.n}</p>
+                    <h3 className="mb-3 text-[16px] font-bold text-slate-800">{step.title}</h3>
+                    <p className="text-[13.5px] leading-relaxed text-slate-500">{step.body}</p>
+                  </motion.div>
+                </FadeUp>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tempo Integration (dark) ─────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-28 sm:py-40" style={{ background: "#070e1a" }}>
+        <Grain opacity={0.032} />
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute right-[15%] top-[20%] h-[30rem] w-[30rem] rounded-full blur-[100px]"
+            style={{ backgroundColor: "#0d948810" }} />
+        </div>
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-24">
+
+            {/* Left text */}
+            <FadeUp>
+              <p className="mb-5 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-teal-500">Tempo-Integration</p>
+              <h2 className="font-heading text-[40px] sm:text-[56px] font-normal leading-[0.93] tracking-tight text-white text-balance">
+                Zeitdaten rein.<br />
+                <span className="text-white/25">Abrechnung raus.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[16px] leading-relaxed text-slate-400">
+                Payroll liest Arbeitszeiten, Überstunden und Abwesenheiten direkt aus Tempo. Kein Export, kein Excel, kein manuelles Übertragen. Alle Daten fließen automatisch — und werden auf Vollständigkeit geprüft.
+              </p>
+              <div className="mt-8 grid grid-cols-2 gap-3">
+                {[
+                  { icon: Clock, label: "Stunden automatisch" },
+                  { icon: CalendarDays, label: "Urlaub & Abwesenheit" },
+                  { icon: TrendingUp, label: "Überstunden erkannt" },
+                  { icon: Shield, label: "Vollständigkeitsprüfung" },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] px-4 py-3"
+                    style={{ background: "#111d2b" }}>
+                    <Icon className="size-3.5 text-teal-400 shrink-0" />
+                    <span className="text-[12px] font-medium text-slate-300">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </FadeUp>
+
+            {/* Right — animated bar chart */}
+            <FadeUp delay={0.1}>
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08] shadow-[0_24px_80px_rgba(13,148,136,0.12)]"
+                style={{ background: "#0f1e2e" }}>
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+                  <div className="flex items-center gap-2">
+                    <Clock className="size-3.5 text-teal-400" />
+                    <span className="text-[12px] font-semibold text-white">Wochenübersicht · KW 17</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <div className="size-2 rounded-full bg-teal-500" />
+                      <span className="text-[10px] text-slate-500">Arbeitszeit</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className="size-2 rounded-full bg-amber-500" />
+                      <span className="text-[10px] text-slate-500">Überstunden</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Chart */}
+                <div className="px-5 pt-6 pb-4">
+                  <div className="flex items-end justify-between gap-2 h-36">
+                    {barData.map((d, i) => (
+                      <div key={d.day} className="flex flex-1 flex-col items-center gap-1">
+                        <div className="flex w-full flex-col items-stretch justify-end gap-px" style={{ height: "120px" }}>
+                          {d.over > 0 && (
+                            <motion.div
+                              initial={{ scaleY: 0 }}
+                              animate={{ scaleY: 1 }}
+                              transition={{ duration: 0.6, delay: 0.4 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                              style={{ height: `${(d.over / maxHrs) * 100}%`, backgroundColor: "#f59e0b", transformOrigin: "bottom", borderRadius: "3px 3px 0 0" }}
+                            />
+                          )}
+                          {d.hrs > 0 && (
+                            <motion.div
+                              initial={{ scaleY: 0 }}
+                              animate={{ scaleY: 1 }}
+                              transition={{ duration: 0.7, delay: 0.3 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                              style={{ height: `${(d.hrs / maxHrs) * 100}%`, backgroundColor: product.colorHex, transformOrigin: "bottom", borderRadius: d.over > 0 ? "0" : "3px 3px 0 0", opacity: 0.85 }}
+                            />
+                          )}
+                        </div>
+                        <span className="text-[10px] text-slate-600">{d.day}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Stats row */}
+                <div className="grid grid-cols-3 divide-x divide-white/[0.05] border-t border-white/[0.06]">
+                  <div className="px-4 py-3 text-center">
+                    <p className="text-[10px] text-slate-500 mb-0.5">Ø Stunden/Tag</p>
+                    <p className="text-[13px] font-bold text-white">7.6 h</p>
+                  </div>
+                  <div className="px-4 py-3 text-center">
+                    <p className="text-[10px] text-slate-500 mb-0.5">Überstunden</p>
+                    <p className="text-[13px] font-bold text-amber-400">+3.0 h</p>
+                  </div>
+                  <div className="px-4 py-3 text-center">
+                    <p className="text-[10px] text-slate-500 mb-0.5">Vollständigkeit</p>
+                    <p className="text-[13px] font-bold text-emerald-400">100 %</p>
+                  </div>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features ─────────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden border-t border-slate-100 bg-white py-28 sm:py-40">
+        <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
+          <FadeUp className="mb-14">
+            <p className="mb-4 text-[10.5px] font-semibold uppercase tracking-[0.22em] text-teal-600">Features</p>
+            <h2 className="font-heading text-[38px] sm:text-[58px] font-normal leading-[0.93] tracking-tight text-slate-900 text-balance">
+              Abrechnung ohne<br />
+              <span className="text-slate-300">Kompromisse.</span>
+            </h2>
+          </FadeUp>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, i) => {
+              const Icon = feature.icon
+              return (
+                <FadeUp key={feature.title} delay={i * 0.06}>
+                  <motion.div
+                    whileHover={{ y: -5, boxShadow: "0 20px 48px rgba(13,148,136,0.08)" }}
+                    transition={{ duration: 0.22 }}
+                    className="h-full rounded-2xl border border-slate-100 bg-white p-6 shadow-sm"
+                  >
+                    <div className="mb-5 flex size-10 items-center justify-center rounded-xl bg-teal-50">
+                      <Icon className="size-4.5 text-teal-600" />
+                    </div>
+                    <h3 className="mb-2 text-[15px] font-semibold text-slate-800">{feature.title}</h3>
+                    <p className="text-[13.5px] leading-relaxed text-slate-500">{feature.body}</p>
+                  </motion.div>
+                </FadeUp>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
 const PAGE_MAP: Record<string, React.ComponentType<ProductPageProps>> = {
   persona: PersonaPage,
   atlas:   AtlasPage,
@@ -4767,6 +5707,8 @@ const PAGE_MAP: Record<string, React.ComponentType<ProductPageProps>> = {
   roster:  RosterPage,
   pulse:   PulsePage,
   lumen:   LumenPage,
+  hire:    HirePage,
+  payroll: PayrollPage,
 }
 
 // ══════════════════════════════════════════════════════════════════════════════

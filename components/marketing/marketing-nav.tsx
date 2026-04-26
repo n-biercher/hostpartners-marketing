@@ -7,6 +7,7 @@ import {
   Users, BookOpen, GraduationCap, GitBranch,
   Clock, CalendarDays, TrendingUp, Sparkles,
   Building2, ChefHat, Factory,
+  UserPlus, Wallet,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -25,6 +26,8 @@ const APPS = [
   { slug: "roster",  label: "Roster",  desc: "Schichtplanung",             icon: CalendarDays,  color: "bg-rose-600" },
   { slug: "pulse",   label: "Pulse",   desc: "Performance & OKRs",         icon: TrendingUp,    color: "bg-amber-500" },
   { slug: "lumen",   label: "Lumen",   desc: "KI-Assistent",               icon: Sparkles,      color: "bg-indigo-600" },
+  { slug: "hire",    label: "Hire",    desc: "Recruiting & Bewerbungen",   icon: UserPlus,      color: "bg-sky-600" },
+  { slug: "payroll", label: "Payroll", desc: "Gehaltsabrechnung & DATEV",  icon: Wallet,        color: "bg-teal-600" },
 ]
 
 // Uses a close-delay so the mouse can travel from button → panel without flickering
@@ -112,7 +115,7 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
                   {/* Header row */}
                   <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-muted/20">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/50">
-                      Die App-Suite — 8 Module
+                      Die App-Suite — 10 Module
                     </p>
                     <Link
                       href="/"
