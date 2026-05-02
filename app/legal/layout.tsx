@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Zap } from "lucide-react"
 
 const LEGAL_NAV = [
   { href: "/legal/agb",       label: "AGB" },
@@ -16,8 +15,8 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
 
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group">
-            <div className="flex h-5 w-5 items-center justify-center rounded bg-foreground text-background group-hover:opacity-75 transition-opacity">
-              <Zap className="h-3 w-3" />
+            <div className="h-6 w-6 rounded bg-white overflow-hidden shrink-0 group-hover:opacity-75 transition-opacity">
+              <img src="/icon.png" alt="Hostpartners" className="w-full h-full object-contain" />
             </div>
             <span className="text-[13px] font-semibold tracking-tight text-foreground">Hostpartners</span>
           </Link>

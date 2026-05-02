@@ -73,8 +73,8 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 shrink-0 group">
-            <div className="size-[26px] rounded-[7px] bg-foreground flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
-              <span className="text-background text-[12px] font-bold tracking-tighter select-none">G</span>
+            <div className="size-[26px] rounded-[7px] bg-white overflow-hidden transition-transform duration-200 group-hover:scale-105">
+              <img src="/icon.png" alt="Hostpartners" className="w-full h-full object-contain" />
             </div>
             <span className="text-[15px] font-semibold tracking-tight text-foreground">
               Hostpartners

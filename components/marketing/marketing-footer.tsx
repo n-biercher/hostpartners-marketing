@@ -52,7 +52,10 @@ export function MarketingFooter() {
 
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-block mb-4">
+            <Link href="/" className="inline-flex items-center gap-2 mb-4">
+              <div className="h-7 w-7 rounded-lg bg-white overflow-hidden shrink-0">
+                <img src="/icon.png" alt="Hostpartners" className="w-full h-full object-contain" />
+              </div>
               <span className="text-[15px] font-semibold tracking-tight text-foreground">Hostpartners</span>
             </Link>
             <p className="max-w-[20rem] text-[12.5px] leading-relaxed text-muted-foreground/60">

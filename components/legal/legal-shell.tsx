@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft, ArrowUp, Zap, Mail } from "lucide-react"
+import { ArrowLeft, ArrowUp, Mail } from "lucide-react"
 import { LegalToc } from "./legal-toc"
 
 export interface LegalSection { id: string; title: string }
@@ -102,8 +102,8 @@ export function LegalShell({ title, category, date, sections, children }: LegalS
             {/* Brand */}
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <div className="flex h-5 w-5 items-center justify-center rounded bg-foreground text-background">
-                  <Zap className="h-3 w-3" />
+                <div className="h-6 w-6 rounded bg-white overflow-hidden shrink-0">
+                  <img src="/icon.png" alt="Hostpartners" className="w-full h-full object-contain" />
                 </div>
                 <span className="text-[13px] font-semibold tracking-tight text-foreground">Hostpartners</span>
               </div>
