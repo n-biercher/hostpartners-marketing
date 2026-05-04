@@ -29,9 +29,11 @@ export const metadata: Metadata = createMarketingMetadata(BASE_URL)
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className={`${dmSerifDisplay.variable} ${geistSans.variable} ${geistMono.variable}`}>
-      <body className="antialiased">{children}</body>
-       <Analytics />
-       <SpeedInsights />
+      <body className="antialiased">
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   )
 }
