@@ -236,7 +236,7 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
               {accountCtaLabel}
             </Link>
             <Link
-              href="/login"
+              href="/demo"
               className="group inline-flex items-center gap-1.5 h-9 px-5 rounded-full text-[13px] font-semibold bg-foreground text-background hover:opacity-85 transition-opacity"
             >
               Demo buchen
@@ -336,7 +336,7 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
                 {accountCtaLabel}
               </Link>
               <Link
-                href="/login"
+                href="/demo"
                 className="flex w-full items-center justify-center gap-2 py-3 px-4 rounded-xl bg-foreground text-background text-[14px] font-semibold hover:opacity-85 transition-opacity"
                 onClick={() => setMobileOpen(false)}
               >

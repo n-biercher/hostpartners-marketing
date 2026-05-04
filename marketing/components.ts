@@ -1,4 +1,5 @@
 export { AboutPage } from "@/components/marketing/about-page"
+export { DemoPage } from "@/components/marketing/demo-page"
 export { ContactPage } from "@/components/marketing/contact-page"
 export { IndustryPageClient } from "@/components/marketing/industry-page-client"
 export { LandingPage } from "@/components/marketing/landing-page"

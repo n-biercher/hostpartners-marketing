@@ -240,7 +240,7 @@ export function AboutPage() {
                 Mit uns sprechen <ArrowRight className="size-4" />
               </Link>
               <Link
-                href="/login"
+                href="/demo"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-border/70 bg-card/90 px-7 text-[14px] font-medium text-foreground/80 transition-colors hover:bg-muted/40"
               >
                 Demo buchen
@@ -508,7 +508,7 @@ export function AboutPage() {
                 Demo buchen <ArrowRight className="size-4" />
               </Link>
               <Link
-                href="/login"
+                href="/demo"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-7 text-[14px] font-medium text-white/80 transition-colors hover:border-white/40 hover:text-white"
               >
                 Kostenlos testen
