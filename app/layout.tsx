@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { DM_Serif_Display, Geist, Geist_Mono } from "next/font/google"
 import { createMarketingMetadata } from "@/marketing/metadata"
 import { getSiteUrl } from "@/lib/site-url"
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="de" className={`${dmSerifDisplay.variable} ${geistSans.variable} ${geistMono.variable}`}>
       <body className="antialiased">{children}</body>
        <Analytics />
+       <SpeedInsights />
     </html>
   )
 }
