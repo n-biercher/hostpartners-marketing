@@ -5,7 +5,7 @@ import Link from "next/link"
 import {
   Menu, X, ChevronDown, ArrowRight,
   Users, BookOpen, GraduationCap, GitBranch,
-  Clock, CalendarDays, TrendingUp, Sparkles,
+  Clock, CalendarDays, Sparkles,
   Building2, ChefHat, Factory,
   UserPlus, Wallet,
 } from "lucide-react"
@@ -24,7 +24,6 @@ const APPS = [
   { slug: "flow",    label: "Flow",    desc: "Onboarding & Prozesse",      icon: GitBranch,     color: "bg-violet-600" },
   { slug: "tempo",   label: "Tempo",   desc: "Zeiterfassung & Urlaub",     icon: Clock,         color: "bg-orange-500" },
   { slug: "roster",  label: "Roster",  desc: "Schichtplanung",             icon: CalendarDays,  color: "bg-rose-600" },
-  { slug: "pulse",   label: "Pulse",   desc: "Performance & OKRs",         icon: TrendingUp,    color: "bg-amber-500" },
   { slug: "lumen",   label: "Lumen",   desc: "KI-Assistent",               icon: Sparkles,      color: "bg-indigo-600" },
   { slug: "hire",    label: "Hire",    desc: "Recruiting & Bewerbungen",   icon: UserPlus,      color: "bg-sky-600" },
   { slug: "payroll", label: "Payroll", desc: "Gehaltsabrechnung & DATEV",  icon: Wallet,        color: "bg-teal-600" },

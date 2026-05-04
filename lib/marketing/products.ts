@@ -1,13 +1,13 @@
 import {
   Users, BookOpen, GraduationCap, GitBranch,
-  Clock, CalendarDays, TrendingUp, Sparkles,
+  Clock, CalendarDays, Sparkles,
   type LucideIcon,
   FileText, Search, Shield, Building2,
   Video, Award, CheckSquare, BarChart3,
   ArrowLeftRight, AlarmClock, Sun, Briefcase,
-  RefreshCw, Map, MessageSquare, Brain,
+  RefreshCw, Map, Brain,
   UserCheck, FolderOpen, Lock, Eye,
-  Layers, Bell, Target, Activity,
+  Layers, Bell, Activity,
   UserPlus, Wallet, Download, Receipt,
   Calculator, PieChart, Banknote, ClipboardList,
 } from "lucide-react"
@@ -82,7 +82,7 @@ export const PRODUCTS: Record<string, ProductData> = {
       { number: "02", title: "Dokumente hochladen",     body: "Verträge, Zeugnisse, Zertifikate und Formulare direkt in der digitalen Personalakte speichern." },
       { number: "03", title: "Zugriffsrechte vergeben", body: "Rollen und Berechtigungen zuweisen — wer darf was sehen und bearbeiten." },
     ],
-    compatibleWith: ["Atlas", "Academy", "Flow", "Pulse"],
+    compatibleWith: ["Atlas", "Academy", "Flow"],
     quote: {
       text:    "Seit wir Persona nutzen, haben wir keine Papierakte mehr angefasst. Der Audit war in einer halben Stunde erledigt — früher haben wir dafür Tage gebraucht.",
       author:  "Sandra K.",
@@ -193,7 +193,7 @@ export const PRODUCTS: Record<string, ProductData> = {
       { number: "02", title: "Aufgaben verteilen", body: "Flow routet alle Aufgaben automatisch an die richtigen Personen und Abteilungen." },
       { number: "03", title: "Fortschritt verfolgen", body: "Behalte den Überblick — welche Aufgaben sind erledigt, was steht noch aus." },
     ],
-    compatibleWith: ["Persona", "Academy", "Tempo", "Pulse"],
+    compatibleWith: ["Persona", "Academy", "Tempo"],
   },
 
   tempo: {
@@ -266,39 +266,6 @@ export const PRODUCTS: Record<string, ProductData> = {
       role:    "Teamleiterin Service",
       company: "Catering Südwest GmbH, 80 MA",
     },
-  },
-
-  pulse: {
-    slug:        "pulse",
-    name:        "Pulse",
-    tagline:     "Performance-Reviews, die wirklich etwas bewegen",
-    description: "Strukturierte Jahresgespräche, OKR-Zyklen, 1:1-Meetings und Pulse-Surveys — alles in einem System.",
-    seoTitle:    "Pulse — Performance Management & OKR Software",
-    seoDesc:     "Hostpartners Pulse: Digitale Jahresgespräche, OKR-Framework, 1:1-Meeting-Notizen und Mitarbeiterbefragungen. Für wachsende Teams in Hotellerie, Gastronomie und Industrie.",
-    keywords:    ["Performance Management Software", "OKR Software", "Mitarbeitergespräch digital", "360 Grad Feedback", "HR Analytics"],
-    color:       "bg-amber-500",
-    colorHex:    "#f59e0b",
-    icon:        TrendingUp,
-    license:     "Pulse-Lizenz",
-    stats: [
-      { value: "+40%",  label: "Mitarbeiterengagement" },
-      { value: "100%",  label: "strukturiert" },
-      { value: "∞",     label: "Review-Zyklen" },
-    ],
-    features: [
-      { icon: MessageSquare, title: "1:1-Meetings",           body: "Strukturierte Gesprächsvorlagen, Agenda-Punkte und Meeting-Notizen. Verlauf über mehrere Gespräche hinweg nachvollziehbar." },
-      { icon: Target,        title: "OKR-Framework",          body: "Definiere Unternehmensziele und leite daraus Team- und Einzelziele ab. Fortschritt wird quartalsweise verfolgt." },
-      { icon: Activity,      title: "Pulse-Surveys",          body: "Kurze, regelmäßige Befragungen (5 Fragen, 2 Minuten) um die Stimmung im Team zu messen." },
-      { icon: BarChart3,     title: "Review-Berichte",        body: "Alle Gesprächsergebnisse und Bewertungen übersichtlich dokumentiert — mit Verlauf über mehrere Review-Zyklen." },
-      { icon: Bell,          title: "Review-Erinnerungen",    body: "Automatische Erinnerungen an Mitarbeitende und Manager, wenn ein Review-Termin ansteht." },
-      { icon: Shield,        title: "Vertraulichkeit",        body: "Review-Inhalte sind nur für die beteiligten Personen und autorisierte HR-Admins sichtbar." },
-    ],
-    steps: [
-      { number: "01", title: "Zyklus definieren",     body: "Lege Review-Perioden fest — quartalsweise OKRs, jährliche Gespräche oder monatliche Pulse-Checks." },
-      { number: "02", title: "Reviews durchführen",   body: "Mitarbeitende und Manager füllen Formulare aus — strukturiert, nachvollziehbar, ohne E-Mail-Ping-Pong." },
-      { number: "03", title: "Entwicklung verfolgen", body: "Sieh über Zyklen hinweg, wie sich Leistung und Zufriedenheit entwickeln — mit Reports und Trendansichten." },
-    ],
-    compatibleWith: ["Persona", "Flow", "Atlas"],
   },
 
   lumen: {

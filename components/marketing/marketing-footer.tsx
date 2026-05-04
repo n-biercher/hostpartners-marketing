@@ -10,7 +10,6 @@ const FOOTER_COLS = [
       { label: "Flow",     href: "/produkte/flow" },
       { label: "Tempo",    href: "/produkte/tempo" },
       { label: "Roster",   href: "/produkte/roster" },
-      { label: "Pulse",    href: "/produkte/pulse" },
       { label: "Lumen",    href: "/produkte/lumen" },
     ],
   },

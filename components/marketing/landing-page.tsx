@@ -8,7 +8,7 @@ import {
 } from "framer-motion"
 import {
   ArrowRight, Users, BookOpen, GraduationCap, GitBranch,
-  Clock, CalendarDays, TrendingUp, Sparkles,
+  Clock, CalendarDays, Sparkles,
   Check, Building2, ChefHat, Factory, ChevronRight,
   Shield, Globe, Zap, UserPlus, Wallet,
 } from "lucide-react"
@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type AppKey = "persona" | "atlas" | "academy" | "flow" | "tempo" | "roster" | "pulse" | "lumen" | "hire" | "payroll"
+type AppKey = "persona" | "atlas" | "academy" | "flow" | "tempo" | "roster" | "lumen" | "hire" | "payroll"
 type SnippetKey = "academy" | "roster" | "flow"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -28,7 +28,6 @@ const APPS: { name: string; desc: string; icon: React.ComponentType<{ className?
   { name: "Flow",     desc: "Onboarding & Prozesse",      icon: GitBranch,     color: "bg-violet-600",  key: "flow" },
   { name: "Tempo",    desc: "Zeiterfassung & Urlaub",     icon: Clock,         color: "bg-orange-500",  key: "tempo" },
   { name: "Roster",   desc: "Schichtplanung",             icon: CalendarDays,  color: "bg-rose-600",    key: "roster" },
-  { name: "Pulse",    desc: "Performance & OKRs",         icon: TrendingUp,    color: "bg-amber-500",   key: "pulse" },
   { name: "Lumen",    desc: "KI-Assistent",               icon: Sparkles,      color: "bg-indigo-600",  key: "lumen" },
   { name: "Hire",     desc: "Recruiting & Bewerbungen",   icon: UserPlus,      color: "bg-sky-600",     key: "hire" },
   { name: "Payroll",  desc: "Lohn & Abrechnung",          icon: Wallet,        color: "bg-teal-600",    key: "payroll" },
@@ -406,7 +405,6 @@ function HeroDashboardPreview() {
               { icon: GitBranch,     label: "Flow",     color: "bg-violet-600",  active: false },
               { icon: Clock,         label: "Tempo",    color: "bg-orange-500",  active: false },
               { icon: CalendarDays,  label: "Roster",   color: "bg-rose-600",    active: false },
-              { icon: TrendingUp,    label: "Pulse",    color: "bg-amber-500",   active: false },
               { icon: Sparkles,      label: "Lumen",    color: "bg-indigo-600",  active: false },
               { icon: UserPlus,      label: "Hire",     color: "bg-sky-600",     active: false },
               { icon: Wallet,        label: "Payroll",  color: "bg-teal-600",    active: false },
