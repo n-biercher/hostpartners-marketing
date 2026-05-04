@@ -184,33 +184,44 @@ function TimeSlotPicker({
 }) {
   return (
     <div className="flex h-full flex-col">
-      <p className="mb-1 text-[14px] font-semibold text-foreground">
-        {format(date, "EEEE, d. MMMM", { locale: de })}
-      </p>
-      <p className="mb-5 text-[12px] text-muted-foreground">30 Minuten · Wähle eine Uhrzeit</p>
+      {/* Date header */}
+      <div className="mb-5 border-b border-border/60 pb-4">
+        <p className="text-[16px] font-semibold capitalize text-foreground">
+          {format(date, "EEEE", { locale: de })}
+        </p>
+        <p className="mt-0.5 text-[13px] text-muted-foreground">
+          {format(date, "d. MMMM yyyy", { locale: de })}
+        </p>
+      </div>
 
-      <div className="flex-1 overflow-y-auto space-y-4 pr-0.5">
+      {/* Slots — 2-column grid */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
-          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/40">
+          <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/40">
             Vormittag
           </p>
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             {TIME_SLOTS_MORNING.map(t => (
               <TimeSlot key={t} time={t} selected={selectedTime === t} onSelect={onSelect} />
             ))}
           </div>
         </div>
         <div>
-          <p className="mb-2 text-[10.5px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/40">
+          <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/40">
             Nachmittag
           </p>
-          <div className="space-y-1.5">
+          <div className="space-y-2">
             {TIME_SLOTS_AFTERNOON.map(t => (
               <TimeSlot key={t} time={t} selected={selectedTime === t} onSelect={onSelect} />
             ))}
           </div>
         </div>
       </div>
+
+      {/* Timezone note */}
+      <p className="mt-4 border-t border-border/60 pt-3 text-[11px] text-muted-foreground/40">
+        Alle Zeiten in MEZ (UTC+1) · Berlin
+      </p>
     </div>
   )
 }
@@ -228,13 +239,20 @@ function TimeSlot({
     <button
       onClick={() => onSelect(time)}
       className={cn(
-        "flex h-10 w-full items-center justify-center rounded-xl border text-[13px] font-medium transition-all",
+        "group flex h-12 w-full items-center rounded-xl border px-4 text-[14px] font-medium transition-all",
         selected
           ? "border-foreground bg-foreground text-background shadow-sm"
-          : "border-border/70 bg-card/60 text-foreground hover:border-foreground/30 hover:bg-muted/50",
+          : "border-border/70 bg-background text-foreground hover:border-foreground/25 hover:bg-muted/40",
       )}
     >
-      {time}
+      <span className="flex-1 text-left">{time}</span>
+      {selected ? (
+        <Check className="size-4 shrink-0" strokeWidth={2.5} />
+      ) : (
+        <span className="text-[11.5px] text-muted-foreground/35 transition-colors group-hover:text-muted-foreground/60">
+          30 min
+        </span>
+      )}
     </button>
   )
 }
@@ -376,6 +394,7 @@ function StepIndicator({ current }: { current: Step }) {
 
 export function DemoPage() {
   const [step, setStep] = useState<Step>("date")
+  const [activeTab, setActiveTab] = useState<"datum" | "zeit">("datum")
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [form, setForm] = useState<FormData>({
@@ -393,6 +412,8 @@ export function DemoPage() {
   function handleDateSelect(date: Date) {
     setSelectedDate(date)
     setSelectedTime(null)
+    // auto-advance to time tab
+    setTimeout(() => setActiveTab("zeit"), 180)
   }
 
   function handleTimeSelect(time: string) {
@@ -581,42 +602,91 @@ export function DemoPage() {
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <h2 className="mb-1.5 text-[20px] font-semibold text-foreground sm:text-[22px]">
-                      Datum & Uhrzeit wählen
+                      Termin wählen
                     </h2>
-                    <p className="mb-7 text-[13.5px] text-muted-foreground">
-                      Wähle einen verfügbaren Tag und eine Uhrzeit.
+                    <p className="mb-6 text-[13.5px] text-muted-foreground">
+                      Wähle einen Tag, dann eine Uhrzeit.
                     </p>
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_200px]">
-                      {/* Calendar */}
-                      <div className="rounded-2xl border border-border/70 bg-background p-5">
-                        <CalendarPicker
-                          selectedDate={selectedDate}
-                          onSelect={handleDateSelect}
-                        />
-                      </div>
-
-                      {/* Time slots */}
-                      <div className={cn(
-                        "rounded-2xl border border-border/70 bg-background p-5 transition-opacity",
-                        selectedDate ? "opacity-100" : "opacity-40 pointer-events-none",
-                      )}>
-                        {selectedDate ? (
-                          <TimeSlotPicker
-                            date={selectedDate}
-                            selectedTime={selectedTime}
-                            onSelect={handleTimeSelect}
-                          />
-                        ) : (
-                          <div className="flex h-full flex-col items-center justify-center text-center py-8">
-                            <CalendarDays className="size-8 text-muted-foreground/25 mb-3" />
-                            <p className="text-[12.5px] text-muted-foreground/40">
-                              Wähle zuerst
-                              <br />ein Datum
-                            </p>
-                          </div>
+                    {/* ── Tab bar ── */}
+                    <div className="mb-5 flex gap-1 rounded-2xl border border-border/70 bg-muted/25 p-1">
+                      {/* Datum tab */}
+                      <button
+                        onClick={() => setActiveTab("datum")}
+                        className={cn(
+                          "relative flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-[13px] font-medium transition-all",
+                          activeTab === "datum"
+                            ? "bg-background text-foreground shadow-sm"
+                            : "text-muted-foreground hover:text-foreground",
                         )}
-                      </div>
+                      >
+                        <CalendarDays className="size-3.5 shrink-0" />
+                        Datum
+                        {selectedDate && (
+                          <span className="flex size-4 items-center justify-center rounded-full bg-foreground">
+                            <Check className="size-2.5 text-background" strokeWidth={3} />
+                          </span>
+                        )}
+                      </button>
+
+                      {/* Zeit tab */}
+                      <button
+                        onClick={() => selectedDate && setActiveTab("zeit")}
+                        disabled={!selectedDate}
+                        className={cn(
+                          "relative flex flex-1 items-center justify-center gap-2 rounded-xl py-2.5 text-[13px] font-medium transition-all",
+                          activeTab === "zeit"
+                            ? "bg-background text-foreground shadow-sm"
+                            : "text-muted-foreground hover:text-foreground",
+                          !selectedDate && "cursor-not-allowed opacity-35",
+                        )}
+                      >
+                        <Clock className="size-3.5 shrink-0" />
+                        Uhrzeit
+                        {selectedTime && (
+                          <span className="flex size-4 items-center justify-center rounded-full bg-foreground">
+                            <Check className="size-2.5 text-background" strokeWidth={3} />
+                          </span>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* ── Tab content ── */}
+                    <div className="rounded-2xl border border-border/70 bg-background">
+                      <AnimatePresence mode="wait">
+                        {activeTab === "datum" ? (
+                          <motion.div
+                            key="tab-datum"
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 8 }}
+                            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                            className="p-5 sm:p-7"
+                          >
+                            <CalendarPicker
+                              selectedDate={selectedDate}
+                              onSelect={handleDateSelect}
+                            />
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="tab-zeit"
+                            initial={{ opacity: 0, x: 8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -8 }}
+                            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                            className="p-5 sm:p-7"
+                          >
+                            {selectedDate && (
+                              <TimeSlotPicker
+                                date={selectedDate}
+                                selectedTime={selectedTime}
+                                onSelect={handleTimeSelect}
+                              />
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
 
                     {/* Continue button */}
