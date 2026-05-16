@@ -10,6 +10,8 @@ import {
   Layers, Bell, Activity,
   UserPlus, Wallet, Download, Receipt,
   Calculator, PieChart, Banknote, ClipboardList,
+  MessageSquare, Hash, AtSign, Paperclip, Smile,
+  LayoutDashboard, Settings, CreditCard, Package, BarChart2, Gauge,
 } from "lucide-react"
 
 export interface ProductFeature {
@@ -371,6 +373,78 @@ export const PRODUCTS: Record<string, ProductData> = {
       { number: "03", title: "Exportieren & senden", body: "DATEV-Export für den Steuerberater, Gehaltszettel digital an Mitarbeitende, Archiv in der Personalakte." },
     ],
     compatibleWith: ["Persona", "Tempo", "Flow"],
+  },
+
+  chat: {
+    slug:        "chat",
+    name:        "Chat",
+    tagline:     "Team-Kommunikation, die alles zusammenhält",
+    description: "Echtzeit-Messaging mit Channels, Direktnachrichten und Dateianhängen — direkt integriert in Persona, Flow und Atlas.",
+    seoTitle:    "Chat — Team-Messaging für Hotellerie, Gastronomie & Industrie",
+    seoDesc:     "Hostpartners Chat: Teamkommunikation mit Channels, Direktnachrichten, Dateianhängen und tiefer Integration in HR-Daten. DSGVO-konform, für alle Betriebsgrößen.",
+    keywords:    ["Team Chat Software", "internes Messaging", "Unternehmens-Chat", "Slack Alternative", "HR Kommunikation"],
+    color:       "bg-fuchsia-600",
+    colorHex:    "#a21caf",
+    icon:        MessageSquare,
+    license:     "Basic-Lizenz",
+    stats: [
+      { value: "< 1s",  label: "Nachrichtenzustellung" },
+      { value: "∞",     label: "Channels & Gruppen" },
+      { value: "100%",  label: "DSGVO-konform" },
+    ],
+    features: [
+      { icon: Hash,        title: "Channels & Gruppen",       body: "Öffentliche und private Channels für Teams, Abteilungen oder Projekte. Strukturiert wie die Org, nicht wie ein Posteingang." },
+      { icon: AtSign,      title: "Direktnachrichten",        body: "Jeder Mitarbeitende hat ein Postfach — für 1:1-Austausch oder Gruppengespräche ohne Umweg über E-Mail." },
+      { icon: Paperclip,   title: "Dateianhänge",             body: "Bilder, PDFs und Dokumente direkt im Chat — DSGVO-konform gespeichert, über den sicheren privaten Bucket abgerufen." },
+      { icon: Smile,       title: "Reaktionen & Threads",     body: "Emoji-Reaktionen und Thread-Antworten halten Konversationen übersichtlich — auch in aktiven Team-Channels." },
+      { icon: Bell,        title: "Benachrichtigungen",       body: "Erwähnungen, neue Nachrichten und Channel-Updates — konfigurierbar pro Channel und Gerät." },
+      { icon: Shield,      title: "Private Kanäle",           body: "Sensitive Kommunikation bleibt dort, wo sie hingehört. Zugriffsschutz auf Channel-Ebene, RLS auf DB-Ebene." },
+    ],
+    steps: [
+      { number: "01", title: "Channel anlegen",         body: "Für jede Abteilung, jeden Standort oder jedes Projekt einen Channel erstellen — öffentlich oder privat." },
+      { number: "02", title: "Team einladen",           body: "Mitarbeitende aus Persona direkt in Channels einladen. Neue Mitarbeitende werden automatisch zugewiesen." },
+      { number: "03", title: "Kommunizieren",           body: "Text, Bilder, Dateien, Reaktionen — in Echtzeit, DSGVO-konform und ohne externe Anbieter." },
+    ],
+    compatibleWith: ["Persona", "Flow", "Atlas"],
+    quote: {
+      text:    "Seit wir Chat nutzen, haben wir unsere Team-WhatsApp-Gruppen komplett abgelöst. Die Kommunikation läuft jetzt offiziell, nachvollziehbar und ohne private Handys.",
+      author:  "Operations Manager",
+      role:    "4-Sterne-Hotel, 85 Mitarbeitende",
+      company: "Bergresort Tirol",
+    },
+  },
+
+  admin: {
+    slug:        "admin",
+    name:        "Admin Center",
+    tagline:     "Das Cockpit für deine gesamte Organisation",
+    description: "Lizenzen verwalten, Nutzer kontrollieren, Abrechnung einsehen und Apps aktivieren — das zentrale Steuerungszentrum für IT-Admins und HR-Verantwortliche.",
+    seoTitle:    "Admin Center — Organisationsverwaltung & Lizenzmanagement",
+    seoDesc:     "Hostpartners Admin Center: Zentrale Verwaltung von Lizenzen, Nutzern, Abrechnungen und App-Konfigurationen. Für IT-Admins und HR-Verantwortliche.",
+    keywords:    ["Admin Center HR", "Lizenzverwaltung Software", "Nutzerverwaltung HR", "IT Admin HR Software", "Organisation verwalten"],
+    color:       "bg-zinc-800",
+    colorHex:    "#27272a",
+    icon:        LayoutDashboard,
+    license:     "Immer aktiv — kein Lizenzschlüssel erforderlich",
+    stats: [
+      { value: "1",    label: "Cockpit für alles" },
+      { value: "∞",    label: "Nutzer & Rollen" },
+      { value: "Live", label: "Nutzungsübersicht" },
+    ],
+    features: [
+      { icon: Package,      title: "App-Management",          body: "Aktiviere und deaktiviere Apps für deine Organisation per Klick — ohne Support-Ticket oder Vertragsstress." },
+      { icon: CreditCard,   title: "Abrechnung & Lizenzen",   body: "Alle Rechnungen, Zahlungsarten und Laufzeiten an einem Ort. Lizenzen monatlich skalieren — nach oben und unten." },
+      { icon: Users,        title: "Nutzerverwaltung",        body: "Anlegen, Deaktivieren, Rollen zuweisen — mit Überblick über aktive Sitzungen und Zugriffshistorie." },
+      { icon: Gauge,        title: "Nutzungsanalyse",         body: "Welche Apps werden wie intensiv genutzt? Live-Metriken pro App, Abteilung und Zeitraum." },
+      { icon: Settings,     title: "Organisations-Einstellungen", body: "Name, Branding, Domain, DSGVO-Einstellungen und Datenschutz-Präferenzen zentral konfigurieren." },
+      { icon: Shield,       title: "Sicherheits-Center",      body: "Audit-Log aller Admin-Aktionen, SSO-Konfiguration und 2FA-Erzwingung für bestimmte Rollen." },
+    ],
+    steps: [
+      { number: "01", title: "Apps aktivieren",         body: "Wähle aus der App-Suite, was dein Betrieb braucht — Starter, Pro oder Enterprise als Basis." },
+      { number: "02", title: "Team einrichten",         body: "Nutzer anlegen, Rollen vergeben, Berechtigungsgruppen konfigurieren." },
+      { number: "03", title: "Überblick behalten",      body: "Nutzungsmetriken, Rechnungen und Sicherheits-Log live im Dashboard." },
+    ],
+    compatibleWith: ["Persona", "Flow", "Lumen"],
   },
 }
 

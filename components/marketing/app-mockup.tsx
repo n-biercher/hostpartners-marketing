@@ -189,34 +189,6 @@ function TempoMockup() {
   )
 }
 
-function PulseMockup() {
-  return (
-    <div className="space-y-2">
-      <Card className="space-y-2">
-        <Bar w="w-32" h="h-2.5" />
-        <div className="flex gap-1">
-          {[80, 60, 90, 70, 85].map((v, i) => (
-            <div key={i} className="flex-1 rounded bg-amber-500/20 border border-amber-500/30" style={{ height: `${v * 0.4}px` }} />
-          ))}
-        </div>
-      </Card>
-      {[
-        { label: 78, bar: "w-[78%]", color: "bg-amber-500" },
-        { label: 92, bar: "w-[92%]", color: "bg-emerald-500" },
-        { label: 61, bar: "w-[61%]", color: "bg-blue-500" },
-      ].map((r, i) => (
-        <Card key={i} className="flex items-center gap-2">
-          <Circle size="size-5" color={r.color} />
-          <div className="flex-1 h-1.5 rounded-full bg-border overflow-hidden">
-            <div className={cn("h-full rounded-full", r.color, r.bar)} />
-          </div>
-          <span className="text-[9px] font-mono text-muted-foreground">{r.label}%</span>
-        </Card>
-      ))}
-    </div>
-  )
-}
-
 function LumenMockup() {
   return (
     <div className="space-y-2">
@@ -374,6 +346,88 @@ function PayrollMockup() {
   )
 }
 
+function ChatMockup() {
+  const messages = [
+    { self: false, w: 72, lines: 1, color: "bg-fuchsia-500/20" },
+    { self: true,  w: 88, lines: 2, color: "bg-fuchsia-600" },
+    { self: false, w: 60, lines: 1, color: "bg-fuchsia-500/20" },
+    { self: true,  w: 50, lines: 1, color: "bg-fuchsia-600" },
+  ]
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-center gap-2 mb-3 px-0.5">
+        <div className="size-5 rounded-full bg-fuchsia-500/30" />
+        <Bar w="w-20" h="h-2" />
+        <div className="ml-auto flex gap-1">
+          <div className="size-4 rounded bg-border/50" />
+          <div className="size-4 rounded bg-border/50" />
+        </div>
+      </div>
+      {messages.map((m, i) => (
+        <div key={i} className={cn("flex", m.self ? "justify-end" : "justify-start")}>
+          {!m.self && <div className="size-4 rounded-full bg-fuchsia-500/25 mr-1.5 mt-0.5 shrink-0" />}
+          <div
+            className={cn("rounded-xl px-2.5 py-1.5 space-y-1", m.color)}
+            style={{ maxWidth: `${m.w}%` }}
+          >
+            <div className={cn("h-1.5 rounded-full", m.self ? "bg-white/40" : "bg-border")} style={{ width: "100%" }} />
+            {m.lines > 1 && <div className={cn("h-1.5 rounded-full", m.self ? "bg-white/30" : "bg-border/60")} style={{ width: "65%" }} />}
+          </div>
+        </div>
+      ))}
+      <div className="mt-3 flex items-center gap-1.5 rounded-lg border border-border bg-muted/30 px-2.5 py-1.5">
+        <div className="h-1.5 flex-1 rounded-full bg-border/40" />
+        <div className="size-5 rounded-md bg-fuchsia-600 flex items-center justify-center">
+          <div className="size-2 rounded-full bg-white/80" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AdminMockup() {
+  const stats = [
+    { label: 42, val: "85%", color: "bg-zinc-400" },
+    { label: 28, val: "62%", color: "bg-zinc-500" },
+    { label: 11, val: "100%", color: "bg-emerald-500" },
+  ]
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2 mb-3">
+        <Bar w="w-20" h="h-2.5" />
+        <div className="ml-auto flex gap-1">
+          <div className="h-5 px-2 rounded bg-zinc-500/20 border border-zinc-500/30 text-[7px] flex items-center text-muted-foreground">Apps</div>
+          <div className="h-5 px-2 rounded bg-border text-[7px] flex items-center text-muted-foreground">Users</div>
+        </div>
+      </div>
+      <div className="grid grid-cols-3 gap-1.5 mb-2">
+        {stats.map((s, i) => (
+          <Card key={i} className="text-center py-2">
+            <div className="text-[11px] font-bold text-foreground">{s.label}</div>
+            <div className="text-[7px] text-muted-foreground/60 mb-1.5">Apps</div>
+            <div className="h-1 w-full rounded-full bg-border overflow-hidden">
+              <div className={cn("h-full rounded-full", s.color)} style={{ width: s.val }} />
+            </div>
+          </Card>
+        ))}
+      </div>
+      <Card>
+        <div className="flex items-center gap-2 mb-2">
+          <Bar w="w-16" h="h-2" />
+          <div className="ml-auto h-4 w-12 rounded bg-zinc-600/20 border border-zinc-600/30" />
+        </div>
+        {[80, 60, 90].map((w, i) => (
+          <div key={i} className="flex items-center gap-2 py-1 border-t border-border/50 first:border-0">
+            <div className="size-3 rounded bg-border/60" />
+            <div className="h-1.5 rounded-full bg-border flex-1" style={{ width: `${w}%` }} />
+            <div className="h-3 w-8 rounded bg-emerald-500/20 border border-emerald-500/30" />
+          </div>
+        ))}
+      </Card>
+    </div>
+  )
+}
+
 // ─── Main export ───────────────────────────────────────────────────────────────
 
 const MOCKUP_MAP: Record<string, React.ComponentType> = {
@@ -382,11 +436,12 @@ const MOCKUP_MAP: Record<string, React.ComponentType> = {
   academy:     AcademyMockup,
   flow:        FlowMockup,
   tempo:       TempoMockup,
-  pulse:       PulseMockup,
   lumen:       LumenMockup,
   atlas:       AtlasMockup,
   hire:        HireMockup,
   payroll:     PayrollMockup,
+  chat:        ChatMockup,
+  admin:       AdminMockup,
 }
 
 interface AppMockupProps {

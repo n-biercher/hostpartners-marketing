@@ -1096,7 +1096,7 @@ function IndustrieControlTowerCard() {
             {[
               { time: "06:00", title: "Frühschicht gestartet", body: "39 Mitarbeitende eingecheckt, 1 Tausch automatisch genehmigt." },
               { time: "10:30", title: "Unterweisung fällig", body: "Logistik-Team Süd fehlt noch bei 3 Stapler-Refreshs." },
-              { time: "14:00", title: "1:1 Block Schichtleiter", body: "Pulse erinnert an 6 offene Feedback-Gespräche." },
+              { time: "14:00", title: "1:1 Block Schichtleiter", body: "Atlas hält alle Gesprächsnotizen und Protokolle strukturiert griffbereit." },
             ].map((event) => (
               <div key={event.title} className="grid grid-cols-[46px_1fr] gap-3 rounded-xl border border-[#1e2a3a] bg-[#111827] px-3 py-3">
                 <div className="rounded-lg border border-[#1e2a3a] bg-[#0b1220] px-2 py-2 text-center text-[10px] font-bold text-[#60a5fa]">
@@ -1164,8 +1164,8 @@ function IndustrieStage({ industry }: { industry: IndustryData }) {
       num: "03",
       title: "Führungsebene",
       subtitle: "Performance & Standort-Control",
-      body: "Jahresgespräche, OKR-Zyklen und 1:1-Meetings strukturieren die Führungsarbeit vom Schichtleiter bis zur Geschäftsführung. Pulse gibt Standortleitungen ein einheitliches Werkzeug — ohne E-Mail-Chaos zwischen Werken.",
-      points: ["Jahresgespräche mit Dokumentation", "OKR-Zyklen standortübergreifend", "1:1-Meetings mit automatischen Notizen", "Pulse-Surveys für Stimmungsbilder"],
+      body: "Recruiting, Onboarding und Kompetenzentwicklung greifen ineinander. Hire übergibt Einstellungen direkt an Flow, Atlas hält das Wissen aktuell — ohne E-Mail-Chaos zwischen Werken.",
+      points: ["Recruiting und Onboarding nahtlos verbunden", "Kompetenzmatrix für Schichtleiter", "Atlas als zentrales Handbuch", "Lumen für standortübergreifende Suche"],
       accent: "#a78bfa",
       bg: "#faf8ff",
     },

@@ -100,7 +100,7 @@ export default function ImpressumPage() {
         </P>
         <P>
           Das Hostpartners-Logo, die Produktnamen (Persona, Atlas, Academy, Flow, Tempo, Roster,
-          Pulse, Lumen) und das Hostpartners-Erscheinungsbild sind Marken der Hostpartners GmbH.
+          Lumen, Hire, Payroll) und das Hostpartners-Erscheinungsbild sind Marken der Hostpartners GmbH.
           Eine Nutzung ohne ausdrückliche schriftliche Genehmigung ist nicht gestattet.
         </P>
       </LegalSection>

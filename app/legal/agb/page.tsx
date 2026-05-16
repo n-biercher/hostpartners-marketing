@@ -60,7 +60,7 @@ export default function AGBPage() {
           <><Strong>Prozesse (Flow)</Strong> — Onboarding, Offboarding, Antragsflows und Genehmigungsprozesse.</>,
           <><Strong>Zeit & Abwesenheit (Tempo)</Strong> — Zeiterfassung, Urlaubsverwaltung und Abwesenheitssalden.</>,
           <><Strong>Schichtplanung (Roster)</Strong> — Schichtpläne, Verfügbarkeiten und Tauschbörse.</>,
-          <><Strong>Performance (Pulse)</Strong> — Reviews, OKRs, 1:1-Meetings und Pulse-Surveys.</>,
+          <><Strong>Recruiting (Hire)</Strong> — Bewerbermanagement, Karriereseite und Onboarding-Übergabe.</>,
           <><Strong>KI-Assistent (Lumen)</Strong> — KI-gestützte Suche und Chat über die betriebliche Wissensbasis.</>,
         ]} />
         <P>

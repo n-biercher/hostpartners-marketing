@@ -10,27 +10,29 @@ import {
   ArrowRight, Users, BookOpen, GraduationCap, GitBranch,
   Clock, CalendarDays, Sparkles,
   Check, Building2, ChefHat, Factory, ChevronRight,
-  Shield, Globe, Zap, UserPlus, Wallet,
+  Shield, Globe, Zap, UserPlus, Wallet, MessageSquare, LayoutDashboard,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type AppKey = "persona" | "atlas" | "academy" | "flow" | "tempo" | "roster" | "lumen" | "hire" | "payroll"
+type AppKey = "persona" | "atlas" | "academy" | "flow" | "tempo" | "roster" | "lumen" | "hire" | "payroll" | "chat" | "admin"
 type SnippetKey = "academy" | "roster" | "flow"
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const APPS: { name: string; desc: string; icon: React.ComponentType<{ className?: string }>; color: string; key: AppKey }[] = [
-  { name: "Persona",  desc: "Stammdaten & Organigramm",  icon: Users,         color: "bg-slate-600",   key: "persona" },
-  { name: "Atlas",    desc: "Wissensdatenbank",           icon: BookOpen,      color: "bg-emerald-600", key: "atlas" },
-  { name: "Academy",  desc: "Schulungen & Kurse",         icon: GraduationCap, color: "bg-blue-600",    key: "academy" },
-  { name: "Flow",     desc: "Onboarding & Prozesse",      icon: GitBranch,     color: "bg-violet-600",  key: "flow" },
-  { name: "Tempo",    desc: "Zeiterfassung & Urlaub",     icon: Clock,         color: "bg-orange-500",  key: "tempo" },
-  { name: "Roster",   desc: "Schichtplanung",             icon: CalendarDays,  color: "bg-rose-600",    key: "roster" },
-  { name: "Lumen",    desc: "KI-Assistent",               icon: Sparkles,      color: "bg-indigo-600",  key: "lumen" },
-  { name: "Hire",     desc: "Recruiting & Bewerbungen",   icon: UserPlus,      color: "bg-sky-600",     key: "hire" },
-  { name: "Payroll",  desc: "Lohn & Abrechnung",          icon: Wallet,        color: "bg-teal-600",    key: "payroll" },
+  { name: "Persona",      desc: "Stammdaten & Organigramm",  icon: Users,            color: "bg-slate-600",   key: "persona" },
+  { name: "Atlas",        desc: "Wissensdatenbank",           icon: BookOpen,         color: "bg-emerald-600", key: "atlas" },
+  { name: "Academy",      desc: "Schulungen & Kurse",         icon: GraduationCap,    color: "bg-blue-600",    key: "academy" },
+  { name: "Flow",         desc: "Onboarding & Prozesse",      icon: GitBranch,        color: "bg-violet-600",  key: "flow" },
+  { name: "Tempo",        desc: "Zeiterfassung & Urlaub",     icon: Clock,            color: "bg-orange-500",  key: "tempo" },
+  { name: "Roster",       desc: "Schichtplanung",             icon: CalendarDays,     color: "bg-rose-600",    key: "roster" },
+  { name: "Lumen",        desc: "KI-Assistent",               icon: Sparkles,         color: "bg-indigo-600",  key: "lumen" },
+  { name: "Hire",         desc: "Recruiting & Bewerbungen",   icon: UserPlus,         color: "bg-sky-600",     key: "hire" },
+  { name: "Payroll",      desc: "Lohn & Abrechnung",          icon: Wallet,           color: "bg-teal-600",    key: "payroll" },
+  { name: "Chat",         desc: "Team-Kommunikation",         icon: MessageSquare,    color: "bg-fuchsia-600", key: "chat" },
+  { name: "Admin Center", desc: "Cockpit & Lizenzmanagement", icon: LayoutDashboard,  color: "bg-zinc-700",    key: "admin" },
 ]
 
 const INDUSTRIES = [

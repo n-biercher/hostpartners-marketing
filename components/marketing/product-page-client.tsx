@@ -17,6 +17,9 @@ import {
   UserPlus, Wallet, Download, Send, Filter,
   Building2, Mail, Phone, MapPin, Receipt,
   Calculator, PieChart, Banknote, ClipboardList,
+  Hash, AtSign, Paperclip, Smile, LayoutDashboard,
+  Settings, CreditCard, Package, BarChart2, Gauge,
+  Globe, Bell, Plug, Database, ChevronDown,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PRODUCTS, type ProductData } from "@/lib/marketing/products"
@@ -1114,7 +1117,7 @@ function PersonaPage({ product, accountCtaHref, accountCtaLabel }: ProductPagePr
         </section>
       )}
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <PersonaClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -1583,7 +1586,7 @@ function AtlasPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProp
         </div>
       </section>
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <AtlasClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -2166,7 +2169,7 @@ function AcademyPage({ product, accountCtaHref, accountCtaLabel }: ProductPagePr
         </section>
       )}
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <AcademyClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -2660,7 +2663,7 @@ function FlowPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps
         </div>
       </section>
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <FlowClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -3353,7 +3356,7 @@ function TempoPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProp
         </section>
       )}
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <TempoClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -4032,191 +4035,7 @@ function RosterPage({ product, accountCtaHref, accountCtaLabel }: ProductPagePro
         </section>
       )}
 
-      <PageCTA product={product} dark accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
-    </>
-  )
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// PULSE — Performance & OKRs
-// Dark hero with animated EKG → OKR visualization → review cycle → CTA
-// ══════════════════════════════════════════════════════════════════════════════
-
-function PulsePage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
-  const ekgRef = useRef(null)
-  const ekgInView = useInView(ekgRef, { once: true })
-
-  // EKG path (a realistic heartbeat wave)
-  const ekgPath = "M0,60 L40,60 L55,60 L60,20 L65,80 L70,10 L75,90 L80,60 L95,60 L120,60 L135,60 L140,40 L145,75 L150,30 L155,85 L160,60 L180,60 L220,60"
-
-  const okrs = [
-    { objective: "Gäste-Zufriedenheit steigern",  progress: 78, color: "#f59e0b" },
-    { objective: "Mitarbeiter-Fluktuation senken", progress: 55, color: "#10b981" },
-    { objective: "Schulungsquote erhöhen",          progress: 92, color: "#3b82f6" },
-  ]
-
-  return (
-    <>
-      {/* ── HERO: Dark with EKG animation ── */}
-      <section className="relative min-h-screen bg-white flex flex-col overflow-hidden">
-        <Grain opacity={0.02} />
-        <div aria-hidden className="pointer-events-none absolute inset-0"
-          style={{ background: `radial-gradient(ellipse at 60% 40%, ${product.colorHex}12 0%, transparent 60%)` }} />
-
-        {/* EKG background decoration */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 overflow-hidden opacity-[0.06]">
-          <svg viewBox="0 0 300 100" preserveAspectRatio="none" className="w-full h-full">
-            <motion.path d={ekgPath} fill="none" stroke={product.colorHex} strokeWidth="1.5"
-              pathLength={0}
-              animate={{ pathLength: [0, 1, 1], opacity: [1, 1, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </svg>
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-screen-xl px-6 sm:px-8 w-full flex flex-col flex-1">
-          <div className="pt-32 mb-auto">
-            <BackLink />
-          </div>
-
-          <div className="pb-20">
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-              className="text-[10px] font-mono font-semibold uppercase tracking-[0.28em] mb-8"
-              style={{ color: `${product.colorHex}80` }}
-            >
-              {product.license}
-            </motion.p>
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-[80px] sm:text-[120px] lg:text-[160px] font-normal leading-[0.88] tracking-tight text-foreground mb-6"
-            >
-              {product.name}
-            </motion.h1>
-
-            <div className="flex flex-col sm:flex-row sm:items-end gap-8 sm:gap-20">
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.28 }}
-                className="text-[20px] sm:text-[24px] text-muted-foreground leading-relaxed max-w-sm"
-              >
-                {product.tagline}
-              </motion.p>
-              <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.38 }}
-                className="flex items-center gap-3 shrink-0"
-              >
-                <Link href="/login" className="inline-flex items-center gap-2 h-11 px-7 rounded-full bg-white text-[#060606] text-[13px] font-semibold hover:bg-white/90 transition-colors">
-                  Demo buchen <ArrowRight className="size-3.5" />
-                </Link>
-                <Link href={accountCtaHref} className="inline-flex items-center h-11 px-7 rounded-full border border-border text-muted-foreground text-[13px] hover:bg-muted/40 hover:text-foreground transition-all">
-                  {accountCtaLabel}
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Metric cards */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-14 grid grid-cols-3 gap-3"
-            >
-              {product.stats.map((s, i) => (
-                <div key={s.label} className="p-5 rounded-2xl border border-border bg-white">
-                  <p className="font-heading text-[36px] sm:text-[44px] font-normal leading-none mb-1.5"
-                    style={{ color: product.colorHex }}>{s.value}</p>
-                  <p className="text-[11px] text-muted-foreground/70">{s.label}</p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── OKR SECTION ── */}
-      <section className="py-32 sm:py-44 bg-background border-b border-border">
-        <div className="mx-auto max-w-screen-xl px-6 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <FadeUp>
-              <p className="text-[10.5px] font-mono font-semibold uppercase tracking-[0.25em] mb-5"
-                style={{ color: `${product.colorHex}80` }}>OKR-Management</p>
-              <h2 className="font-heading text-[48px] sm:text-[68px] font-normal leading-[0.9] tracking-tight text-foreground mb-6">
-                Ziele, die wirklich bewegen.
-              </h2>
-              <p className="text-[16px] text-muted-foreground leading-relaxed max-w-sm">{product.description}</p>
-            </FadeUp>
-            <FadeUp delay={0.12}>
-              <div className="p-6 rounded-2xl border border-border bg-background shadow-lg shadow-foreground/[0.04]">
-                <p className="text-[12px] font-semibold text-muted-foreground mb-5">Q2 2025 — Objectives</p>
-                <div className="space-y-5">
-                  {okrs.map((o, i) => (
-                    <div key={o.objective}>
-                      <div className="flex items-center justify-between mb-2">
-                        <p className="text-[13.5px] font-medium text-foreground">{o.objective}</p>
-                        <span className="text-[12px] font-mono text-muted-foreground">{o.progress}%</span>
-                      </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <motion.div className="h-full rounded-full"
-                          style={{ background: o.color }}
-                          initial={{ width: "0%" }}
-                          whileInView={{ width: `${o.progress}%` }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.2 + i * 0.1, duration: 1.2, ease: "easeOut" }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeUp>
-          </div>
-        </div>
-      </section>
-
-      {/* ── FEATURES ── */}
-      <section className="py-32 sm:py-44 bg-muted/10 border-b border-border">
-        <div className="mx-auto max-w-screen-xl px-6 sm:px-8">
-          <FadeUp className="mb-20 text-center">
-            <h2 className="font-heading text-[48px] sm:text-[68px] font-normal leading-[0.9] tracking-tight text-foreground">
-              Performance von<br />
-              <span className="text-muted-foreground/40 italic">allen Seiten.</span>
-            </h2>
-          </FadeUp>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {product.features.slice(0, 6).map((f, i) => {
-              const FIcon = f.icon
-              return (
-                <FadeUp key={f.title} delay={i * 0.06}>
-                  <motion.div whileHover={{ y: -4, boxShadow: "0 16px 40px rgba(0,0,0,0.07)" }} transition={{ duration: 0.2 }}
-                    className="p-7 rounded-2xl border border-border bg-background h-full"
-                  >
-                    <div className="size-9 rounded-xl border border-border bg-muted/50 flex items-center justify-center mb-5">
-                      <FIcon className="size-4 text-muted-foreground" />
-                    </div>
-                    <h3 className="text-[16px] font-semibold text-foreground mb-2">{f.title}</h3>
-                    <p className="text-[13px] text-muted-foreground leading-relaxed">{f.body}</p>
-                  </motion.div>
-                </FadeUp>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {product.quote && (
-        <section className="product-quote-section py-32 bg-[#f8fafc] relative overflow-hidden border-t border-gray-100">
-          <Grain opacity={0.02} />
-          <div className="relative mx-auto max-w-screen-xl px-6 sm:px-8">
-            <FadeUp className="max-w-3xl mx-auto text-center">
-              <p className="font-heading text-[28px] sm:text-[40px] font-normal leading-snug text-gray-900 mb-8">
-                &ldquo;{product.quote.text}&rdquo;
-              </p>
-              <p className="text-[14px] font-semibold text-gray-700">{product.quote.author}</p>
-              <p className="text-[12px] text-gray-400">{product.quote.role} · {product.quote.company}</p>
-            </FadeUp>
-          </div>
-        </section>
-      )}
-
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <RosterClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -4752,7 +4571,7 @@ function LumenPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProp
         </div>
       </section>
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <LumenClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -5281,7 +5100,7 @@ function HirePage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps
         </section>
       )}
 
-      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <HireClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
 }
@@ -5693,6 +5512,1565 @@ function PayrollPage({ product, accountCtaHref, accountCtaLabel }: ProductPagePr
         </div>
       </section>
 
+      <PayrollClosing product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Shared minimal final CTA strip
+// ══════════════════════════════════════════════════════════════════════════════
+
+function ProductFinalCTA({ product, accountCtaHref, accountCtaLabel }: ProductPageProps & { accountCtaHref: string; accountCtaLabel: string }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-60px 0px" as any })
+  const Icon = product.icon
+  return (
+    <section ref={ref} className="py-24 bg-foreground relative overflow-hidden">
+      <Grain opacity={0.04} />
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse at 60% 50%, ${product.colorHex}22 0%, transparent 55%)` }} />
+      <div className="relative z-10 max-w-screen-xl mx-auto px-6 sm:px-8 flex flex-col lg:flex-row items-center justify-between gap-10">
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6 }}>
+          <div className={cn("size-14 rounded-2xl flex items-center justify-center mb-5", product.color)} style={{ boxShadow: `0 12px 40px ${product.colorHex}40` }}>
+            <Icon className="size-7 text-white" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-black text-background leading-[0.93] mb-3">
+            {product.name} für dein Team.
+          </h2>
+          <p className="text-background/50 text-[15px] max-w-sm leading-relaxed">{product.tagline}</p>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}
+          className="flex flex-col sm:flex-row gap-3 shrink-0">
+          <Link href="/demo"
+            className="inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-background text-foreground text-[13px] font-semibold hover:opacity-90 transition-opacity">
+            Demo buchen <ArrowRight className="size-4" />
+          </Link>
+          <Link href={accountCtaHref}
+            className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-background/20 text-background/80 hover:text-background text-[13px] font-medium transition-colors">
+            {accountCtaLabel}
+          </Link>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Persona closing — org chart + team analytics
+// ══════════════════════════════════════════════════════════════════════════════
+
+function PersonaClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const depts = [
+    { name: "Geschäftsführung", color: "bg-slate-400", people: 2, children: ["F&B", "Operations", "Marketing"] },
+    { name: "F&B", color: "bg-emerald-500", people: 12, children: [] },
+    { name: "Operations", color: "bg-violet-500", people: 24, children: [] },
+    { name: "Marketing", color: "bg-sky-500", people: 8, children: [] },
+  ]
+
+  const stats = [
+    { value: "247", label: "Mitarbeiter" },
+    { value: "14", label: "Abteilungen" },
+    { value: "38", label: "Positionen" },
+    { value: "4.2", label: "Ø Dokumente/MA" },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-slate-950 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 left-1/4 w-[500px] h-[300px] rounded-full bg-slate-700/20 blur-[80px]" />
+          <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
+            <defs><pattern id="pg" width="32" height="32" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="white" />
+            </pattern></defs>
+            <rect width="100%" height="100%" fill="url(#pg)" />
+          </svg>
+        </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6 }}>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-500 mb-4">Organisationsstruktur</p>
+              <h2 className="text-4xl sm:text-5xl font-black text-white leading-[0.93] mb-6">
+                Euer ganzes Team.<br /><span className="text-slate-400">Klar. Strukturiert. Aktuell.</span>
+              </h2>
+              <p className="text-slate-400 text-[15px] leading-relaxed mb-8">
+                Persona ist das lebende Organigramm eurer Organisation — von der Unternehmensstruktur bis zum einzelnen Arbeitsprofil.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {stats.map((s) => (
+                  <div key={s.label} className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-4">
+                    <div className="text-3xl font-black text-white tabular-nums mb-1">{s.value}</div>
+                    <div className="text-[12px] text-slate-500">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+                <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-6">Organigramm — Mein Betrieb</div>
+                <div className="flex flex-col items-center gap-0">
+                  {/* Root */}
+                  <div className="rounded-xl border border-slate-700 bg-slate-800 px-5 py-3 flex items-center gap-3">
+                    <div className="size-7 rounded-lg bg-slate-400 flex items-center justify-center text-[10px] font-bold text-white">GF</div>
+                    <div>
+                      <div className="text-[13px] font-semibold text-white">Geschäftsführung</div>
+                      <div className="text-[10px] text-slate-500">2 Personen</div>
+                    </div>
+                  </div>
+                  <div className="w-px h-5 bg-slate-700" />
+                  <div className="w-full flex items-start justify-center gap-3 relative">
+                    <div className="absolute top-0 left-1/4 right-1/4 h-px bg-slate-700" />
+                    {[
+                      { label: "F&B", color: "bg-emerald-600", count: 12 },
+                      { label: "Operations", color: "bg-violet-600", count: 24 },
+                      { label: "Marketing", color: "bg-sky-600", count: 8 },
+                    ].map((d, i) => (
+                      <div key={d.label} className="flex flex-col items-center">
+                        <div className="w-px h-5 bg-slate-700" />
+                        <div className="rounded-xl border border-slate-700 bg-slate-800 px-3 py-2.5 flex items-center gap-2 min-w-0">
+                          <div className={cn("size-6 rounded-md flex items-center justify-center text-[9px] font-bold text-white shrink-0", d.color)}>{d.label[0]}</div>
+                          <div>
+                            <div className="text-[12px] font-semibold text-white whitespace-nowrap">{d.label}</div>
+                            <div className="text-[10px] text-slate-500">{d.count} MA</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-5 w-full flex items-center justify-between px-2">
+                    {["Sarah K.", "Tom M.", "Julia R.", "Ben W."].map((name, i) => (
+                      <div key={name} className="flex flex-col items-center gap-1.5">
+                        <div className={cn("size-8 rounded-full flex items-center justify-center text-[10px] font-bold text-white",
+                          ["bg-emerald-500", "bg-violet-500", "bg-sky-500", "bg-rose-500"][i])}>
+                          {name.split(" ").map(n => n[0]).join("")}
+                        </div>
+                        <div className="text-[9px] text-slate-500 whitespace-nowrap">{name}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Atlas closing — search experience + knowledge stats
+// ══════════════════════════════════════════════════════════════════════════════
+
+function AtlasClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const articles = [
+    { title: "HACCP-Richtlinien für die Küche", cat: "Hygiene", views: "1.2k", updated: "Heute" },
+    { title: "Einarbeitung neuer Mitarbeiter", cat: "HR", views: "834", updated: "Gestern" },
+    { title: "Allergenkennzeichnung nach EU-VO", cat: "Compliance", views: "612", updated: "vor 3 Tagen" },
+    { title: "Brandschutz — Notfallplan Hotel", cat: "Sicherheit", views: "409", updated: "vor 1 Woche" },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-background border-t border-border">
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+            className="text-center mb-12">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-emerald-600/60 mb-3">Wissensdatenbank</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-foreground mb-4">Alles findet sich.<br /><span className="text-muted-foreground">Sofort.</span></h2>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}
+            className="max-w-2xl mx-auto mb-10">
+            <div className="flex items-center gap-3 px-4 py-3.5 rounded-2xl border-2 border-emerald-500/30 bg-emerald-500/5 shadow-lg shadow-emerald-500/5">
+              <Search className="size-5 text-emerald-500 shrink-0" />
+              <span className="text-[15px] text-emerald-700 dark:text-emerald-300 font-medium">HACCP Vorschriften Küche</span>
+              <div className="ml-auto flex items-center gap-2">
+                <span className="text-[11px] text-muted-foreground">12 Treffer</span>
+                <div className="h-5 w-px bg-border" />
+                <span className="text-[11px] text-muted-foreground">in 0.08s</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto space-y-2">
+            {articles.map((a, i) => (
+              <motion.div key={a.title}
+                initial={{ opacity: 0, x: -16 }} animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.15 + i * 0.07 }}
+                className="flex items-center gap-4 px-5 py-4 rounded-xl border border-border bg-background hover:bg-muted/40 transition-colors group cursor-pointer">
+                <FileText className="size-4 text-muted-foreground shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[14px] font-semibold text-foreground group-hover:text-emerald-600 transition-colors truncate">{a.title}</div>
+                  <div className="text-[11px] text-muted-foreground mt-0.5">{a.updated} · {a.views} Aufrufe</div>
+                </div>
+                <span className="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">{a.cat}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-12 grid grid-cols-3 gap-4 max-w-lg mx-auto text-center">
+            {[{ v: "2.400+", l: "Artikel" }, { v: "98 %", l: "Suchgenauigkeit" }, { v: "< 0.1s", l: "Suchzeit" }].map(s => (
+              <div key={s.l} className="rounded-xl border border-border bg-muted/30 px-4 py-4">
+                <div className="text-2xl font-black text-foreground">{s.v}</div>
+                <div className="text-[11px] text-muted-foreground mt-1">{s.l}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Academy closing — learning progress + certificate
+// ══════════════════════════════════════════════════════════════════════════════
+
+function AcademyClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const formats = [
+    { icon: "▶", label: "Video", desc: "Aufgezeichnete Lektionen & Screencasts", color: "bg-blue-600" },
+    { icon: "✓", label: "Quiz", desc: "Multiple-Choice & Wissensfragen", color: "bg-violet-600" },
+    { icon: "Aa", label: "Text", desc: "Rich-Text-Artikel mit Medien", color: "bg-slate-600" },
+    { icon: "⚙", label: "SCORM", desc: "Import externer Lernpakete", color: "bg-sky-600" },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-blue-950 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 right-1/4 w-[600px] h-[400px] rounded-full bg-blue-800/20 blur-[100px]" />
+        </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6 }}>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-400/60 mb-4">Lernformate</p>
+              <h2 className="text-4xl sm:text-5xl font-black text-white leading-[0.93] mb-6">
+                Jede Art zu lernen.<br /><span className="text-blue-400">In einem System.</span>
+              </h2>
+              <p className="text-blue-200/60 text-[15px] leading-relaxed mb-8">
+                Academy unterstützt alle modernen Lernformate — egal ob selbstproduziert oder importiert.
+              </p>
+              <div className="grid grid-cols-2 gap-3">
+                {formats.map((f) => (
+                  <div key={f.label} className="rounded-xl border border-blue-800 bg-blue-900/50 p-4">
+                    <div className={cn("size-8 rounded-lg flex items-center justify-center text-white text-[13px] font-bold mb-3", f.color)}>{f.icon}</div>
+                    <div className="text-[13px] font-bold text-white mb-1">{f.label}</div>
+                    <div className="text-[11px] text-blue-300/60 leading-snug">{f.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.12 }}>
+              <div className="rounded-2xl border border-blue-800 bg-blue-900/40 p-6 mb-4">
+                <div className="text-[11px] font-semibold text-blue-400/60 uppercase tracking-wider mb-5">Team-Lernstand</div>
+                <div className="flex items-end gap-8 mb-6">
+                  {[{ pct: 78, label: "Abgeschlossen", color: "#3b82f6" }, { pct: 16, label: "In Bearbeitung", color: "#a78bfa" }, { pct: 6, label: "Fällig", color: "#f87171" }].map(r => (
+                    <div key={r.label} className="flex-1 flex flex-col items-center">
+                      <div className="relative size-16 mb-2">
+                        <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                          <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
+                          <circle cx="18" cy="18" r="15" fill="none" stroke={r.color} strokeWidth="3"
+                            strokeDasharray={`${r.pct * 0.94} 94`} strokeLinecap="round" />
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center text-[12px] font-black text-white">{r.pct}%</div>
+                      </div>
+                      <div className="text-[10px] text-blue-300/60 text-center leading-tight">{r.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-2">
+                  {["HACCP — Grundlagen", "Brandschutz 2024", "Servicestandards Hotel"].map((c, i) => (
+                    <div key={c} className="flex items-center gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[12px] text-white mb-1 truncate">{c}</div>
+                        <div className="h-1.5 rounded-full bg-blue-900 overflow-hidden">
+                          <div className="h-full rounded-full bg-blue-400" style={{ width: `${[78, 45, 92][i]}%` }} />
+                        </div>
+                      </div>
+                      <div className="text-[11px] text-blue-400 font-semibold">{[78, 45, 92][i]}%</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-blue-700 bg-gradient-to-br from-blue-600 to-violet-700 p-5 flex items-center gap-4">
+                <div className="size-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                  <Award className="size-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-[14px] font-bold text-white">Zertifikat ausgestellt</div>
+                  <div className="text-[12px] text-white/60 mt-0.5">Sarah K. · HACCP Grundlagen · heute</div>
+                </div>
+                <div className="ml-auto text-[11px] bg-white/20 px-2.5 py-1 rounded-full text-white font-semibold">✓ Bestanden</div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Flow closing — onboarding phase timeline
+// ══════════════════════════════════════════════════════════════════════════════
+
+function FlowClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const phases = [
+    { num: "01", label: "Vorbereitung", sub: "Vor Tag 1", color: "border-violet-500 bg-violet-500/10", tasks: ["Account anlegen", "Geräte bestellen", "Buddy zuweisen"] },
+    { num: "02", label: "Erste Woche", sub: "Tag 1–5", color: "border-violet-400 bg-violet-400/10", tasks: ["Intro-Meeting", "Tool-Einführung", "Erstgespräch HR"] },
+    { num: "03", label: "Erster Monat", sub: "Woche 2–4", color: "border-violet-300 bg-violet-300/10", tasks: ["Erste Aufgaben", "Feedback-Runde", "Schulungen"] },
+    { num: "04", label: "Abschluss", sub: "nach 90 Tagen", color: "border-violet-200 bg-violet-200/10", tasks: ["Review-Gespräch", "Ziele festlegen", "Abschluss ✓"] },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-background border-t border-border">
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+            className="text-center mb-14">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-violet-500/60 mb-3">Onboarding-Phasen</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-foreground">Vom ersten Tag<br /><span className="text-muted-foreground">bis zur vollen Wirkung.</span></h2>
+          </motion.div>
+
+          <div className="relative">
+            {/* Connecting line */}
+            <div className="hidden lg:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {phases.map((phase, i) => (
+                <motion.div key={phase.num}
+                  initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className={cn("relative rounded-2xl border-2 p-5", phase.color)}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="size-8 rounded-full border-2 border-violet-500 bg-background flex items-center justify-center text-[11px] font-black text-violet-600">{phase.num}</div>
+                    <div>
+                      <div className="text-[14px] font-bold text-foreground">{phase.label}</div>
+                      <div className="text-[11px] text-muted-foreground">{phase.sub}</div>
+                    </div>
+                  </div>
+                  <ul className="space-y-2">
+                    {phase.tasks.map((t, j) => (
+                      <li key={t} className="flex items-center gap-2 text-[12.5px] text-muted-foreground">
+                        <div className={cn("size-4 rounded-full border flex items-center justify-center shrink-0",
+                          j < 2 ? "bg-violet-500 border-violet-500" : "border-border")}>
+                          {j < 2 && <Check className="size-2.5 text-white" />}
+                        </div>
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.45 }}
+            className="mt-12 flex flex-wrap justify-center gap-6">
+            {[{ v: "340+", l: "Onboarding-Templates" }, { v: "14 Tage", l: "Ø Zeit bis Produktivität" }, { v: "94 %", l: "Abschlussquote" }].map(s => (
+              <div key={s.l} className="text-center">
+                <div className="text-3xl font-black text-foreground">{s.v}</div>
+                <div className="text-[12px] text-muted-foreground mt-1">{s.l}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Tempo closing — weekly time grid + absence balance
+// ══════════════════════════════════════════════════════════════════════════════
+
+function TempoClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const days = ["Mo", "Di", "Mi", "Do", "Fr"]
+  const employees = [
+    { name: "Sarah K.", blocks: [8.5, 8, 0, 7.5, 8] },
+    { name: "Tom M.", blocks: [7, 8.5, 9, 8, 0] },
+    { name: "Julia R.", blocks: [8, 0, 8, 9, 8.5] },
+  ]
+
+  const absences = [
+    { label: "Resturlaub", used: 12, total: 30, color: "bg-orange-400" },
+    { label: "Krankentage", used: 2, total: 15, color: "bg-rose-400" },
+    { label: "Überstunden", used: 18.5, total: 40, color: "bg-amber-400" },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-orange-950 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute bottom-0 left-1/3 w-[600px] h-[300px] rounded-full bg-orange-800/20 blur-[100px]" />
+        </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto px-6 sm:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+            className="text-center mb-12">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-orange-400/60 mb-3">Zeiterfassung & Urlaub</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">Jede Stunde.<br /><span className="text-orange-300">Klar erfasst.</span></h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Week grid */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.08 }}
+              className="lg:col-span-2 rounded-2xl border border-orange-800 bg-orange-900/40 p-5">
+              <div className="text-[11px] font-semibold text-orange-400/60 uppercase tracking-wider mb-4">Wochenansicht — KW 21</div>
+              <div className="grid grid-cols-6 gap-1 mb-2">
+                <div />
+                {days.map(d => <div key={d} className="text-[11px] text-orange-300/50 text-center font-semibold">{d}</div>)}
+              </div>
+              {employees.map((emp, ei) => (
+                <div key={emp.name} className="grid grid-cols-6 gap-1 mb-1.5">
+                  <div className="text-[11px] text-orange-200/60 flex items-center pr-1 truncate">{emp.name.split(" ")[0]}</div>
+                  {emp.blocks.map((h, di) => (
+                    <div key={di} className={cn("rounded-md h-8 flex items-center justify-center text-[10px] font-semibold",
+                      h === 0 ? "bg-orange-900/30 text-orange-800" : "bg-orange-500/30 text-orange-200 border border-orange-500/30")}>
+                      {h === 0 ? "–" : `${h}h`}
+                    </div>
+                  ))}
+                </div>
+              ))}
+              <div className="mt-4 flex items-center gap-2 rounded-lg bg-orange-500/10 border border-orange-500/20 px-3 py-2">
+                <div className="size-1.5 rounded-full bg-orange-400 animate-pulse" />
+                <span className="text-[12px] text-orange-200">Sarah K. ist seit 2h 14min eingestempelt</span>
+              </div>
+            </motion.div>
+
+            {/* Absence balances */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.55, delay: 0.15 }}
+              className="rounded-2xl border border-orange-800 bg-orange-900/40 p-5">
+              <div className="text-[11px] font-semibold text-orange-400/60 uppercase tracking-wider mb-5">Abwesenheitssalden</div>
+              <div className="space-y-5">
+                {absences.map(a => (
+                  <div key={a.label}>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[13px] text-orange-100 font-medium">{a.label}</span>
+                      <span className="text-[12px] text-orange-300 font-mono">{a.used} / {a.total}</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-orange-900 overflow-hidden">
+                      <div className={cn("h-full rounded-full", a.color)} style={{ width: `${(a.used / a.total) * 100}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 rounded-xl border border-orange-700 bg-orange-500/15 px-4 py-3">
+                <div className="text-[11px] text-orange-400/70 uppercase tracking-wider mb-1">Offene Anträge</div>
+                <div className="text-2xl font-black text-white">3</div>
+                <div className="text-[11px] text-orange-300/60 mt-0.5">warten auf Freigabe</div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Roster closing — shift board
+// ══════════════════════════════════════════════════════════════════════════════
+
+function RosterClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const rosterDays = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+  const shifts: Record<string, (string | null)[]> = {
+    "Sarah K.":  ["Früh 6–14", "Früh 6–14", null, "Spät 14–22", "Früh 6–14", "Früh 6–14", null],
+    "Tom M.":    [null, "Spät 14–22", "Spät 14–22", "Früh 6–14", null, "Spät 14–22", "Spät 14–22"],
+    "Julia R.":  ["Spät 14–22", null, "Früh 6–14", null, "Spät 14–22", null, "Früh 6–14"],
+    "Ben W.":    ["Nacht", "Nacht", "Nacht", null, null, "Nacht", "Nacht"],
+  }
+  const shiftColor = (s: string | null) => {
+    if (!s) return "bg-transparent text-transparent border-transparent"
+    if (s.startsWith("Früh")) return "bg-amber-500/20 text-amber-300 border-amber-500/30"
+    if (s.startsWith("Spät")) return "bg-violet-500/20 text-violet-300 border-violet-500/30"
+    return "bg-slate-500/20 text-slate-300 border-slate-500/30"
+  }
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-rose-950 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 right-1/4 w-[500px] h-[300px] rounded-full bg-rose-800/20 blur-[80px]" />
+        </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto px-6 sm:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-rose-400/60 mb-2">Schichtplan — KW 21</p>
+              <h2 className="text-4xl font-black text-white">Wer wann wo.<br /><span className="text-rose-300">Immer aktuell.</span></h2>
+            </div>
+            <div className="flex gap-3 text-[11px]">
+              {[{ dot: "bg-amber-400", label: "Früh" }, { dot: "bg-violet-400", label: "Spät" }, { dot: "bg-slate-400", label: "Nacht" }].map(l => (
+                <div key={l.label} className="flex items-center gap-1.5 text-rose-200/60">
+                  <div className={cn("size-2 rounded-full", l.dot)} />{l.label}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}
+            className="rounded-2xl border border-rose-800 bg-rose-900/40 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px]">
+                <thead>
+                  <tr className="border-b border-rose-800">
+                    <th className="text-left px-4 py-3 text-[11px] font-semibold text-rose-400/60 uppercase tracking-wider w-24">Mitarbeiter</th>
+                    {rosterDays.map((d, i) => (
+                      <th key={d} className={cn("px-2 py-3 text-center text-[11px] font-semibold",
+                        i === 5 ? "text-rose-400" : "text-rose-300/50")}>{d}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(shifts).map(([name, slots], ri) => (
+                    <tr key={name} className="border-b border-rose-900 last:border-0">
+                      <td className="px-4 py-3 text-[12px] font-semibold text-rose-100">{name.split(" ")[0]}</td>
+                      {slots.map((s, di) => (
+                        <td key={di} className="px-1.5 py-2 text-center">
+                          <div className={cn("rounded-md px-1 py-1.5 text-[9px] font-semibold border leading-tight", shiftColor(s))}>
+                            {s ? s.split(" ")[0] : "–"}
+                          </div>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-3 bg-rose-500/10 border-t border-rose-800">
+              <div className="size-4 rounded-full bg-rose-500 flex items-center justify-center text-white text-[8px] font-bold shrink-0">!</div>
+              <span className="text-[12px] text-rose-200">Samstag: Küche ist unterbesetzt — 1 Person fehlt für Frühschicht</span>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 grid grid-cols-3 gap-4">
+            {[{ v: "98 %", l: "Schichten besetzt" }, { v: "4.2h", l: "Ø Reaktionszeit Tausch" }, { v: "0", l: "manuelle Anrufe/Woche" }].map(s => (
+              <div key={s.l} className="rounded-xl border border-rose-800 bg-rose-900/40 px-4 py-4 text-center">
+                <div className="text-2xl font-black text-white">{s.v}</div>
+                <div className="text-[11px] text-rose-300/50 mt-1">{s.l}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Lumen closing — AI chat showcase
+// ══════════════════════════════════════════════════════════════════════════════
+
+function LumenClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const qa = [
+    {
+      q: "Welche HACCP-Vorschriften gelten speziell für unsere Hotelküche?",
+      a: "Für Ihre Hotelküche gelten die HACCP-Grundsätze nach VO (EG) Nr. 852/2004. Kritische Kontrollpunkte sind: Anlieferungstemperaturen (max. 7°C für Kühles), Kerntemperaturen beim Garen (min. 70°C für 2 Min.) und lückenlose Dokumentation. Ihre Atlas-Wissensdatenbank enthält dazu 3 aktuelle Artikel.",
+      sources: ["Atlas: HACCP Küche", "Atlas: EU-Verordnung 852"],
+    },
+    {
+      q: "Wie viele Urlaubstage hat Tom Müller noch in diesem Jahr?",
+      a: "Tom Müller hat 18 von 30 Urlaubstagen verbraucht. Es stehen noch 12 Tage zur Verfügung. 2 Tage sind bereits als Antrag gestellt (Genehmigung ausstehend).",
+      sources: ["Tempo: Urlaubssaldo"],
+    },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-indigo-950 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-indigo-700/15 blur-[120px]" />
+          <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
+            <defs><pattern id="pl" width="24" height="24" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="white" />
+            </pattern></defs>
+            <rect width="100%" height="100%" fill="url(#pl)" />
+          </svg>
+        </div>
+        <div className="relative z-10 max-w-screen-xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
+            <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6 }}>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-400/60 mb-4">KI-Assistent</p>
+              <h2 className="text-4xl sm:text-5xl font-black text-white leading-[0.93] mb-6">
+                Fragen stellen.<br /><span className="text-indigo-300">Antworten bekommen.</span><br /><span className="text-indigo-500">Sofort.</span>
+              </h2>
+              <p className="text-indigo-200/50 text-[15px] leading-relaxed mb-8">
+                Lumen durchsucht euren gesamten Wissensbestand — Atlas, Academy, Dokumente — und antwortet in natürlicher Sprache mit Quellenangaben.
+              </p>
+              <div className="space-y-3">
+                {[
+                  { label: "Wissensquellen", val: "Atlas, Academy, HR-Dokumente" },
+                  { label: "Antwortzeit", val: "< 2 Sekunden" },
+                  { label: "Sprachen", val: "DE, EN, + 18 weitere" },
+                  { label: "Datenschutz", val: "Kein Training auf euren Daten" },
+                ].map(item => (
+                  <div key={item.label} className="flex items-center justify-between py-2 border-b border-indigo-800/50">
+                    <span className="text-[13px] text-indigo-300/60">{item.label}</span>
+                    <span className="text-[13px] font-semibold text-indigo-100">{item.val}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.12 }}>
+              <div className="rounded-2xl border border-indigo-800 bg-[#0f0f1a] overflow-hidden">
+                <div className="flex items-center gap-2 px-4 py-3 border-b border-indigo-900">
+                  <div className="size-7 rounded-full bg-indigo-600 flex items-center justify-center">
+                    <Sparkles className="size-3.5 text-white" />
+                  </div>
+                  <span className="text-[13px] font-semibold text-indigo-100">Lumen</span>
+                  <div className="ml-auto flex items-center gap-1.5">
+                    <div className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[10px] text-indigo-400">Bereit</span>
+                  </div>
+                </div>
+                <div className="p-4 space-y-5 max-h-[420px] overflow-hidden">
+                  {qa.map((item, i) => (
+                    <div key={i} className="space-y-3">
+                      <div className="flex justify-end">
+                        <div className="max-w-[80%] rounded-2xl rounded-tr-sm bg-indigo-600 px-4 py-3 text-[13px] text-white leading-relaxed">
+                          {item.q}
+                        </div>
+                      </div>
+                      <div className="flex gap-2.5">
+                        <div className="size-6 rounded-full bg-indigo-700 flex items-center justify-center shrink-0 mt-0.5">
+                          <Sparkles className="size-3 text-indigo-200" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="rounded-2xl rounded-tl-sm bg-indigo-900/60 border border-indigo-800 px-4 py-3 text-[12.5px] text-indigo-100 leading-relaxed mb-2">
+                            {item.a}
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {item.sources.map(s => (
+                              <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-800/60 text-indigo-300 border border-indigo-700">📎 {s}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Hire closing — candidate pipeline
+// ══════════════════════════════════════════════════════════════════════════════
+
+function HireClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const pipeline = [
+    { stage: "Neu", color: "bg-slate-600", candidates: [{ init: "MK", col: "bg-slate-400" }, { init: "RL", col: "bg-slate-500" }, { init: "+4", col: "bg-slate-600" }] },
+    { stage: "Screening", color: "bg-sky-600", candidates: [{ init: "TH", col: "bg-sky-400" }, { init: "AW", col: "bg-sky-500" }] },
+    { stage: "Interview", color: "bg-violet-600", candidates: [{ init: "FB", col: "bg-violet-400" }] },
+    { stage: "Angebot", color: "bg-amber-600", candidates: [{ init: "SJ", col: "bg-amber-400" }] },
+    { stage: "Eingestellt", color: "bg-emerald-600", candidates: [{ init: "NK", col: "bg-emerald-400" }] },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-background border-t border-border">
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
+            className="text-center mb-14">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-sky-500/60 mb-3">Recruiting-Pipeline</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-foreground">Die besten Kandidaten.<br /><span className="text-muted-foreground">Immer im Blick.</span></h2>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}
+            className="overflow-x-auto pb-4">
+            <div className="flex gap-3 min-w-[700px]">
+              {pipeline.map((col, ci) => (
+                <div key={col.stage} className="flex-1 min-w-[130px]">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className={cn("size-2 rounded-full", col.color)} />
+                    <span className="text-[12px] font-semibold text-foreground">{col.stage}</span>
+                    <span className="ml-auto text-[11px] text-muted-foreground">{col.candidates.length}</span>
+                  </div>
+                  <div className="space-y-2">
+                    {col.candidates.map((c, i) => (
+                      <div key={i} className="flex items-center gap-2 p-2.5 rounded-xl border border-border bg-muted/30 hover:bg-muted/60 transition-colors">
+                        <div className={cn("size-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0", c.col)}>{c.init}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="h-1.5 rounded-full bg-border w-3/4" />
+                          <div className="h-1.5 rounded-full bg-border/50 w-1/2 mt-1" />
+                        </div>
+                      </div>
+                    ))}
+                    <div className="flex items-center justify-center h-10 rounded-xl border border-dashed border-border text-[11px] text-muted-foreground hover:bg-muted/30 cursor-pointer transition-colors">
+                      + Hinzufügen
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[{ v: "12", l: "Offene Stellen" }, { v: "8", l: "Aktive Kanäle" }, { v: "32 Tage", l: "Ø bis Einstellung" }, { v: "4.1×", l: "Mehr Bewerbungen" }].map(s => (
+              <div key={s.l} className="rounded-xl border border-border bg-muted/30 px-4 py-4 text-center">
+                <div className="text-2xl font-black text-foreground">{s.v}</div>
+                <div className="text-[11px] text-muted-foreground mt-1">{s.l}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Payroll closing — payslip + DATEV
+// ══════════════════════════════════════════════════════════════════════════════
+
+function PayrollClosing({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: "-80px 0px" as any })
+
+  const breakdown = [
+    { label: "Bruttogehalt", amount: "4.200,00 €", pct: 100, color: "bg-teal-400" },
+    { label: "Lohnsteuer", amount: "− 820,00 €", pct: 20, color: "bg-rose-400" },
+    { label: "Sozialversicherung", amount: "− 630,00 €", pct: 15, color: "bg-orange-400" },
+    { label: "Nettogehalt", amount: "2.750,00 €", pct: 65, color: "bg-teal-500", bold: true },
+  ]
+
+  return (
+    <>
+      <section ref={ref} className="py-24 bg-background border-t border-border">
+        <div className="max-w-screen-xl mx-auto px-6 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <motion.div initial={{ opacity: 0, x: -24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6 }}>
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-teal-600/60 mb-4">Gehaltsabrechnung</p>
+              <h2 className="text-4xl sm:text-5xl font-black text-foreground leading-[0.93] mb-6">
+                Brutto zu Netto.<br /><span className="text-muted-foreground">Rechtskonform. Automatisch.</span>
+              </h2>
+              <p className="text-muted-foreground text-[15px] leading-relaxed mb-8">
+                Payroll berechnet Gehaltsabrechnungen nach aktuellem Steuer- und Sozialversicherungsrecht und exportiert sie direkt nach DATEV.
+              </p>
+
+              <div className="space-y-3">
+                {breakdown.map((item) => (
+                  <div key={item.label}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className={cn("text-[13px]", item.bold ? "font-bold text-foreground" : "text-muted-foreground")}>{item.label}</span>
+                      <span className={cn("text-[13px] tabular-nums", item.bold ? "font-black text-teal-600" : "font-medium text-foreground")}>{item.amount}</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-muted overflow-hidden">
+                      <div className={cn("h-full rounded-full transition-all", item.color)} style={{ width: `${item.pct}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, x: 24 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.12 }}>
+              {/* Payslip card */}
+              <div className="rounded-2xl border border-teal-500/20 bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950 dark:to-emerald-950 p-6 mb-4">
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-teal-200/30 dark:border-teal-800/30">
+                  <div>
+                    <div className="text-[11px] font-semibold text-teal-600/60 uppercase tracking-wider">Gehaltszettel</div>
+                    <div className="text-[16px] font-bold text-foreground mt-1">Sarah Kellermann</div>
+                    <div className="text-[12px] text-muted-foreground">Serviceleiterin · Mai 2025</div>
+                  </div>
+                  <div className="size-10 rounded-xl bg-teal-600 flex items-center justify-center">
+                    <Receipt className="size-5 text-white" />
+                  </div>
+                </div>
+                <div className="space-y-2 mb-5">
+                  {[["Bruttogehalt", "4.200,00 €"], ["Lohnsteuer", "– 820,00 €"], ["KV/PV/RV/AV", "– 630,00 €"]].map(([k, v]) => (
+                    <div key={k} className="flex justify-between text-[13px]">
+                      <span className="text-muted-foreground">{k}</span>
+                      <span className="font-medium text-foreground tabular-nums">{v}</span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between pt-3 border-t border-teal-200/40 dark:border-teal-800/40">
+                    <span className="text-[14px] font-bold text-foreground">Nettolohn</span>
+                    <span className="text-[14px] font-black text-teal-600 tabular-nums">2.750,00 €</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 rounded-xl bg-teal-600/10 border border-teal-500/20 px-4 py-3">
+                  <Download className="size-4 text-teal-600 shrink-0" />
+                  <span className="text-[13px] font-semibold text-teal-700 dark:text-teal-300 flex-1">Als PDF herunterladen</span>
+                  <span className="text-[11px] text-teal-600/60">DSGVO-konform</span>
+                </div>
+              </div>
+
+              {/* DATEV export */}
+              <div className="rounded-2xl border border-border bg-muted/30 p-5 flex items-center gap-4">
+                <div className="size-12 rounded-xl bg-foreground flex items-center justify-center shrink-0">
+                  <Send className="size-5 text-background" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[14px] font-bold text-foreground">DATEV Export — Mai 2025</div>
+                  <div className="text-[12px] text-muted-foreground mt-0.5">247 Mitarbeiter · Bereit zum Export</div>
+                </div>
+                <div className="shrink-0 text-[11px] font-bold px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">✓ Validiert</div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      <ProductFinalCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Chat — dark, kinetic messaging UI
+// ══════════════════════════════════════════════════════════════════════════════
+
+function ChatHero({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 80])
+
+  const channels = [
+    { name: "allgemein", count: 12, active: true },
+    { name: "küche", count: 3, active: false },
+    { name: "service", count: 7, active: false },
+    { name: "management", count: 0, active: false },
+  ]
+
+  const messages = [
+    { avatar: "bg-fuchsia-500", name: "Lisa M.", time: "09:41", text: "Wer kann morgen früh einspringen? 🙏", reaction: "❤️ 3" },
+    { avatar: "bg-sky-500", name: "Tom K.", time: "09:42", text: "Ich kann! Wann fängt es an?", reaction: "" },
+    { avatar: "bg-fuchsia-500", name: "Lisa M.", time: "09:42", text: "7 Uhr — danke Tom! 🎉", reaction: "🎉 5" },
+    { avatar: "bg-amber-500", name: "Marco B.", time: "09:45", text: "Super, ich informiere die Küche", reaction: "👍 2" },
+  ]
+
+  return (
+    <section ref={ref} className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0f]">
+      {/* Animated fuchsia glow background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-fuchsia-600/10 blur-[120px]" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] rounded-full bg-purple-700/10 blur-[80px]" />
+        <svg className="absolute inset-0 w-full h-full opacity-[0.025]" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="chat-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#chat-grid)" />
+        </svg>
+      </div>
+
+      <motion.div style={{ y }} className="relative z-10 w-full max-w-screen-xl mx-auto px-5 sm:px-8 pt-28 pb-16">
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 mb-8"
+          >
+            <div className="size-1.5 rounded-full bg-fuchsia-400 animate-pulse" />
+            <span className="text-[11px] font-semibold text-fuchsia-300 uppercase tracking-widest">Live in deinem Team</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-none mb-6"
+          >
+            Dein Team.
+            <br />
+            <span className="bg-gradient-to-r from-fuchsia-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+              Immer verbunden.
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-zinc-400 max-w-xl mx-auto mb-10"
+          >
+            Echtzeit-Messaging, strukturierte Kanäle und direkte Nachrichten —
+            alles integriert in die Hostpartners-Plattform.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-3"
+          >
+            <Link
+              href={accountCtaHref}
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold text-sm transition-colors"
+            >
+              Kostenlos starten <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-full border border-white/10 text-white/80 hover:text-white hover:border-white/20 text-sm font-medium transition-colors"
+            >
+              Demo ansehen
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Chat UI mockup */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto"
+        >
+          <div className="rounded-2xl border border-white/10 bg-[#111118] overflow-hidden shadow-2xl shadow-fuchsia-900/20">
+            {/* Title bar */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-[#0d0d14]">
+              <div className="flex gap-1.5">
+                <div className="size-3 rounded-full bg-red-500/60" />
+                <div className="size-3 rounded-full bg-yellow-500/60" />
+                <div className="size-3 rounded-full bg-green-500/60" />
+              </div>
+              <div className="flex-1 text-center text-[11px] text-zinc-500 font-medium">Hostpartners Chat</div>
+            </div>
+
+            <div className="flex h-[360px]">
+              {/* Sidebar */}
+              <div className="w-52 border-r border-white/[0.06] bg-[#0d0d14] flex flex-col">
+                <div className="px-3 py-3">
+                  <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2 px-2">Kanäle</div>
+                  {channels.map((ch) => (
+                    <button
+                      key={ch.name}
+                      className={cn(
+                        "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-colors",
+                        ch.active ? "bg-fuchsia-500/15 text-fuchsia-300" : "text-zinc-500 hover:text-zinc-300"
+                      )}
+                    >
+                      <Hash className="size-3 shrink-0" />
+                      <span className="text-[12px] font-medium flex-1">{ch.name}</span>
+                      {ch.count > 0 && (
+                        <span className="text-[10px] bg-fuchsia-600 text-white px-1.5 rounded-full leading-5">{ch.count}</span>
+                      )}
+                    </button>
+                  ))}
+                  <div className="mt-3 text-[10px] font-semibold text-zinc-500 uppercase tracking-widest mb-2 px-2">Direkt</div>
+                  {["Tom K.", "Marco B."].map((name) => (
+                    <button key={name} className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-zinc-500 hover:text-zinc-300 transition-colors">
+                      <AtSign className="size-3 shrink-0" />
+                      <span className="text-[12px]">{name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Main chat area */}
+              <div className="flex-1 flex flex-col">
+                <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/[0.06]">
+                  <Hash className="size-4 text-zinc-500" />
+                  <span className="text-[13px] font-semibold text-white">allgemein</span>
+                  <span className="text-[11px] text-zinc-500 ml-1">Ganzes Team</span>
+                </div>
+
+                <div className="flex-1 overflow-hidden px-4 py-3 space-y-4">
+                  {messages.map((msg, i) => (
+                    <div key={i} className="flex items-start gap-2.5 group">
+                      <div className={cn("size-7 rounded-full shrink-0 mt-0.5", msg.avatar)} />
+                      <div>
+                        <div className="flex items-baseline gap-2 mb-0.5">
+                          <span className="text-[12px] font-semibold text-zinc-200">{msg.name}</span>
+                          <span className="text-[10px] text-zinc-600">{msg.time}</span>
+                        </div>
+                        <p className="text-[12px] text-zinc-400 leading-relaxed">{msg.text}</p>
+                        {msg.reaction && (
+                          <div className="mt-1 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-[10px] text-zinc-400">
+                            {msg.reaction}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Input */}
+                <div className="px-4 pb-4">
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/[0.08]">
+                    <Paperclip className="size-4 text-zinc-600" />
+                    <span className="flex-1 text-[12px] text-zinc-600">Nachricht an #allgemein</span>
+                    <Smile className="size-4 text-zinc-600" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
+
+function ChatFeaturesSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-100px 0px" })
+
+  const features = [
+    {
+      icon: Hash,
+      title: "Organisierte Kanäle",
+      desc: "Erstelle Kanäle pro Abteilung, Schicht oder Projekt. Jeder sieht nur das, was relevant ist.",
+      color: "text-fuchsia-400",
+      bg: "bg-fuchsia-500/10",
+    },
+    {
+      icon: AtSign,
+      title: "Direktnachrichten",
+      desc: "Private 1:1 oder Gruppenchats — ohne WhatsApp, ohne Datenschutzprobleme.",
+      color: "text-pink-400",
+      bg: "bg-pink-500/10",
+    },
+    {
+      icon: Bell,
+      title: "Smarte Benachrichtigungen",
+      desc: "Werde nur bei relevanten Mentions und Kanälen benachrichtigt. Kein Lärm.",
+      color: "text-purple-400",
+      bg: "bg-purple-500/10",
+    },
+    {
+      icon: Shield,
+      title: "DSGVO-konform",
+      desc: "Alle Nachrichten bleiben in eurer Hostpartners-Umgebung. Kein Drittanbieter.",
+      color: "text-violet-400",
+      bg: "bg-violet-500/10",
+    },
+    {
+      icon: Paperclip,
+      title: "Datei-Sharing",
+      desc: "Dokumente, Bilder, PDFs — direkt im Chat teilen und in Hostpartners speichern.",
+      color: "text-fuchsia-400",
+      bg: "bg-fuchsia-500/10",
+    },
+    {
+      icon: Zap,
+      title: "Echtzeit & Offline",
+      desc: "Nachrichten kommen sofort an. Offline gespeichert, wenn kein Netz.",
+      color: "text-pink-400",
+      bg: "bg-pink-500/10",
+    },
+  ]
+
+  return (
+    <section ref={ref} className="py-28 bg-[#0a0a0f]">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-fuchsia-400/60 mb-3">Features</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">Alles, was dein Team braucht</h2>
+          <p className="text-zinc-400 max-w-md mx-auto">Kommunikation, die funktioniert — ohne externe Apps oder Datenschutzrisiken.</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: i * 0.07 }}
+              className="group p-6 rounded-2xl border border-white/[0.06] bg-[#111118] hover:border-fuchsia-500/20 hover:bg-[#14101c] transition-all"
+            >
+              <div className={cn("size-10 rounded-xl flex items-center justify-center mb-4", f.bg)}>
+                <f.icon className={cn("size-5", f.color)} />
+              </div>
+              <h3 className="text-[15px] font-bold text-white mb-2">{f.title}</h3>
+              <p className="text-[13px] text-zinc-500 leading-relaxed">{f.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ChatIntegrationSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-100px 0px" })
+
+  return (
+    <section ref={ref} className="py-28 bg-[#08080d] border-t border-white/[0.04]">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-fuchsia-400/60 mb-4">Integration</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-6">
+              Kein Tool-Wechsel.
+              <br />
+              Alles in einem.
+            </h2>
+            <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
+              Chat ist kein Anhang — er ist tief in Hostpartners integriert. Teile Onboarding-Aufgaben, Knowledge-Artikel oder Urlaubsanträge direkt im Chat.
+            </p>
+            <div className="space-y-4">
+              {[
+                "Artikel aus Atlas direkt im Chat teilen",
+                "Onboarding-Aufgaben aus Flow zuweisen",
+                "Urlaubsanträge aus Tempo diskutieren",
+                "Schichtpläne aus Roster ankündigen",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3 text-zinc-300">
+                  <div className="size-5 rounded-full bg-fuchsia-500/20 border border-fuchsia-500/30 flex items-center justify-center shrink-0">
+                    <Check className="size-3 text-fuchsia-400" />
+                  </div>
+                  <span className="text-[14px]">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 bg-fuchsia-600/5 rounded-3xl blur-3xl" />
+            <div className="relative rounded-2xl border border-white/10 bg-[#111118] p-6 space-y-3">
+              <div className="flex items-center gap-3 pb-3 border-b border-white/[0.06]">
+                <div className="size-8 rounded-full bg-fuchsia-500 flex items-center justify-center text-white text-[11px] font-bold">AI</div>
+                <div>
+                  <div className="text-[13px] font-semibold text-white">Flow-Bot</div>
+                  <div className="text-[11px] text-zinc-500">Automatisch</div>
+                </div>
+              </div>
+              {[
+                { text: '📋 "HACCP-Schulung" wird fällig — 3 Mitarbeiter haben noch nicht abgeschlossen.', time: "Gerade eben" },
+                { text: '🗓 Schichtplan für nächste Woche wurde veröffentlicht.', time: "vor 5 Min" },
+                { text: '✅ Max M. hat das Onboarding abgeschlossen.', time: "vor 12 Min" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 py-2">
+                  <div className="size-1.5 rounded-full bg-fuchsia-500 mt-2 shrink-0" />
+                  <div className="flex-1">
+                    <p className="text-[12px] text-zinc-300 leading-relaxed">{item.text}</p>
+                    <p className="text-[10px] text-zinc-600 mt-0.5">{item.time}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ChatPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  return (
+    <>
+      <ChatHero product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <ChatFeaturesSection />
+      <ChatIntegrationSection />
+      <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+    </>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// Admin Center — command-center aesthetic, enterprise dark
+// ══════════════════════════════════════════════════════════════════════════════
+
+function AdminHero({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 80])
+
+  const stats = [
+    { label: "Aktive Nutzer", value: "247", delta: "+12%" },
+    { label: "Apps in Betrieb", value: "8/11", delta: null },
+    { label: "Speicher belegt", value: "14.2 GB", delta: "-3 GB" },
+    { label: "Uptime", value: "99.98%", delta: null },
+  ]
+
+  return (
+    <section ref={ref} className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#09090b]">
+      {/* Background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-zinc-700/50 to-transparent" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-zinc-800/30 blur-[100px]" />
+        <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="admin-dots" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="white" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#admin-dots)" />
+        </svg>
+      </div>
+
+      <motion.div style={{ y }} className="relative z-10 w-full max-w-screen-xl mx-auto px-5 sm:px-8 pt-28 pb-16">
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-zinc-700/60 bg-zinc-800/40 mb-8"
+          >
+            <Gauge className="size-3.5 text-zinc-400" />
+            <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-widest">Admin Center</span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-none mb-6"
+          >
+            Deine Plattform.
+            <br />
+            <span className="text-zinc-400">Vollständig im Griff.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-zinc-500 max-w-xl mx-auto mb-10"
+          >
+            Das Admin Center ist das Cockpit für Administratoren — Apps aktivieren,
+            Nutzer verwalten, Lizenzen steuern, Einstellungen konfigurieren.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-wrap items-center justify-center gap-3"
+          >
+            <Link
+              href="/demo"
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-full bg-white text-black font-semibold text-sm hover:bg-zinc-100 transition-colors"
+            >
+              Demo anfragen <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href={accountCtaHref}
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-full border border-zinc-700 text-zinc-300 hover:text-white hover:border-zinc-500 text-sm font-medium transition-colors"
+            >
+              {accountCtaLabel}
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Dashboard mockup */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="rounded-2xl border border-zinc-800 bg-[#111113] overflow-hidden shadow-2xl shadow-black/60">
+            {/* Title bar */}
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-800 bg-[#0d0d0f]">
+              <div className="flex gap-1.5">
+                <div className="size-3 rounded-full bg-red-500/50" />
+                <div className="size-3 rounded-full bg-yellow-500/50" />
+                <div className="size-3 rounded-full bg-green-500/50" />
+              </div>
+              <div className="flex-1 text-center text-[11px] text-zinc-600 font-medium">admin.meinbetrieb.hostpartners.com</div>
+            </div>
+
+            <div className="flex">
+              {/* Sidebar */}
+              <div className="w-44 border-r border-zinc-800 bg-[#0d0d0f] p-3 space-y-0.5">
+                {[
+                  { icon: Gauge, label: "Übersicht", active: true },
+                  { icon: Package, label: "Apps", active: false },
+                  { icon: Users, label: "Nutzer", active: false },
+                  { icon: CreditCard, label: "Lizenzen", active: false },
+                  { icon: BarChart2, label: "Analytics", active: false },
+                  { icon: Settings, label: "Einstellungen", active: false },
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    className={cn(
+                      "w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left",
+                      item.active ? "bg-white/[0.06] text-white" : "text-zinc-600 hover:text-zinc-400"
+                    )}
+                  >
+                    <item.icon className="size-3.5 shrink-0" />
+                    <span className="text-[11px] font-medium">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Main area */}
+              <div className="flex-1 p-4 space-y-4">
+                <div className="grid grid-cols-4 gap-3">
+                  {stats.map((s) => (
+                    <div key={s.label} className="rounded-lg border border-zinc-800 bg-[#0d0d0f] p-3">
+                      <div className="text-[9px] text-zinc-600 uppercase tracking-wider mb-1">{s.label}</div>
+                      <div className="text-[16px] font-bold text-white leading-none">{s.value}</div>
+                      {s.delta && (
+                        <div className={cn("text-[9px] mt-1 font-medium", s.delta.startsWith("+") ? "text-emerald-400" : "text-zinc-500")}>
+                          {s.delta}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="col-span-2 rounded-lg border border-zinc-800 bg-[#0d0d0f] p-3">
+                    <div className="text-[10px] text-zinc-600 font-semibold uppercase tracking-wider mb-3">Aktive Apps</div>
+                    <div className="space-y-2">
+                      {[
+                        { name: "Persona", users: 247, status: "aktiv", color: "bg-slate-500" },
+                        { name: "Atlas", users: 189, status: "aktiv", color: "bg-emerald-500" },
+                        { name: "Academy", users: 203, status: "aktiv", color: "bg-blue-500" },
+                        { name: "Chat", users: 247, status: "aktiv", color: "bg-fuchsia-500" },
+                      ].map((app) => (
+                        <div key={app.name} className="flex items-center gap-2">
+                          <div className={cn("size-2 rounded-full", app.color)} />
+                          <span className="text-[11px] text-zinc-400 flex-1">{app.name}</span>
+                          <span className="text-[10px] text-zinc-600">{app.users} Nutzer</span>
+                          <div className="h-3.5 px-1.5 rounded bg-emerald-500/15 border border-emerald-500/25 text-[8px] text-emerald-400 font-medium flex items-center">{app.status}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-zinc-800 bg-[#0d0d0f] p-3">
+                    <div className="text-[10px] text-zinc-600 font-semibold uppercase tracking-wider mb-3">Lizenz</div>
+                    <div className="text-[11px] text-zinc-400 mb-2">Professional</div>
+                    <div className="h-1.5 rounded-full bg-zinc-800 overflow-hidden mb-1">
+                      <div className="h-full w-[78%] bg-gradient-to-r from-zinc-400 to-zinc-300 rounded-full" />
+                    </div>
+                    <div className="text-[9px] text-zinc-600">195 / 250 Sitze</div>
+                    <div className="mt-3 h-6 w-full rounded-md bg-white/[0.04] border border-zinc-700 text-[9px] text-zinc-500 flex items-center justify-center">
+                      Upgrade
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
+
+function AdminFeaturesSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-100px 0px" })
+
+  const features = [
+    {
+      icon: Package,
+      title: "App-Management",
+      desc: "Aktiviere und deaktiviere einzelne Apps für deine Organisation mit einem Klick.",
+      accent: "text-zinc-300",
+    },
+    {
+      icon: Users,
+      title: "Nutzerverwaltung",
+      desc: "Lade Mitarbeiter ein, weise Rollen zu und verwalte Zugriffsrechte zentral.",
+      accent: "text-zinc-300",
+    },
+    {
+      icon: CreditCard,
+      title: "Lizenz & Abrechnung",
+      desc: "Überblick über Sitzplatzkontingente, Abrechnungsperioden und Upgrade-Optionen.",
+      accent: "text-zinc-300",
+    },
+    {
+      icon: BarChart2,
+      title: "Nutzungsanalyse",
+      desc: "Wer nutzt welche App wie oft? Daten für fundierte Lizenzentscheidungen.",
+      accent: "text-zinc-300",
+    },
+    {
+      icon: Settings,
+      title: "Organisationseinstellungen",
+      desc: "Branding, DSGVO-Einstellungen, E-Mail-Templates und SSO-Konfiguration.",
+      accent: "text-zinc-300",
+    },
+    {
+      icon: Globe,
+      title: "Subdomain & Branding",
+      desc: "Eigene Subdomain, Logo und Farben — Hostpartners in eurer Corporate Identity.",
+      accent: "text-zinc-300",
+    },
+  ]
+
+  return (
+    <section ref={ref} className="py-28 bg-[#09090b]">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-zinc-500 mb-3">Volle Kontrolle</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">Alles unter einem Dach</h2>
+          <p className="text-zinc-500 max-w-md mx-auto">Das Admin Center ist der einzige Ort, den du brauchst, um deine gesamte Hostpartners-Umgebung zu steuern.</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800/50 rounded-2xl overflow-hidden border border-zinc-800">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="group p-7 bg-[#09090b] hover:bg-[#111113] transition-colors"
+            >
+              <div className="size-10 rounded-xl bg-zinc-800 border border-zinc-700/50 flex items-center justify-center mb-5 group-hover:border-zinc-600 transition-colors">
+                <f.icon className="size-5 text-zinc-400 group-hover:text-zinc-200 transition-colors" />
+              </div>
+              <h3 className="text-[15px] font-bold text-white mb-2">{f.title}</h3>
+              <p className="text-[13px] text-zinc-500 leading-relaxed">{f.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function AdminControlSection() {
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-100px 0px" })
+
+  return (
+    <section ref={ref} className="py-28 bg-[#05050a] border-t border-zinc-900">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="relative order-first lg:order-last"
+          >
+            <div className="absolute inset-0 bg-zinc-500/5 rounded-3xl blur-3xl" />
+            <div className="relative rounded-2xl border border-zinc-800 bg-[#111113] overflow-hidden">
+              <div className="px-5 py-4 border-b border-zinc-800 flex items-center justify-between">
+                <span className="text-[12px] font-semibold text-zinc-300">Apps aktivieren</span>
+                <div className="h-6 px-3 rounded-full border border-zinc-700 text-[10px] text-zinc-400 flex items-center">11 verfügbar</div>
+              </div>
+              <div className="p-4 space-y-2">
+                {[
+                  { name: "Persona", color: "bg-slate-600", active: true },
+                  { name: "Atlas", color: "bg-emerald-600", active: true },
+                  { name: "Academy", color: "bg-blue-600", active: true },
+                  { name: "Flow", color: "bg-violet-600", active: true },
+                  { name: "Tempo", color: "bg-orange-500", active: false },
+                  { name: "Roster", color: "bg-rose-600", active: false },
+                ].map((app) => (
+                  <div key={app.name} className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-white/[0.02] transition-colors">
+                    <div className={cn("size-7 rounded-lg flex items-center justify-center", app.color)}>
+                      <div className="size-3 rounded-sm bg-white/40" />
+                    </div>
+                    <span className="text-[13px] font-medium text-zinc-300 flex-1">{app.name}</span>
+                    <div className={cn(
+                      "w-9 h-5 rounded-full flex items-center transition-all",
+                      app.active ? "bg-emerald-500 justify-end" : "bg-zinc-700 justify-start"
+                    )}>
+                      <div className="size-4 rounded-full bg-white shadow m-0.5" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-zinc-500 mb-4">Modulares System</p>
+            <h2 className="text-4xl sm:text-5xl font-black text-white mb-6">
+              Nur was ihr braucht.
+              <br />
+              Nichts, was ihr nicht braucht.
+            </h2>
+            <p className="text-zinc-500 text-lg mb-8 leading-relaxed">
+              Aktiviere einzelne Apps für deine Organisation — und zahle nur dafür. Später skalieren? Einfach eine weitere App freischalten.
+            </p>
+            <div className="space-y-4">
+              {[
+                "Apps jederzeit aktivieren und deaktivieren",
+                "Keine Datenverluste bei Deaktivierung",
+                "Rollout schrittweise nach Abteilung",
+                "Sofortiger Zugriff nach Aktivierung",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3 text-zinc-400">
+                  <div className="size-5 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center shrink-0">
+                    <Check className="size-3 text-zinc-300" />
+                  </div>
+                  <span className="text-[14px]">{item}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function AdminPage({ product, accountCtaHref, accountCtaLabel }: ProductPageProps) {
+  return (
+    <>
+      <AdminHero product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
+      <AdminFeaturesSection />
+      <AdminControlSection />
       <PageCTA product={product} accountCtaHref={accountCtaHref} accountCtaLabel={accountCtaLabel} />
     </>
   )
@@ -5705,10 +7083,11 @@ const PAGE_MAP: Record<string, React.ComponentType<ProductPageProps>> = {
   flow:    FlowPage,
   tempo:   TempoPage,
   roster:  RosterPage,
-  pulse:   PulsePage,
   lumen:   LumenPage,
   hire:    HirePage,
   payroll: PayrollPage,
+  chat:    ChatPage,
+  admin:   AdminPage,
 }
 
 // ══════════════════════════════════════════════════════════════════════════════

@@ -169,7 +169,7 @@ export const INDUSTRIES: Record<string, IndustryData> = {
       { name: "Persona",  slug: "persona",     desc: "Vollständige Personalakte für Produktionsmitarbeitende, Teamleiter und Verwaltung.",         icon: Users,         color: "bg-slate-700",   tag: "Basis" },
       { name: "Tempo",    slug: "tempo",       desc: "Wechselschicht, Frühschicht, Spätschicht — Zeiterfassung für jedes Schichtmodell.",          icon: Clock,         color: "bg-orange-500",  tag: "Schicht & Zeit" },
       { name: "Flow",     slug: "flow",        desc: "Homeoffice-Anträge, Urlaubsprozesse und Onboarding für neue Mitarbeitende digital abbilden.", icon: GitBranch,     color: "bg-violet-600",  tag: "Prozesse" },
-      { name: "Pulse",    slug: "pulse",       desc: "Jahresgespräche, OKR-Zyklen und 1:1-Meetings — strukturiert und dokumentiert.",              icon: TrendingUp,    color: "bg-amber-500",   tag: "Performance" },
+      { name: "Hire",     slug: "hire",        desc: "Recruiting, Bewerbermanagement und nahtlose Übergabe ins Onboarding.",                       icon: TrendingUp,    color: "bg-sky-600",     tag: "Recruiting" },
       { name: "Atlas",    slug: "atlas",       desc: "Betriebshandbücher, Arbeitsanweisungen und Prozessdokumentation — immer aktuell.",           icon: BookOpen,      color: "bg-emerald-600", tag: "Wissen" },
       { name: "Academy",  slug: "academy",     desc: "Sicherheitsunterweisungen, Maschinenschulungen und Pflichtfortbildungen — nachweisbar.",     icon: GraduationCap, color: "bg-blue-600",    tag: "Schulungen" },
     ],
@@ -177,7 +177,7 @@ export const INDUSTRIES: Record<string, IndustryData> = {
       { number: "01", title: "Schichten verwalten",    body: "Tempo erfasst alle Schichtmodelle — Früh, Spät, Nacht, Wechselschicht — mit automatischer ArbZG-Prüfung." },
       { number: "02", title: "Prozesse digitalisieren", body: "Flow automatisiert Homeoffice-Anträge, Urlaubsworkflows und Onboarding — standortübergreifend." },
       { number: "03", title: "Wissen sichern",          body: "Atlas hält Betriebshandbücher und SOPs aktuell — Lumen macht sie per KI-Suche sofort auffindbar." },
-      { number: "04", title: "Performance entwickeln",  body: "Pulse strukturiert Jahresgespräche und OKR-Zyklen — vom Schichtleiter bis zur Geschäftsführung." },
+      { number: "04", title: "Talente gewinnen",         body: "Hire verwaltet offene Stellen, Bewerbungen und gibt eingestellte Personen direkt an Flow weiter." },
     ],
     trustPoints: [
       { title: "Compliance-ready",       body: "ArbZG, DSGVO, Betriebsrat-Anforderungen — Hostpartners ist auf die rechtlichen Anforderungen der Industrie vorbereitet.", icon: Users },

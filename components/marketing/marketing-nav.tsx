@@ -7,7 +7,7 @@ import {
   Users, BookOpen, GraduationCap, GitBranch,
   Clock, CalendarDays, Sparkles,
   Building2, ChefHat, Factory,
-  UserPlus, Wallet,
+  UserPlus, Wallet, MessageSquare, LayoutDashboard,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -25,8 +25,10 @@ const APPS = [
   { slug: "tempo",   label: "Tempo",   desc: "Zeiterfassung & Urlaub",     icon: Clock,         color: "bg-orange-500" },
   { slug: "roster",  label: "Roster",  desc: "Schichtplanung",             icon: CalendarDays,  color: "bg-rose-600" },
   { slug: "lumen",   label: "Lumen",   desc: "KI-Assistent",               icon: Sparkles,      color: "bg-indigo-600" },
-  { slug: "hire",    label: "Hire",    desc: "Recruiting & Bewerbungen",   icon: UserPlus,      color: "bg-sky-600" },
-  { slug: "payroll", label: "Payroll", desc: "Gehaltsabrechnung & DATEV",  icon: Wallet,        color: "bg-teal-600" },
+  { slug: "hire",    label: "Hire",    desc: "Recruiting & Bewerbungen",   icon: UserPlus,        color: "bg-sky-600" },
+  { slug: "payroll", label: "Payroll", desc: "Gehaltsabrechnung & DATEV",  icon: Wallet,          color: "bg-teal-600" },
+  { slug: "chat",    label: "Chat",    desc: "Team-Kommunikation",          icon: MessageSquare,   color: "bg-fuchsia-600" },
+  { slug: "admin",   label: "Admin",   desc: "Cockpit & Lizenzmanagement",  icon: LayoutDashboard, color: "bg-zinc-700" },
 ]
 
 // Uses a close-delay so the mouse can travel from button → panel without flickering
@@ -114,7 +116,7 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
                   {/* Header row */}
                   <div className="flex items-center justify-between px-5 py-3 border-b border-border bg-muted/20">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/50">
-                      Die App-Suite — 10 Module
+                      Die App-Suite — 11 Module
                     </p>
                     <Link
                       href="/"
@@ -212,6 +214,12 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
               </div>
             </div>
 
+            <Link
+              href="/preise"
+              className="flex items-center h-8 px-3 rounded-lg text-[13px] text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05] transition-colors"
+            >
+              Preise
+            </Link>
             <Link
               href="/ueber-uns"
               className="flex items-center h-8 px-3 rounded-lg text-[13px] text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05] transition-colors"
@@ -313,6 +321,13 @@ export function MarketingNav({ isAuthenticated = false }: { isAuthenticated?: bo
 
             <div className="pt-4 border-t border-border space-y-2.5">
               <div className="grid grid-cols-1 gap-1">
+                <Link
+                  href="/preise"
+                  className="block w-full py-3 px-4 rounded-xl text-[14px] font-medium text-foreground hover:bg-muted/50 transition-colors"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  Preise
+                </Link>
                 <Link
                   href="/ueber-uns"
                   className="block w-full py-3 px-4 rounded-xl text-[14px] font-medium text-foreground hover:bg-muted/50 transition-colors"
