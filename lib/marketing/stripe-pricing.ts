@@ -15,7 +15,6 @@ export const APP_META: Record<string, {
   academy:     { label: "Academy",     desc: "Schulungen & Kurse",                      color: "bg-blue-600",    hex: "#2563eb" },
   tempo:       { label: "Tempo",       desc: "Zeiterfassung & Urlaub",                  color: "bg-orange-500",  hex: "#f97316" },
   roster:      { label: "Roster",      desc: "Schichtplanung",                          color: "bg-rose-600",    hex: "#e11d48" },
-  performance: { label: "Performance", desc: "Reviews, OKRs & 1:1-Meetings",           color: "bg-sky-600",     hex: "#0284c7" },
   lumen:       { label: "Lumen",       desc: "KI-Assistent mit RAG-Suche",             color: "bg-indigo-600",  hex: "#4f46e5" },
   hire:        { label: "Hire",        desc: "Recruiting & Bewerbermanagement",         color: "bg-cyan-600",    hex: "#0891b2" },
   payroll:     { label: "Payroll",     desc: "Lohnbuchhaltung & DATEV",                color: "bg-teal-600",    hex: "#0d9488" },
@@ -25,9 +24,9 @@ export const APP_META: Record<string, {
 export const PLAN_INCLUDED_APPS: Record<string, string[]> = {
   basic:      ["persona", "atlas", "flow"],
   essentials: ["persona", "atlas", "flow", "engage"],
-  gastro:     ["persona", "atlas", "flow", "engage", "tempo", "roster"],
-  growth:     ["persona", "atlas", "flow", "engage", "academy", "tempo", "performance"],
-  enterprise: ["persona", "atlas", "flow", "engage", "academy", "tempo", "roster", "performance", "lumen"],
+  gastro:     ["persona", "atlas", "flow", "engage", "academy", "tempo", "roster", "payroll"],
+  growth:     ["persona", "atlas", "flow", "engage", "academy", "tempo", "roster", "hire", "payroll"],
+  enterprise: ["persona", "atlas", "flow", "engage", "academy", "tempo", "roster", "lumen", "hire", "payroll"],
 }
 
 // license_keys that are base plans (not add-ons)

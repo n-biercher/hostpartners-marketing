@@ -66,9 +66,9 @@ function formatPrice(unitAmount: number, currency: string): string {
 const PLAN_TAGLINES: Record<string, string> = {
   basic:      "HR-Basis für kleine Teams",
   essentials: "Ideal für wachsende Betriebe",
-  gastro:     "Für Gastronomie & Hotellerie",
-  growth:     "Für ambitionierte Unternehmen",
-  enterprise: "Vollständig, ohne Kompromisse",
+  gastro:     "Alle Apps außer Lumen & Hire",
+  growth:     "Alle Apps außer Lumen",
+  enterprise: "Alle Apps inklusive",
 }
 
 const PLAN_HIGHLIGHTED = new Set(["essentials", "gastro"])
