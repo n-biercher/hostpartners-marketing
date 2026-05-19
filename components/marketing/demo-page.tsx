@@ -68,7 +68,7 @@ const STEPS = [
   { id: "confirmed", label: "Bestätigt" },
 ]
 
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ""
+type TurnstileStatus = "missing-key" | "loading" | "ready" | "error"
 
 declare global {
   interface Window {
@@ -413,7 +413,12 @@ function StepIndicator({ current }: { current: Step }) {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 
-export function DemoPage() {
+export function DemoPage({
+  turnstileSiteKey,
+}: {
+  turnstileSiteKey: string
+}) {
+  const resolvedTurnstileSiteKey = turnstileSiteKey?.trim() ?? ""
   const [step, setStep] = useState<Step>("date")
   const [activeTab, setActiveTab] = useState<"datum" | "zeit">("datum")
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
@@ -432,24 +437,33 @@ export function DemoPage() {
   const turnstileContainerRef = useRef<HTMLDivElement>(null)
   const turnstileWidgetIdRef = useRef<string | number | null>(null)
   const [turnstileReady, setTurnstileReady] = useState(false)
+  const [turnstileStatus, setTurnstileStatus] = useState<TurnstileStatus>(
+    resolvedTurnstileSiteKey ? "loading" : "missing-key",
+  )
   const [turnstileToken, setTurnstileToken] = useState("")
   const [website, setWebsite] = useState("")
   const [submitError, setSubmitError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   function mountTurnstile() {
-    if (!TURNSTILE_SITE_KEY || !turnstileReady || !turnstileContainerRef.current || !window.turnstile) return
+    if (!resolvedTurnstileSiteKey || !turnstileReady || !turnstileContainerRef.current || !window.turnstile) return
     if (turnstileWidgetIdRef.current !== null) return
 
+    setTurnstileStatus("loading")
     turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
-      sitekey: TURNSTILE_SITE_KEY,
+      sitekey: resolvedTurnstileSiteKey,
       callback: token => {
         setTurnstileToken(token)
+        setTurnstileStatus("ready")
         setSubmitError("")
       },
-      "expired-callback": () => setTurnstileToken(""),
+      "expired-callback": () => {
+        setTurnstileToken("")
+        setTurnstileStatus("loading")
+      },
       "error-callback": () => {
         setTurnstileToken("")
+        setTurnstileStatus("error")
         setSubmitError("Die Sicherheitsprüfung konnte nicht geladen werden.")
       },
       theme: "auto",
@@ -462,12 +476,23 @@ export function DemoPage() {
       turnstileWidgetIdRef.current = null
     }
     setTurnstileToken("")
+    setTurnstileStatus(resolvedTurnstileSiteKey ? "loading" : "missing-key")
     requestAnimationFrame(() => mountTurnstile())
   }
 
   useEffect(() => {
+    if (!resolvedTurnstileSiteKey) {
+      setTurnstileStatus("missing-key")
+      return
+    }
     mountTurnstile()
-  }, [turnstileReady])
+    const timeout = window.setTimeout(() => {
+      if (turnstileWidgetIdRef.current === null) {
+        setTurnstileStatus("error")
+      }
+    }, 5000)
+    return () => window.clearTimeout(timeout)
+  }, [resolvedTurnstileSiteKey, turnstileReady])
 
   function handleDateSelect(date: Date) {
     setSelectedDate(date)
@@ -549,12 +574,16 @@ export function DemoPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {TURNSTILE_SITE_KEY && (
+      {resolvedTurnstileSiteKey && (
         <Script
           id="cf-turnstile"
           src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
           strategy="afterInteractive"
-          onLoad={() => setTurnstileReady(true)}
+          onLoad={() => {
+            setTurnstileReady(true)
+            setTurnstileStatus("loading")
+          }}
+          onError={() => setTurnstileStatus("error")}
         />
       )}
 
@@ -948,14 +977,40 @@ export function DemoPage() {
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <FieldLabel required>Sicherheitsprüfung</FieldLabel>
-                        {TURNSTILE_SITE_KEY ? (
-                          <div ref={turnstileContainerRef} className="min-h-[65px]" />
+                      <div className="space-y-2 rounded-2xl border border-border/60 bg-muted/20 p-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <FieldLabel required>Sicherheitsprüfung</FieldLabel>
+                          <span
+                            className={cn(
+                              "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
+                              turnstileStatus === "ready"
+                                ? "bg-emerald-500/10 text-emerald-700"
+                                : turnstileStatus === "error"
+                                  ? "bg-red-500/10 text-red-700"
+                                  : "bg-muted text-muted-foreground",
+                            )}
+                          >
+                            {turnstileStatus === "ready"
+                              ? "geladen"
+                              : turnstileStatus === "error"
+                                ? "fehlt"
+                                : "lädt"}
+                          </span>
+                        </div>
+                        {resolvedTurnstileSiteKey ? (
+                          <div className="rounded-2xl border border-border/60 bg-background px-3 py-3">
+                            <div ref={turnstileContainerRef} className="min-h-[86px]" />
+                          </div>
                         ) : (
                           <div className="rounded-2xl border border-amber-300/60 bg-amber-50 px-4 py-3 text-[12.5px] text-amber-900">
                             Sicherheitsprüfung ist noch nicht konfiguriert.
                           </div>
+                        )}
+                        {resolvedTurnstileSiteKey && (
+                          <p className="text-[11.5px] leading-relaxed text-muted-foreground/55">
+                            Wenn hier nur ein leerer Rahmen erscheint, sind in Cloudflare meist Hostname oder Sitekey falsch.
+                            Für lokale Tests entweder den Test-Key nutzen oder <code>localhost</code> in Turnstile freigeben.
+                          </p>
                         )}
                         {submitError && (
                           <p className="text-[12.5px] text-red-600">{submitError}</p>

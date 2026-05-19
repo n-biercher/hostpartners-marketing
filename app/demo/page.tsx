@@ -12,5 +12,6 @@ export const metadata: Metadata = {
 }
 
 export default function DemoBookingPage() {
-  return <DemoPage />
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ""
+  return <DemoPage turnstileSiteKey={turnstileSiteKey} />
 }
