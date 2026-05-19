@@ -1,12 +1,11 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import Link from "next/link"
-import Script from "next/script"
-import { motion, AnimatePresence, useInView } from "framer-motion"
+import { motion, AnimatePresence} from "framer-motion"
 import {
   ChevronLeft, ChevronRight, Check, Clock, Video,
-  ArrowLeft, CheckCircle2, Mail, Users, Building2,
+  ArrowLeft, Mail, Users,
   Sparkles, Globe, ArrowRight, CalendarDays,
   GraduationCap, GitBranch, BookOpen,
 } from "lucide-react"
@@ -17,6 +16,7 @@ import {
 } from "date-fns"
 import { de } from "date-fns/locale"
 import { cn } from "@/lib/utils"
+import { Turnstile, type TurnstileRef } from "nextjs-turnstile"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -69,17 +69,6 @@ const STEPS = [
 ]
 
 type TurnstileStatus = "missing-key" | "loading" | "ready" | "error"
-
-declare global {
-  interface Window {
-    turnstile?: {
-      reset: (widgetId?: string | number) => void
-    }
-    onHostpartnersTurnstileSuccess?: (token: string) => void
-    onHostpartnersTurnstileExpired?: () => void
-    onHostpartnersTurnstileError?: () => void
-  }
-}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -427,7 +416,7 @@ export function DemoPage({
   })
 
   const rightRef = useRef<HTMLDivElement>(null)
-  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileRef = useRef<TurnstileRef>(null)
   const [turnstileStatus, setTurnstileStatus] = useState<TurnstileStatus>(
     resolvedTurnstileSiteKey ? "loading" : "missing-key",
   )
@@ -436,48 +425,12 @@ export function DemoPage({
   const [submitError, setSubmitError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+
   function resetTurnstile() {
-    if (window.turnstile) {
-      window.turnstile.reset()
-    }
+    turnstileRef.current?.reset()
     setTurnstileToken("")
     setTurnstileStatus(resolvedTurnstileSiteKey ? "loading" : "missing-key")
   }
-
-  useEffect(() => {
-    if (!resolvedTurnstileSiteKey) {
-      setTurnstileStatus("missing-key")
-      return
-    }
-
-    window.onHostpartnersTurnstileSuccess = token => {
-      setTurnstileToken(token)
-      setTurnstileStatus("ready")
-      setSubmitError("")
-    }
-    window.onHostpartnersTurnstileExpired = () => {
-      setTurnstileToken("")
-      setTurnstileStatus("loading")
-    }
-    window.onHostpartnersTurnstileError = () => {
-      setTurnstileToken("")
-      setTurnstileStatus("error")
-      setSubmitError("Die Sicherheitsprüfung konnte nicht geladen werden.")
-    }
-
-    const timeout = window.setTimeout(() => {
-      if (!turnstileToken) {
-        setTurnstileStatus("error")
-      }
-    }, 7000)
-
-    return () => {
-      window.clearTimeout(timeout)
-      delete window.onHostpartnersTurnstileSuccess
-      delete window.onHostpartnersTurnstileExpired
-      delete window.onHostpartnersTurnstileError
-    }
-  }, [resolvedTurnstileSiteKey, turnstileToken])
 
   function handleDateSelect(date: Date) {
     setSelectedDate(date)
@@ -559,18 +512,6 @@ export function DemoPage({
 
   return (
     <div className="min-h-screen bg-background">
-      {resolvedTurnstileSiteKey && (
-        <Script
-          id="cf-turnstile"
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=implicit"
-          strategy="afterInteractive"
-          onLoad={() => {
-            setTurnstileStatus("loading")
-          }}
-          onError={() => setTurnstileStatus("error")}
-        />
-      )}
-
       {/* Nav bar minimal */}
       <div className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-screen-xl items-center justify-between px-5 sm:px-8">
@@ -983,29 +924,35 @@ export function DemoPage({
                         </div>
                         {resolvedTurnstileSiteKey ? (
                           <div className="rounded-2xl border border-border/60 bg-background px-3 py-3">
-                            <div
-                              ref={turnstileContainerRef}
-                              className="cf-turnstile min-h-[86px]"
-                              data-sitekey={resolvedTurnstileSiteKey}
-                              data-theme="auto"
-                              data-callback="onHostpartnersTurnstileSuccess"
-                              data-expired-callback="onHostpartnersTurnstileExpired"
-                              data-error-callback="onHostpartnersTurnstileError"
+                            <Turnstile
+                              ref={turnstileRef}
+                              siteKey={resolvedTurnstileSiteKey}
+                              theme="auto"
+                              size="flexible"
+                              action="demo_request"
+                              onLoad={() => {
+                                setTurnstileStatus("loading")
+                              }}
+                              onSuccess={(token) => {
+                                setTurnstileToken(token)
+                                setTurnstileStatus("ready")
+                                setSubmitError("")
+                              }}
+                              onExpire={() => {
+                                setTurnstileToken("")
+                                setTurnstileStatus("loading")
+                              }}
+                              onError={() => {
+                                setTurnstileToken("")
+                                setTurnstileStatus("error")
+                                setSubmitError("Die Sicherheitsprüfung konnte nicht geladen werden.")
+                              }}
                             />
                           </div>
                         ) : (
                           <div className="rounded-2xl border border-amber-300/60 bg-amber-50 px-4 py-3 text-[12.5px] text-amber-900">
                             Sicherheitsprüfung ist noch nicht konfiguriert.
                           </div>
-                        )}
-                        {resolvedTurnstileSiteKey && (
-                          <p className="text-[11.5px] leading-relaxed text-muted-foreground/55">
-                            Wenn hier nur ein leerer Rahmen erscheint, sind in Cloudflare meist Hostname oder Sitekey falsch.
-                            Für lokale Tests entweder den Test-Key nutzen oder <code>localhost</code> in Turnstile freigeben.
-                          </p>
-                        )}
-                        {submitError && (
-                          <p className="text-[12.5px] text-red-600">{submitError}</p>
                         )}
                       </div>
 
@@ -1030,8 +977,8 @@ export function DemoPage({
                         </button>
                         <button
                           type="submit"
-                          disabled={isSubmitting}
-                          className="flex flex-1 h-11 items-center justify-center gap-2 rounded-full bg-foreground px-7 text-[13.5px] font-semibold text-background transition-opacity hover:opacity-85"
+                          disabled={isSubmitting || !turnstileToken}
+                          className="flex flex-1 h-11 items-center justify-center gap-2 rounded-full bg-foreground px-7 text-[13.5px] font-semibold text-background transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           {isSubmitting ? "Wird gesendet…" : "Demo jetzt buchen"} <ArrowRight className="size-4" />
                         </button>
