@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import Link from "next/link"
+import Script from "next/script"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import {
   ChevronLeft, ChevronRight, Check, Clock, Video,
@@ -66,6 +67,26 @@ const STEPS = [
   { id: "form", label: "Deine Angaben" },
   { id: "confirmed", label: "Bestätigt" },
 ]
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ?? ""
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: HTMLElement,
+        options: {
+          sitekey: string
+          callback?: (token: string) => void
+          "expired-callback"?: () => void
+          "error-callback"?: () => void
+          theme?: "light" | "dark" | "auto"
+        }
+      ) => string | number
+      remove: (widgetId: string | number) => void
+    }
+  }
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -408,6 +429,45 @@ export function DemoPage() {
   })
 
   const rightRef = useRef<HTMLDivElement>(null)
+  const turnstileContainerRef = useRef<HTMLDivElement>(null)
+  const turnstileWidgetIdRef = useRef<string | number | null>(null)
+  const [turnstileReady, setTurnstileReady] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState("")
+  const [website, setWebsite] = useState("")
+  const [submitError, setSubmitError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  function mountTurnstile() {
+    if (!TURNSTILE_SITE_KEY || !turnstileReady || !turnstileContainerRef.current || !window.turnstile) return
+    if (turnstileWidgetIdRef.current !== null) return
+
+    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+      sitekey: TURNSTILE_SITE_KEY,
+      callback: token => {
+        setTurnstileToken(token)
+        setSubmitError("")
+      },
+      "expired-callback": () => setTurnstileToken(""),
+      "error-callback": () => {
+        setTurnstileToken("")
+        setSubmitError("Die Sicherheitsprüfung konnte nicht geladen werden.")
+      },
+      theme: "auto",
+    })
+  }
+
+  function resetTurnstile() {
+    if (turnstileWidgetIdRef.current !== null && window.turnstile) {
+      window.turnstile.remove(turnstileWidgetIdRef.current)
+      turnstileWidgetIdRef.current = null
+    }
+    setTurnstileToken("")
+    requestAnimationFrame(() => mountTurnstile())
+  }
+
+  useEffect(() => {
+    mountTurnstile()
+  }, [turnstileReady])
 
   function handleDateSelect(date: Date) {
     setSelectedDate(date)
@@ -422,14 +482,63 @@ export function DemoPage() {
 
   function handleContinueToForm() {
     if (!selectedDate || !selectedTime) return
+    setSubmitError("")
     setStep("form")
     rightRef.current?.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setStep("confirmed")
-    rightRef.current?.scrollTo({ top: 0, behavior: "smooth" })
+    if (!selectedDate || !selectedTime) {
+      setSubmitError("Bitte wähle zuerst einen Termin.")
+      return
+    }
+    if (!turnstileToken) {
+      setSubmitError("Bitte bestätige die Sicherheitsprüfung.")
+      return
+    }
+
+    const [hours, minutes] = selectedTime.split(":").map(Number)
+    const requestedStartAt = new Date(selectedDate)
+    requestedStartAt.setHours(hours, minutes, 0, 0)
+    const requestedEndAt = new Date(requestedStartAt.getTime() + 30 * 60 * 1000)
+
+    setIsSubmitting(true)
+    setSubmitError("")
+
+    try {
+      const response = await fetch("/api/demo-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          company: form.company,
+          role: form.role,
+          companySize: form.companySize,
+          message: form.message,
+          requestedStartAt: requestedStartAt.toISOString(),
+          requestedEndAt: requestedEndAt.toISOString(),
+          requestedTimezone: "Europe/Berlin",
+          turnstileToken,
+          website,
+        }),
+      })
+
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok) {
+        throw new Error(typeof data?.error === "string" ? data.error : "Demo-Anfrage konnte nicht gesendet werden.")
+      }
+
+      setStep("confirmed")
+      rightRef.current?.scrollTo({ top: 0, behavior: "smooth" })
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Demo-Anfrage konnte nicht gesendet werden.")
+      resetTurnstile()
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   function setFormField<K extends keyof FormData>(k: K, v: string) {
@@ -440,6 +549,15 @@ export function DemoPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {TURNSTILE_SITE_KEY && (
+        <Script
+          id="cf-turnstile"
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="afterInteractive"
+          onLoad={() => setTurnstileReady(true)}
+        />
+      )}
+
       {/* Nav bar minimal */}
       <div className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-screen-xl items-center justify-between px-5 sm:px-8">
@@ -821,6 +939,29 @@ export function DemoPage() {
                         />
                       </div>
 
+                      <div className="hidden" aria-hidden="true">
+                        <FieldLabel>Website</FieldLabel>
+                        <Input
+                          value={website}
+                          onChange={setWebsite}
+                          placeholder="Bitte leer lassen"
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <FieldLabel required>Sicherheitsprüfung</FieldLabel>
+                        {TURNSTILE_SITE_KEY ? (
+                          <div ref={turnstileContainerRef} className="min-h-[65px]" />
+                        ) : (
+                          <div className="rounded-2xl border border-amber-300/60 bg-amber-50 px-4 py-3 text-[12.5px] text-amber-900">
+                            Sicherheitsprüfung ist noch nicht konfiguriert.
+                          </div>
+                        )}
+                        {submitError && (
+                          <p className="text-[12.5px] text-red-600">{submitError}</p>
+                        )}
+                      </div>
+
                       {/* DSGVO note */}
                       <p className="text-[11.5px] leading-relaxed text-muted-foreground/40">
                         Deine Daten werden ausschließlich zur Terminbestätigung und Gesprächsvorbereitung genutzt.
@@ -842,9 +983,10 @@ export function DemoPage() {
                         </button>
                         <button
                           type="submit"
+                          disabled={isSubmitting}
                           className="flex flex-1 h-11 items-center justify-center gap-2 rounded-full bg-foreground px-7 text-[13.5px] font-semibold text-background transition-opacity hover:opacity-85"
                         >
-                          Demo jetzt buchen <ArrowRight className="size-4" />
+                          {isSubmitting ? "Wird gesendet…" : "Demo jetzt buchen"} <ArrowRight className="size-4" />
                         </button>
                       </div>
                     </form>
