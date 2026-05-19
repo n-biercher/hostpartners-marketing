@@ -73,18 +73,11 @@ type TurnstileStatus = "missing-key" | "loading" | "ready" | "error"
 declare global {
   interface Window {
     turnstile?: {
-      render: (
-        container: HTMLElement,
-        options: {
-          sitekey: string
-          callback?: (token: string) => void
-          "expired-callback"?: () => void
-          "error-callback"?: () => void
-          theme?: "light" | "dark" | "auto"
-        }
-      ) => string | number
-      remove: (widgetId: string | number) => void
+      reset: (widgetId?: string | number) => void
     }
+    onHostpartnersTurnstileSuccess?: (token: string) => void
+    onHostpartnersTurnstileExpired?: () => void
+    onHostpartnersTurnstileError?: () => void
   }
 }
 
@@ -435,8 +428,6 @@ export function DemoPage({
 
   const rightRef = useRef<HTMLDivElement>(null)
   const turnstileContainerRef = useRef<HTMLDivElement>(null)
-  const turnstileWidgetIdRef = useRef<string | number | null>(null)
-  const [turnstileReady, setTurnstileReady] = useState(false)
   const [turnstileStatus, setTurnstileStatus] = useState<TurnstileStatus>(
     resolvedTurnstileSiteKey ? "loading" : "missing-key",
   )
@@ -445,39 +436,12 @@ export function DemoPage({
   const [submitError, setSubmitError] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  function mountTurnstile() {
-    if (!resolvedTurnstileSiteKey || !turnstileReady || !turnstileContainerRef.current || !window.turnstile) return
-    if (turnstileWidgetIdRef.current !== null) return
-
-    setTurnstileStatus("loading")
-    turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
-      sitekey: resolvedTurnstileSiteKey,
-      callback: token => {
-        setTurnstileToken(token)
-        setTurnstileStatus("ready")
-        setSubmitError("")
-      },
-      "expired-callback": () => {
-        setTurnstileToken("")
-        setTurnstileStatus("loading")
-      },
-      "error-callback": () => {
-        setTurnstileToken("")
-        setTurnstileStatus("error")
-        setSubmitError("Die Sicherheitsprüfung konnte nicht geladen werden.")
-      },
-      theme: "auto",
-    })
-  }
-
   function resetTurnstile() {
-    if (turnstileWidgetIdRef.current !== null && window.turnstile) {
-      window.turnstile.remove(turnstileWidgetIdRef.current)
-      turnstileWidgetIdRef.current = null
+    if (window.turnstile) {
+      window.turnstile.reset()
     }
     setTurnstileToken("")
     setTurnstileStatus(resolvedTurnstileSiteKey ? "loading" : "missing-key")
-    requestAnimationFrame(() => mountTurnstile())
   }
 
   useEffect(() => {
@@ -485,14 +449,35 @@ export function DemoPage({
       setTurnstileStatus("missing-key")
       return
     }
-    mountTurnstile()
+
+    window.onHostpartnersTurnstileSuccess = token => {
+      setTurnstileToken(token)
+      setTurnstileStatus("ready")
+      setSubmitError("")
+    }
+    window.onHostpartnersTurnstileExpired = () => {
+      setTurnstileToken("")
+      setTurnstileStatus("loading")
+    }
+    window.onHostpartnersTurnstileError = () => {
+      setTurnstileToken("")
+      setTurnstileStatus("error")
+      setSubmitError("Die Sicherheitsprüfung konnte nicht geladen werden.")
+    }
+
     const timeout = window.setTimeout(() => {
-      if (turnstileWidgetIdRef.current === null) {
+      if (!turnstileToken) {
         setTurnstileStatus("error")
       }
-    }, 5000)
-    return () => window.clearTimeout(timeout)
-  }, [resolvedTurnstileSiteKey, turnstileReady])
+    }, 7000)
+
+    return () => {
+      window.clearTimeout(timeout)
+      delete window.onHostpartnersTurnstileSuccess
+      delete window.onHostpartnersTurnstileExpired
+      delete window.onHostpartnersTurnstileError
+    }
+  }, [resolvedTurnstileSiteKey, turnstileToken])
 
   function handleDateSelect(date: Date) {
     setSelectedDate(date)
@@ -577,10 +562,9 @@ export function DemoPage({
       {resolvedTurnstileSiteKey && (
         <Script
           id="cf-turnstile"
-          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=implicit"
           strategy="afterInteractive"
           onLoad={() => {
-            setTurnstileReady(true)
             setTurnstileStatus("loading")
           }}
           onError={() => setTurnstileStatus("error")}
@@ -999,7 +983,15 @@ export function DemoPage({
                         </div>
                         {resolvedTurnstileSiteKey ? (
                           <div className="rounded-2xl border border-border/60 bg-background px-3 py-3">
-                            <div ref={turnstileContainerRef} className="min-h-[86px]" />
+                            <div
+                              ref={turnstileContainerRef}
+                              className="cf-turnstile min-h-[86px]"
+                              data-sitekey={resolvedTurnstileSiteKey}
+                              data-theme="auto"
+                              data-callback="onHostpartnersTurnstileSuccess"
+                              data-expired-callback="onHostpartnersTurnstileExpired"
+                              data-error-callback="onHostpartnersTurnstileError"
+                            />
                           </div>
                         ) : (
                           <div className="rounded-2xl border border-amber-300/60 bg-amber-50 px-4 py-3 text-[12.5px] text-amber-900">
